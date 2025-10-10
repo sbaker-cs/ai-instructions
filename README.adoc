@@ -1,0 +1,3 @@
+= ai-instructions
+
+AI instruction templates and instructions for a product requirement document (PRD)
