@@ -1,3 +1,132 @@
-= ai-instructions
+= AI Instructions & Templates Repository
+:toc: left
+:toclevels: 3
+:icons: font
 
-AI instruction templates and instructions
+== Overview
+
+This repository provides a comprehensive collection of language-agnostic and framework-agnostic templates and instructions for working with AI coding assistants. Use these templates to structure your requests, plan implementations, and maintain consistency across your development projects.
+
+== Purpose
+
+When working with AI assistants like GitHub Copilot, ChatGPT, or Claude, having well-structured prompts and documentation templates leads to:
+
+* *Better AI Understanding*: Clear, structured input helps AI agents comprehend your requirements
+* *Consistent Outputs*: Templates ensure AI-generated code and documentation follow your standards
+* *Reduced Iteration*: Well-defined requirements minimize back-and-forth clarifications
+* *Knowledge Capture*: Document decisions and implementations for future reference
+
+== Repository Structure
+
+[source]
+----
+ai-instructions/
+├── README.adoc                          # This file
+├── templates/                           # Core reusable templates
+│   ├── PlanningDoc.adoc                # Feature implementation planning
+│   ├── BugFixDoc.adoc                  # Bug fix documentation
+│   ├── RefactoringDoc.adoc             # Code refactoring planning
+│   ├── ArchitectureDecisionDoc.adoc    # Architecture decision records
+│   └── CodeReviewDoc.adoc              # Code review checklist
+├── instructions/                        # AI prompting best practices
+│   ├── PromptingBestPractices.adoc     # General AI prompting guide
+│   ├── FeatureDevelopment.adoc         # Prompts for new features
+│   ├── Debugging.adoc                  # Prompts for debugging
+│   └── Testing.adoc                    # Prompts for test generation
+└── examples/                           # Filled-in example templates
+    ├── feature-example/
+    │   └── UserAuthenticationPlan.adoc
+    ├── bugfix-example/
+    │   └── LoginTimeoutFix.adoc
+    └── refactoring-example/
+        └── DatabaseMigrationPlan.adoc
+----
+
+=== Templates Folder
+
+Contains blank, reusable templates for common development scenarios:
+
+* *PlanningDoc.adoc*: Plan new feature implementations with clear goals, context, and checklists
+* *BugFixDoc.adoc*: Document bug reports, root cause analysis, and fixes
+* *RefactoringDoc.adoc*: Plan code refactoring with rationale and migration strategy
+* *ArchitectureDecisionDoc.adoc*: Record architectural decisions (ADR format)
+* *CodeReviewDoc.adoc*: Structured code review checklist
+
+=== Instructions Folder
+
+Guides for writing effective AI prompts:
+
+* *PromptingBestPractices.adoc*: Core principles for effective AI prompts
+* *FeatureDevelopment.adoc*: Specific prompts for building new features
+* *Debugging.adoc*: Prompts to help AI agents debug issues
+* *Testing.adoc*: Generate comprehensive test suites
+
+=== Examples Folder
+
+Real-world examples showing templates in action across different scenarios.
+
+== How to Use
+
+=== Quick Start
+
+1. *Choose a Template*: Browse `templates/` folder for your use case
+2. *Copy the Template*: Copy template to your project documentation folder
+3. *Fill in Details*: Replace placeholders with your specific requirements
+4. *Share with AI*: Use filled template as context when prompting AI assistants
+
+=== Best Practices
+
+. *Be Specific*: Replace all `[placeholder]` text with concrete details
+. *Include Context*: Add relevant background information in the Context section
+. *Define Success*: Write measurable success criteria to prevent scope creep
+. *Use Checklists*: Break work into small, verifiable steps
+. *Ask Questions*: If unsure about requirements, ask clarifying questions first
+
+=== Example Workflow
+
+[source,adoc]
+----
+# 1. Copy template
+cp templates/PlanningDoc.adoc my-project/docs/PaymentIntegration.adoc
+
+# 2. Fill in details
+# Edit PaymentIntegration.adoc with your specific requirements
+
+# 3. Use with AI
+# Reference the file: "@/docs/PaymentIntegration.adoc implement the payment gateway"
+----
+
+== Language & Framework Agnostic
+
+All templates are designed to work with any:
+
+* Programming languages (Python, JavaScript, Java, C#, Go, Rust, etc.)
+* Frameworks (React, Angular, Vue, Django, Spring, .NET, etc.)
+* Platforms (Web, Mobile, Desktop, Cloud, Embedded, etc.)
+* Tools (IDEs, version control, CI/CD, etc.)
+
+Simply fill in the template with your technology stack specifics.
+
+== Contributing
+
+To add new templates or improve existing ones:
+
+1. Follow the structure established in existing templates
+2. Keep content language/framework agnostic
+3. Use AsciiDoc format
+4. Include clear examples and placeholders
+5. Test with multiple AI assistants
+
+== Questions & Feedback
+
+When using these templates, if you're unsure about:
+
+* What technology to use → Ask the AI for recommendations
+* How to structure something → Ask for architectural guidance
+* What the best approach is → Ask for trade-offs and alternatives
+
+The templates are designed to prompt you and the AI to have these conversations.
+
+== License
+
+Feel free to use and adapt these templates for your projects.

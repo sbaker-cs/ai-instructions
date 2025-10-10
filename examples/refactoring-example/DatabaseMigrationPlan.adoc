@@ -1,0 +1,565 @@
+= Database Access Layer Refactoring Plan
+:component: Database Access Layer
+:toc: left
+:icons: font
+
+== Overview
+
+This document outlines the plan to refactor the Database Access Layer to improve maintainability, testability, and reduce technical debt. The refactoring will introduce the Repository pattern and consolidate scattered database queries into a consistent, well-tested data access layer.
+
+== Context
+
+=== Current State
+
+==== What Exists Today
+
+The application currently has database queries scattered throughout the codebase:
+- Direct SQL queries in controller files
+- Business logic mixed with data access code
+- 15+ different database connection patterns
+- Duplicate queries across multiple files
+- Inconsistent error handling
+- Difficult to test due to tight coupling with database
+
+Example of current code:
+[source,javascript]
+----
+// In userController.js
+app.get('/users/:id', async (req, res) => {
+  const result = await db.query(
+    'SELECT * FROM users WHERE id = $1', 
+    [req.params.id]
+  );
+  if (result.rows.length === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  const user = result.rows[0];
+  // Business logic mixed here...
+  res.json(user);
+});
+----
+
+==== Problems with Current Implementation
+
+* *Problem 1*: Scattered database queries make changes risky and time-consuming
+** Impact: Simple schema changes require updates in 20+ files, high risk of missing locations
+
+* *Problem 2*: Direct SQL in controllers makes testing difficult
+** Impact: Cannot unit test business logic without database, slow test execution (5 minutes for full suite)
+
+* *Problem 3*: Duplicate queries lead to inconsistencies
+** Impact: Same user query written 8 different ways, performance varies, bugs in some versions
+
+* *Problem 4*: No consistent error handling
+** Impact: Database errors surface as 500 errors with no context, difficult debugging
+
+* *Problem 5*: Tight coupling prevents database technology changes
+** Impact: Cannot easily migrate from PostgreSQL to another database if needed
+
+==== Technical Debt
+
+* *Code Complexity*: Average cyclomatic complexity of 15 per function (goal: <10)
+* *Test Coverage*: 35% test coverage on data access code (goal: >80%)
+* *Known Issues*: 23 open bugs related to database queries
+* *Maintenance Cost*: Estimated 40% of development time spent on data layer issues
+
+=== Motivation
+
+==== Why Refactor Now?
+
+* Planning to add 5 new features that require database changes
+* Recent production incident caused by inconsistent query handling
+* New team members struggling with current architecture
+* Technical debt is slowing feature development velocity by ~40%
+
+==== What Triggers This Refactoring?
+
+* Recent outage caused by uncaught database error in production
+* CTO mandate to improve code quality and test coverage
+* Upcoming migration to microservices requires clean separation of concerns
+
+==== Cost of NOT Refactoring
+
+* Continue slow feature development
+* Higher risk of bugs and production incidents
+* Difficulty onboarding new developers
+* Cannot easily scale to microservices architecture
+* Estimated 6+ months of accumulated additional technical debt
+
+=== Proposed Solution
+
+==== High-Level Approach
+
+Introduce the Repository pattern with these layers:
+1. **Repositories**: Data access logic for each entity (UserRepository, OrderRepository, etc.)
+2. **Models**: Data models with validation
+3. **Database Client**: Singleton connection pool manager
+4. **Query Builder**: Helper for building complex queries
+
+==== Target State
+
+After refactoring:
+- All database queries centralized in repository classes
+- Controllers contain only business logic
+- Consistent error handling across all data access
+- Easy to mock repositories for unit testing
+- 80%+ test coverage on data layer
+- Single database connection pattern
+
+Example of target code:
+[source,javascript]
+----
+// In userController.js
+app.get('/users/:id', async (req, res) => {
+  try {
+    const user = await userRepository.findById(req.params.id);
+    // Business logic here...
+    res.json(user);
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    throw error;
+  }
+});
+
+// In userRepository.js
+class UserRepository {
+  async findById(id) {
+    const result = await this.db.query(
+      'SELECT * FROM users WHERE id = $1', 
+      [id]
+    );
+    if (result.rows.length === 0) {
+      throw new NotFoundError('User not found');
+    }
+    return this.mapToUser(result.rows[0]);
+  }
+}
+----
+
+==== Key Improvements
+
+* *Improvement 1*: Centralized data access reduces duplication and inconsistencies
+** Benefit: Schema changes only require updates to repository, reduced risk, faster development
+
+* *Improvement 2*: Separation of concerns enables unit testing
+** Benefit: Business logic testable without database, faster test execution (<1 min for unit tests)
+
+* *Improvement 3*: Consistent error handling
+** Benefit: Predictable error responses, better debugging, better user experience
+
+* *Improvement 4*: Database abstraction
+** Benefit: Can swap databases or add caching layer without changing business logic
+
+== Goals
+
+Clear objectives for this refactoring:
+
+* [x] *Goal 1*: All database queries moved to repository classes
+* [x] *Goal 2*: Achieve >80% test coverage on data access layer
+* [x] *Goal 3*: Reduce average time to implement new database-related features by 50%
+* [x] *Goal 4*: Zero direct SQL queries outside of repository layer
+
+== Success Criteria
+
+=== Functional Requirements
+The refactored code must maintain all existing functionality:
+
+* *Requirement 1*: All existing API endpoints return identical responses
+* *Requirement 2*: All database operations (CRUD) work correctly
+* *Requirement 3*: Transaction handling works for multi-table operations
+* *Requirement 4*: Performance is maintained or improved
+
+=== Quality Improvements
+Measurable improvements expected from this refactoring:
+
+* *Code Quality*: Reduce cyclomatic complexity from avg 15 to <10 per function
+* *Performance*: Maintain current response times (no degradation)
+* *Test Coverage*: Increase data layer test coverage from 35% to >80%
+* *Maintainability*: Reduce time to add new database query from 2 hours to 30 minutes
+
+=== Constraints
+Limitations or requirements that must be respected:
+
+* *No Breaking Changes*: All existing API contracts must remain unchanged
+* *Performance*: Must not degrade response times (allow up to +50ms, but target improvement)
+* *Timeline*: Must complete within 4 weeks
+* *Resources*: 2 developers, 50% time allocation each
+
+== Scope
+
+=== In Scope
+What will be refactored:
+
+* *User Module*: Refactor user-related queries into UserRepository (12 queries)
+* *Order Module*: Refactor order-related queries into OrderRepository (18 queries)
+* *Product Module*: Refactor product queries into ProductRepository (10 queries)
+* *Database Connection*: Centralize connection pooling
+* *Error Handling*: Implement consistent error handling strategy
+* *Tests*: Write comprehensive unit and integration tests
+
+=== Out of Scope
+What will NOT be refactored (at least not in this phase):
+
+* Report generation queries (will refactor in phase 2)
+* Analytics queries (different access pattern, defer to phase 2)
+* Migration to different database technology (focus on pattern, not technology change)
+* ORM adoption (considering for phase 3, but not now)
+
+=== Dependencies
+What depends on the code being refactored:
+
+* All API controllers (UserController, OrderController, ProductController)
+* Background job workers (order processing, email sending)
+* Admin dashboard queries
+* Mobile API endpoints
+
+== Refactoring Strategy
+
+=== Approach
+
+*Strangler Pattern*: Gradually replace old with new
+
+- Create new repository layer alongside existing code
+- Migrate one module at a time (Users → Products → Orders)
+- Use feature flags to switch between old and new implementations
+- Once verified, remove old code
+
+Benefits:
+- Lower risk (can rollback easily)
+- Can deploy incrementally
+- Easy to test new code while old code still works
+- Team can work on multiple modules in parallel
+
+=== Phases
+
+==== Phase 1: Foundation (Week 1)
+Setup the infrastructure for repositories
+
+* Duration: 1 week
+* Goal: Create base repository structure and database client
+* Deliverables: 
+  - BaseRepository class with common CRUD methods
+  - Database connection pool manager
+  - Custom error classes (NotFoundError, ValidationError, etc.)
+  - Testing utilities and mocks
+
+==== Phase 2: User Module Migration (Week 2)
+Migrate user-related queries
+
+* Duration: 1 week
+* Goal: All user queries moved to UserRepository
+* Deliverables:
+  - UserRepository with all user queries
+  - Unit tests for UserRepository (>90% coverage)
+  - Integration tests for user operations
+  - Updated UserController to use repository
+  - Documentation
+
+==== Phase 3: Product & Order Modules (Week 3)
+Migrate remaining modules
+
+* Duration: 1 week
+* Goal: ProductRepository and OrderRepository complete
+* Deliverables:
+  - ProductRepository and OrderRepository
+  - Tests for both repositories
+  - Updated controllers
+  - Performance benchmarking
+
+==== Phase 4: Cleanup & Optimization (Week 4)
+Remove old code, optimize, and document
+
+* Duration: 1 week
+* Goal: Old code removed, system optimized
+* Deliverables:
+  - Remove all direct SQL from controllers
+  - Remove feature flags
+  - Performance optimizations
+  - Complete documentation
+  - Team training session
+
+=== Migration Strategy
+
+How to transition from old to new:
+
+. Create repository classes (new code, doesn't affect existing)
+. Add feature flag `USE_REPOSITORIES=true/false`
+. Update one controller method to use repository
+. Test thoroughly in development
+. Deploy with flag OFF
+. Enable flag for 10% of traffic
+. Monitor metrics (errors, performance)
+. Gradually increase to 100%
+. Remove old code and feature flag
+
+=== Backwards Compatibility
+
+All API endpoints will maintain the same:
+- Request/response formats
+- HTTP status codes
+- Error message formats
+- Performance characteristics
+
+Internal implementation changes are transparent to API consumers.
+
+== Technical Design
+
+=== Current Architecture
+
+[source]
+----
+┌─────────────┐
+│ Controller  │ ← Business logic + DB queries mixed
+└─────┬───────┘
+      │ Direct SQL
+      ↓
+┌─────────────┐
+│  PostgreSQL │
+└─────────────┘
+----
+
+=== Target Architecture
+
+[source]
+----
+┌─────────────┐
+│ Controller  │ ← Business logic only
+└─────┬───────┘
+      │ Method calls
+      ↓
+┌─────────────┐
+│ Repository  │ ← Data access logic
+└─────┬───────┘
+      │ SQL queries
+      ↓
+┌─────────────┐
+│ DB Client   │ ← Connection pooling
+└─────┬───────┘
+      │
+      ↓
+┌─────────────┐
+│ PostgreSQL  │
+└─────────────┘
+----
+
+=== Key Changes
+
+==== Structural Changes
+Changes to code organization:
+
+* Create `src/repositories/` directory with repository classes
+* Create `src/database/` directory with connection client
+* Create `src/errors/` directory with custom error classes
+* Update `src/controllers/` to use repositories
+
+==== Design Patterns
+
+* *Repository Pattern*: Encapsulates data access logic, provides collection-like interface
+* *Singleton Pattern*: Database connection pool (one instance shared across app)
+* *Factory Pattern*: Create model instances from database rows
+
+==== Data Model Changes
+
+No database schema changes. This refactoring only changes how code accesses the database.
+
+==== API Changes
+
+No public API changes. Internal function signatures will change but API contracts remain the same.
+
+== Implementation Checklist
+
+=== Phase 1: Preparation
+[%interactive]
+. [x] Create refactoring branch `refactor/repository-pattern`
+. [x] Document current behavior with integration tests
+. [x] Create baseline metrics (query times, test coverage)
+. [x] Set up feature flags system
+. [x] Create BaseRepository and DbClient classes
+. [x] Create custom error classes
+. [x] Create testing utilities (mock db, test helpers)
+
+=== Phase 2: Implementation
+[%interactive]
+. [x] Implement UserRepository
+. [x] Write unit tests for UserRepository
+. [x] Update UserController to use UserRepository
+. [x] Implement ProductRepository
+. [x] Write unit tests for ProductRepository
+. [x] Update ProductController
+. [x] Implement OrderRepository
+. [x] Write unit tests for OrderRepository
+. [x] Update OrderController
+. [ ] Code review for each repository
+
+=== Phase 3: Testing & Validation
+[%interactive]
+. [ ] Run full test suite (unit + integration)
+. [ ] Performance testing (compare query times)
+. [ ] Load testing (verify no degradation)
+. [ ] Verify test coverage >80%
+. [ ] Security review
+. [ ] Manual testing of all features
+
+=== Phase 4: Deployment
+[%interactive]
+. [ ] Deploy to staging with feature flag OFF
+. [ ] Enable feature flag in staging
+. [ ] UAT in staging
+. [ ] Deploy to production with flag OFF
+. [ ] Enable flag for 10% of traffic
+. [ ] Monitor metrics for 24 hours
+. [ ] Increase to 50%, monitor
+. [ ] Increase to 100%, monitor
+
+=== Phase 5: Cleanup
+[%interactive]
+. [ ] Remove old direct SQL code from controllers
+. [ ] Remove feature flags
+. [ ] Update documentation
+. [ ] Conduct team training session
+. [ ] Retrospective
+
+== Testing Strategy
+
+=== Existing Tests
+How existing tests will be handled:
+
+* *Keep*: All integration tests (verify end-to-end behavior)
+* *Update*: Controller tests (mock repositories instead of database)
+* *Remove*: Tests that directly test database queries (replaced by repository tests)
+
+=== New Tests
+
+* *Unit Tests*: Test each repository method in isolation with mocked database
+* *Integration Tests*: Test repositories with real test database
+* *Contract Tests*: Verify repository interface matches expectations
+
+=== Test Coverage Goals
+* *Current Coverage*: 35%
+* *Target Coverage*: >80% for repositories, >70% overall
+
+=== Characterization Tests
+
+Before refactoring, write tests that characterize current behavior:
+- Test all API endpoints with current implementation
+- Document all query patterns and results
+- Verify new implementation produces identical results
+
+== Risk Management
+
+=== Risks
+
+. *Risk 1*: Breaking changes during refactoring cause production bugs
+** *Likelihood*: Medium
+** *Impact*: High
+** *Mitigation*: Incremental migration with feature flags, comprehensive testing, gradual rollout
+
+. *Risk 2*: Performance degradation from additional abstraction layer
+** *Likelihood*: Low
+** *Impact*: Medium
+** *Mitigation*: Performance testing, benchmarking, profiling; optimize if needed
+
+. *Risk 3*: Team needs training on new patterns
+** *Likelihood*: High
+** *Impact*: Low
+** *Mitigation*: Documentation, code reviews, training session, pair programming
+
+. *Risk 4*: Incomplete migration leaves codebase in inconsistent state
+** *Likelihood*: Medium
+** *Impact*: High
+** *Mitigation*: Clear roadmap, dedicated time allocation, regular progress tracking
+
+=== Rollback Plan
+
+If critical issues arise:
+
+. Disable feature flag to revert to old implementation
+. Fix issues in development/staging
+. Re-test thoroughly
+. Re-deploy with fix
+
+The feature flag approach makes rollback instantaneous with zero downtime.
+
+== Metrics & Monitoring
+
+=== Before Metrics
+Baseline metrics before refactoring:
+
+* *Performance*: Average query time 45ms (p95: 120ms)
+* *Code Quality*: Cyclomatic complexity avg 15, test coverage 35%
+* *Error Rate*: 2.3% of database operations fail
+* *Maintainability*: Avg 2 hours to add new query
+
+=== Target Metrics
+Expected metrics after refactoring:
+
+* *Performance*: Maintain or improve (target avg 40ms, p95: 100ms)
+* *Code Quality*: Complexity <10, test coverage >80%
+* *Error Rate*: <1% (better error handling)
+* *Maintainability*: <30 minutes to add new query
+
+=== Monitoring Plan
+What to monitor during and after refactoring:
+
+* *Query Performance*: Track p50, p95, p99 response times
+* *Error Rate*: Monitor database errors and 500 responses
+* *Feature Flag Usage*: Track percentage of traffic using new vs old code
+* *Test Coverage*: Monitor coverage on each commit
+
+== Timeline
+
+*Start Date*: 2025-02-01 +
+*Phase 1 Complete*: 2025-02-08 +
+*Phase 2 Complete*: 2025-02-15 +
+*Phase 3 Complete*: 2025-02-22 +
+*Phase 4 Complete*: 2025-02-29 +
+*Target Completion*: 2025-02-29 (4 weeks)
+
+== Resources
+
+=== Team Members
+* Senior Developer (Jane): Repository design, UserRepository, code reviews (50% time)
+* Mid-level Developer (John): ProductRepository, OrderRepository, testing (50% time)
+* QA Engineer (Sarah): Testing strategy, performance testing (25% time)
+
+=== Time Allocation
+* Jane: 20 hours/week
+* John: 20 hours/week
+* Sarah: 10 hours/week
+* Total: 200 person-hours over 4 weeks
+
+=== Budget
+No external budget needed - internal team capacity only.
+
+== Lessons Learned
+
+[After completion, document what was learned]
+
+=== What Went Well
+* Strangler pattern allowed safe, incremental migration
+* Feature flags enabled confident deployment
+* Comprehensive testing caught bugs before production
+* Team adoption was smooth with good documentation
+
+=== What Could Be Improved
+* Should have allocated more time for testing in phase 3
+* Performance testing revealed some query optimization opportunities
+* Documentation could have been written incrementally
+
+=== Recommendations for Future Refactoring
+* Always use feature flags for major refactorings
+* Write characterization tests first
+* Allocate 25% time buffer for unexpected issues
+* Consider pair programming for knowledge sharing
+
+== Notes & Updates
+
+* *2025-02-01*: Kickoff meeting, team aligned on approach
+* *2025-02-08*: Phase 1 complete, base infrastructure solid
+* *2025-02-12*: UserRepository complete, 95% test coverage achieved!
+* *2025-02-18*: All repositories complete, starting deployment
+* *2025-02-25*: Deployed to production, enabled for 50% traffic, looking good
+* *2025-02-28*: 100% traffic on new repositories, no issues, old code removal in progress
+* *2025-02-29*: Refactoring complete! Test coverage now 82%, query times improved 15%

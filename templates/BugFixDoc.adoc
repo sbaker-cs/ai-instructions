@@ -1,0 +1,249 @@
+= {bugId} Bug Fix Documentation
+:bugId: [BUG-XXXX]
+:toc: left
+:icons: font
+
+== Bug Summary
+
+*Bug ID*: [BUG-XXXX] +
+*Title*: [Brief, descriptive title of the bug] +
+*Severity*: [Critical/High/Medium/Low] +
+*Priority*: [P0/P1/P2/P3] +
+*Reported Date*: [YYYY-MM-DD] +
+*Reporter*: [Name or identifier] +
+*Assigned To*: [Name or identifier] +
+*Status*: [New/In Progress/Fixed/Verified/Closed]
+
+== Description
+
+[Detailed description of the bug. What is happening that shouldn't be happening? Or what isn't happening that should be?]
+
+== Impact
+
+=== Affected Users
+[Who is affected by this bug? All users, specific user groups, only in certain conditions?]
+
+=== Business Impact
+[How does this bug affect the business? Revenue loss, customer satisfaction, security risk, etc.]
+
+=== Affected Components
+[List the components, modules, or features affected by this bug:]
+
+* [Component 1]
+* [Component 2]
+* [Component 3]
+
+== Environment
+
+*Platform*: [Web/Mobile/Desktop/API/etc.] +
+*Version*: [Application version where bug was found] +
+*Operating System*: [OS and version if relevant] +
+*Browser*: [Browser and version if relevant] +
+*Database*: [Database system if relevant] +
+*Other Dependencies*: [Any other relevant environment details]
+
+== Steps to Reproduce
+
+[Provide clear, step-by-step instructions to reproduce the bug:]
+
+. [Step 1 with specific details]
+. [Step 2 with specific details]
+. [Step 3 with specific details]
+. [Observe the incorrect behavior]
+
+== Expected Behavior
+
+[Describe what SHOULD happen when following the reproduction steps]
+
+== Actual Behavior
+
+[Describe what ACTUALLY happens when following the reproduction steps]
+
+== Evidence
+
+=== Error Messages
+[Copy exact error messages, stack traces, or error codes:]
+
+[source]
+----
+[Paste error message or stack trace here]
+----
+
+=== Screenshots
+[Link to or embed screenshots showing the issue]
+
+* Screenshot 1: [Description]
+* Screenshot 2: [Description]
+
+=== Logs
+[Relevant log entries:]
+
+[source]
+----
+[Paste relevant log entries here]
+----
+
+=== Test Data
+[Sample data used to reproduce the issue:]
+
+[source]
+----
+[Paste test data, configuration, or inputs here]
+----
+
+== Root Cause Analysis
+
+=== Investigation Summary
+[Describe the investigation process and findings]
+
+=== Root Cause
+[What is the underlying cause of the bug? Be specific about the code, configuration, or logic that causes the issue]
+
+=== Why It Wasn't Caught Earlier
+[Explain why this bug slipped through - missing test case, edge case not considered, etc.]
+
+=== Related Issues
+[Link to any related bugs or issues:]
+
+* [BUG-YYYY]: [Brief description]
+* [BUG-ZZZZ]: [Brief description]
+
+== Solution
+
+=== Proposed Fix
+[Describe the solution at a high level. What changes will be made to fix the bug?]
+
+=== Alternative Solutions Considered
+[List other approaches that were considered and why they weren't chosen:]
+
+. *Alternative 1*: [Description]
+** *Pros*: [Advantages]
+** *Cons*: [Disadvantages]
+** *Decision*: [Why not chosen]
+
+. *Alternative 2*: [Description]
+** *Pros*: [Advantages]
+** *Cons*: [Disadvantages]
+** *Decision*: [Why not chosen]
+
+=== Files Modified
+[List all files that will be changed:]
+
+* `[path/to/file1.ext]`: [Description of changes]
+* `[path/to/file2.ext]`: [Description of changes]
+* `[path/to/file3.ext]`: [Description of changes]
+
+=== Code Changes
+[Provide key code snippets or pseudocode showing the fix:]
+
+*Before:*
+[source]
+----
+[Code before fix]
+----
+
+*After:*
+[source]
+----
+[Code after fix]
+----
+
+== Implementation Checklist
+
+=== Fix Implementation
+[%interactive]
+. [ ] Create bugfix branch
+. [ ] Implement the fix
+. [ ] Add/update unit tests
+. [ ] Add regression tests
+. [ ] Test fix locally
+. [ ] Verify no new issues introduced
+
+=== Testing
+[%interactive]
+. [ ] Unit tests pass
+. [ ] Integration tests pass
+. [ ] Manual testing completed
+. [ ] Tested in multiple environments
+. [ ] Verified edge cases
+. [ ] Performance testing (if relevant)
+. [ ] Security testing (if relevant)
+
+=== Documentation
+[%interactive]
+. [ ] Update code comments
+. [ ] Update technical documentation
+. [ ] Update user documentation (if needed)
+. [ ] Document breaking changes (if any)
+
+=== Review & Deployment
+[%interactive]
+. [ ] Code review completed
+. [ ] QA testing completed
+. [ ] Deploy to staging environment
+. [ ] Verify fix in staging
+. [ ] Deploy to production
+. [ ] Monitor for issues
+. [ ] Close bug ticket
+
+== Testing Strategy
+
+=== Test Cases Added
+[List new test cases added to prevent regression:]
+
+. *Test Case 1*: [Description]
+** *Input*: [Test input]
+** *Expected Output*: [Expected result]
+
+. *Test Case 2*: [Description]
+** *Input*: [Test input]
+** *Expected Output*: [Expected result]
+
+=== Regression Testing
+[Areas that need regression testing to ensure fix doesn't break other functionality]
+
+* [Area 1]
+* [Area 2]
+* [Area 3]
+
+== Rollback Plan
+
+[If the fix causes issues in production, how to rollback:]
+
+. [Step 1 to rollback]
+. [Step 2 to rollback]
+. [Step 3 to rollback]
+
+== Prevention
+
+=== Process Improvements
+[What can be done to prevent similar bugs in the future?]
+
+* [Improvement 1]
+* [Improvement 2]
+* [Improvement 3]
+
+=== Tests/Checks to Add
+[What automated tests or checks should be added?]
+
+* [Test/Check 1]
+* [Test/Check 2]
+
+== Timeline
+
+*Reported*: [YYYY-MM-DD] +
+*Investigation Started*: [YYYY-MM-DD] +
+*Root Cause Found*: [YYYY-MM-DD] +
+*Fix Implemented*: [YYYY-MM-DD] +
+*Testing Completed*: [YYYY-MM-DD] +
+*Deployed to Production*: [YYYY-MM-DD] +
+*Verified*: [YYYY-MM-DD] +
+*Closed*: [YYYY-MM-DD]
+
+== Notes & Updates
+
+[Log updates, decisions, and discoveries during the bugfix process:]
+
+* *[Date]*: [Update or note]
+* *[Date]*: [Update or note]
+* *[Date]*: [Update or note]

@@ -1,0 +1,375 @@
+= {component} Refactoring Plan
+:component: [Component Name]
+:toc: left
+:icons: font
+
+== Overview
+
+This document outlines the plan to refactor [Component Name] to [high-level goal: improve performance, enhance maintainability, reduce technical debt, etc.].
+
+== Context
+
+=== Current State
+
+==== What Exists Today
+[Describe the current implementation, architecture, or code structure]
+
+==== Problems with Current Implementation
+[List specific problems, pain points, or limitations:]
+
+* *Problem 1*: [Description and impact]
+* *Problem 2*: [Description and impact]
+* *Problem 3*: [Description and impact]
+
+==== Technical Debt
+[Quantify technical debt if possible:]
+
+* *Code Complexity*: [Cyclomatic complexity, lines of code, etc.]
+* *Test Coverage*: [Current test coverage percentage]
+* *Known Issues*: [Number of bugs or issues related to this component]
+* *Maintenance Cost*: [Time spent fixing/maintaining this code]
+
+=== Motivation
+
+==== Why Refactor Now?
+[Explain the business or technical drivers for this refactoring:]
+
+* [Reason 1]
+* [Reason 2]
+* [Reason 3]
+
+==== What Triggers This Refactoring?
+[What event or threshold made this necessary?]
+
+==== Cost of NOT Refactoring
+[What happens if we don't do this refactoring?]
+
+=== Proposed Solution
+
+==== High-Level Approach
+[Describe the refactoring strategy at a high level]
+
+==== Target State
+[Describe what the code/architecture will look like after refactoring]
+
+==== Key Improvements
+[List the main improvements this refactoring will deliver:]
+
+* *Improvement 1*: [Description and benefit]
+* *Improvement 2*: [Description and benefit]
+* *Improvement 3*: [Description and benefit]
+
+== Goals
+
+Clear objectives for this refactoring:
+
+* [ ] *Goal 1*: [Specific, measurable outcome]
+* [ ] *Goal 2*: [Specific, measurable outcome]
+* [ ] *Goal 3*: [Specific, measurable outcome]
+
+== Success Criteria
+
+=== Functional Requirements
+[The refactored code must maintain all existing functionality:]
+
+* *Requirement 1*: [Functionality that must be preserved]
+* *Requirement 2*: [Functionality that must be preserved]
+
+=== Quality Improvements
+[Measurable improvements expected from this refactoring:]
+
+* *Code Quality*: [e.g., "Reduce cyclomatic complexity from 45 to <10 per method"]
+* *Performance*: [e.g., "Reduce API response time by 30%"]
+* *Test Coverage*: [e.g., "Increase unit test coverage from 40% to 80%"]
+* *Maintainability*: [e.g., "Reduce average time to add new feature from 3 days to 1 day"]
+
+=== Constraints
+[Limitations or requirements that must be respected:]
+
+* *No Breaking Changes*: [Public APIs must remain compatible]
+* *Performance*: [Must not degrade performance]
+* *Timeline*: [Must complete within X weeks]
+* *Resources*: [Available team members and time allocation]
+
+== Scope
+
+=== In Scope
+[What will be refactored:]
+
+* [Component/Module 1]: [What will change]
+* [Component/Module 2]: [What will change]
+* [Component/Module 3]: [What will change]
+
+=== Out of Scope
+[What will NOT be refactored (at least not in this phase):]
+
+* [Item 1 that is out of scope]
+* [Item 2 that is out of scope]
+
+=== Dependencies
+[What depends on the code being refactored:]
+
+* [Dependent System 1]
+* [Dependent System 2]
+* [Dependent System 3]
+
+== Refactoring Strategy
+
+=== Approach
+[Describe the refactoring approach:]
+
+* *Big Bang*: [Complete rewrite and switch over]
+* *Strangler Pattern*: [Gradually replace old with new]
+* *Branch by Abstraction*: [Create abstraction layer, migrate incrementally]
+* *Other*: [Describe custom approach]
+
+=== Phases
+[Break down the refactoring into manageable phases:]
+
+==== Phase 1: [Phase Name]
+[Description of this phase]
+
+* Duration: [Estimated time]
+* Goal: [What this phase achieves]
+* Deliverables: [What outputs from this phase]
+
+==== Phase 2: [Phase Name]
+[Description of this phase]
+
+* Duration: [Estimated time]
+* Goal: [What this phase achieves]
+* Deliverables: [What outputs from this phase]
+
+==== Phase 3: [Phase Name]
+[Description of this phase]
+
+* Duration: [Estimated time]
+* Goal: [What this phase achieves]
+* Deliverables: [What outputs from this phase]
+
+=== Migration Strategy
+[How will you transition from old to new:]
+
+. [Migration Step 1]
+. [Migration Step 2]
+. [Migration Step 3]
+
+=== Backwards Compatibility
+[How will backwards compatibility be maintained?]
+
+== Technical Design
+
+=== Current Architecture
+[Diagram or description of current architecture]
+
+[source]
+----
+[Architectural diagram in ASCII art or description]
+----
+
+=== Target Architecture
+[Diagram or description of target architecture]
+
+[source]
+----
+[Architectural diagram in ASCII art or description]
+----
+
+=== Key Changes
+
+==== Structural Changes
+[Changes to code organization, modules, classes:]
+
+* [Change 1]
+* [Change 2]
+* [Change 3]
+
+==== Design Patterns
+[Design patterns to be introduced or removed:]
+
+* *Pattern 1*: [Why and how it will be used]
+* *Pattern 2*: [Why and how it will be used]
+
+==== Data Model Changes
+[Any changes to data structures, database schema, etc.]
+
+==== API Changes
+[Changes to public interfaces, if any]
+
+*Before:*
+[source]
+----
+[Current API signature]
+----
+
+*After:*
+[source]
+----
+[New API signature]
+----
+
+== Implementation Checklist
+
+=== Phase 1: Preparation
+[%interactive]
+. [ ] Create refactoring branch
+. [ ] Document current behavior
+. [ ] Create comprehensive test suite for existing functionality
+. [ ] Establish baseline metrics (performance, code quality)
+. [ ] Review and finalize refactoring plan
+. [ ] Set up feature flags (if needed)
+
+=== Phase 2: Implementation
+[%interactive]
+. [ ] Implement new architecture/structure
+. [ ] Migrate code incrementally
+. [ ] Update tests as code is refactored
+. [ ] Ensure all tests pass after each increment
+. [ ] Update documentation
+. [ ] Perform code reviews
+
+=== Phase 3: Testing & Validation
+[%interactive]
+. [ ] Run full test suite
+. [ ] Performance testing
+. [ ] Load testing (if applicable)
+. [ ] Verify backwards compatibility
+. [ ] Test migration path
+. [ ] Validate against success criteria
+
+=== Phase 4: Deployment
+[%interactive]
+. [ ] Deploy to staging environment
+. [ ] Conduct UAT (User Acceptance Testing)
+. [ ] Monitor metrics in staging
+. [ ] Gradual rollout to production (if applicable)
+. [ ] Monitor production metrics
+. [ ] Verify no regressions
+
+=== Phase 5: Cleanup
+[%interactive]
+. [ ] Remove old code
+. [ ] Remove feature flags
+. [ ] Update all documentation
+. [ ] Conduct retrospective
+. [ ] Document lessons learned
+
+== Testing Strategy
+
+=== Existing Tests
+[How will existing tests be handled?]
+
+* *Keep*: [Tests that will be kept]
+* *Update*: [Tests that need updating]
+* *Remove*: [Tests that are obsolete]
+
+=== New Tests
+[What new tests need to be added?]
+
+* *Unit Tests*: [Description]
+* *Integration Tests*: [Description]
+* *Performance Tests*: [Description]
+
+=== Test Coverage Goals
+* *Current Coverage*: [X%]
+* *Target Coverage*: [Y%]
+
+=== Characterization Tests
+[Tests written to characterize current behavior before refactoring]
+
+== Risk Management
+
+=== Risks
+[Identify potential risks:]
+
+. *Risk 1*: [Description]
+** *Likelihood*: [High/Medium/Low]
+** *Impact*: [High/Medium/Low]
+** *Mitigation*: [How to address]
+
+. *Risk 2*: [Description]
+** *Likelihood*: [High/Medium/Low]
+** *Impact*: [High/Medium/Low]
+** *Mitigation*: [How to address]
+
+. *Risk 3*: [Description]
+** *Likelihood*: [High/Medium/Low]
+** *Impact*: [High/Medium/Low]
+** *Mitigation*: [How to address]
+
+=== Rollback Plan
+[How to revert if things go wrong:]
+
+. [Rollback Step 1]
+. [Rollback Step 2]
+. [Rollback Step 3]
+
+== Metrics & Monitoring
+
+=== Before Metrics
+[Baseline metrics before refactoring:]
+
+* *Performance*: [Current metrics]
+* *Code Quality*: [Current metrics]
+* *Error Rate*: [Current metrics]
+* *Maintainability*: [Current metrics]
+
+=== Target Metrics
+[Expected metrics after refactoring:]
+
+* *Performance*: [Target metrics]
+* *Code Quality*: [Target metrics]
+* *Error Rate*: [Target metrics]
+* *Maintainability*: [Target metrics]
+
+=== Monitoring Plan
+[What to monitor during and after refactoring:]
+
+* [Metric 1]: [How to measure]
+* [Metric 2]: [How to measure]
+* [Metric 3]: [How to measure]
+
+== Timeline
+
+*Start Date*: [YYYY-MM-DD] +
+*Phase 1 Complete*: [YYYY-MM-DD] +
+*Phase 2 Complete*: [YYYY-MM-DD] +
+*Phase 3 Complete*: [YYYY-MM-DD] +
+*Target Completion*: [YYYY-MM-DD]
+
+== Resources
+
+=== Team Members
+* [Role 1]: [Name and responsibilities]
+* [Role 2]: [Name and responsibilities]
+
+=== Time Allocation
+* [Person 1]: [X hours/week]
+* [Person 2]: [X hours/week]
+
+=== Budget
+[If applicable, budget for this refactoring effort]
+
+== Lessons Learned
+
+[After completion, document what was learned:]
+
+=== What Went Well
+* [Success 1]
+* [Success 2]
+
+=== What Could Be Improved
+* [Area for improvement 1]
+* [Area for improvement 2]
+
+=== Recommendations for Future Refactoring
+* [Recommendation 1]
+* [Recommendation 2]
+
+== Notes & Updates
+
+[Log progress and important decisions:]
+
+* *[Date]*: [Update or note]
+* *[Date]*: [Update or note]
+* *[Date]*: [Update or note]

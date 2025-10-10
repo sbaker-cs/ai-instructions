@@ -1,0 +1,210 @@
+= {feature} Implementation Plan
+:feature: [Feature Name]
+:toc: left
+:icons: font
+
+== Overview
+
+This plan outlines the steps to implement the [Feature Name] within the application. This feature will enable [brief description of what the feature does and its main benefit to users or system].
+
+== Context
+
+=== Problem Statement
+[Describe the problem this feature solves. Why is this needed? What pain point does it address?]
+
+=== Current State
+[What exists today? What are the limitations or gaps?]
+
+=== Proposed Solution
+[High-level description of how this feature will work]
+
+=== Key Decisions
+[Document any important decisions that have been made:]
+
+* *Decision 1*: [What was decided and why]
+* *Decision 2*: [What was decided and why]
+* *Decision 3*: [What was decided and why]
+
+=== Technical Architecture
+
+[For complex features, include:]
+
+* *Components*: [What components/modules will be created or modified]
+* *Data Model*: [Any new data structures, database tables, or schema changes]
+* *External Dependencies*: [Third-party libraries, APIs, or services needed]
+* *Integration Points*: [How this connects with existing systems]
+
+=== Open Questions
+
+[List any questions that need answers before or during implementation:]
+
+. [Question 1]?
+. [Question 2]?
+. [Question 3]?
+
+== Goals
+
+Clear, measurable objectives for this implementation:
+
+* [ ] *Goal 1*: [Specific outcome to achieve]
+* [ ] *Goal 2*: [Specific outcome to achieve]
+* [ ] *Goal 3*: [Specific outcome to achieve]
+
+== Success Criteria
+
+[Define specific, measurable criteria that indicate successful completion]
+
+*Example Vague Criteria:* "Users should be notified"
+
+*Example Clear Criteria:* "Users receive notifications within 30 seconds of trigger events, with less than 0.1% failure rate, supporting 10k concurrent users"
+
+=== Functional Requirements
+
+* *Requirement 1*: [Specific functionality that must work]
+* *Requirement 2*: [Specific functionality that must work]
+* *Requirement 3*: [Specific functionality that must work]
+
+=== Non-Functional Requirements
+
+* *Performance*: [Response times, throughput, scalability requirements]
+* *Security*: [Authentication, authorization, data protection requirements]
+* *Reliability*: [Uptime, error handling, recovery requirements]
+* *Usability*: [User experience standards, accessibility requirements]
+
+=== Out of Scope
+
+[Explicitly state what this feature will NOT include:]
+
+* [Item 1 that is out of scope]
+* [Item 2 that is out of scope]
+
+== Implementation Checklist
+
+=== Phase 1: Setup & Preparation
+
+[%interactive]
+. [ ] Set up development environment
+. [ ] Create feature branch
+. [ ] Review and finalize requirements
+. [ ] Identify and document dependencies
+
+=== Phase 2: Data Layer
+
+[%interactive]
+. [ ] Design database schema
+. [ ] Create migration scripts
+. [ ] Implement data models
+. [ ] Write data access tests
+. [ ] Run migrations in dev environment
+
+=== Phase 3: Business Logic / Backend
+
+[%interactive]
+. [ ] Implement core business logic
+. [ ] Create API endpoints (if applicable)
+. [ ] Add input validation
+. [ ] Implement error handling
+. [ ] Write unit tests
+. [ ] Write integration tests
+
+=== Phase 4: Frontend / User Interface
+
+[%interactive]
+. [ ] Design UI components
+. [ ] Implement UI components
+. [ ] Connect to backend APIs
+. [ ] Add client-side validation
+. [ ] Implement error handling
+. [ ] Add loading states
+. [ ] Write UI tests
+
+=== Phase 5: Testing & Quality Assurance
+
+[%interactive]
+. [ ] Run full test suite
+. [ ] Perform manual testing
+. [ ] Test edge cases
+. [ ] Test error scenarios
+. [ ] Performance testing
+. [ ] Security testing
+. [ ] Accessibility testing
+
+=== Phase 6: Documentation & Deployment
+
+[%interactive]
+. [ ] Write user documentation
+. [ ] Write technical documentation
+. [ ] Update API documentation
+. [ ] Create deployment plan
+. [ ] Deploy to staging environment
+. [ ] Conduct UAT (User Acceptance Testing)
+. [ ] Deploy to production
+. [ ] Monitor for issues
+
+== Testing Strategy
+
+=== Unit Tests
+[Describe unit testing approach and coverage goals]
+
+=== Integration Tests
+[Describe integration testing approach]
+
+=== End-to-End Tests
+[Describe E2E testing scenarios]
+
+=== Manual Testing
+[List manual test cases and scenarios]
+
+== Rollback Plan
+
+[Document how to rollback if issues arise:]
+
+. [Step 1 to rollback]
+. [Step 2 to rollback]
+. [Step 3 to rollback]
+
+== Monitoring & Metrics
+
+[Define what to monitor after deployment:]
+
+* *Metric 1*: [What to measure and expected values]
+* *Metric 2*: [What to measure and expected values]
+* *Alerts*: [What conditions should trigger alerts]
+
+== Timeline
+
+[Estimated timeline for implementation:]
+
+* *Phase 1*: [Time estimate]
+* *Phase 2*: [Time estimate]
+* *Phase 3*: [Time estimate]
+* *Total Estimated Time*: [Total estimate]
+
+== Resources & Dependencies
+
+=== Team Members
+* [Role 1]: [Responsibilities]
+* [Role 2]: [Responsibilities]
+
+=== External Dependencies
+* [Dependency 1]: [Status and impact]
+* [Dependency 2]: [Status and impact]
+
+== Risks & Mitigations
+
+[Identify potential risks and how to mitigate them:]
+
+* *Risk 1*: [Description]
+** *Impact*: [High/Medium/Low]
+** *Mitigation*: [How to address]
+
+* *Risk 2*: [Description]
+** *Impact*: [High/Medium/Low]
+** *Mitigation*: [How to address]
+
+== Notes & Updates
+
+[Use this section to log progress, decisions, and changes as work progresses]
+
+* *[Date]*: [Note or update]
+* *[Date]*: [Note or update]

@@ -1,0 +1,718 @@
+= AI Prompts for Feature Development
+:toc: left
+:icons: font
+
+== Overview
+
+This guide provides specific prompt templates and strategies for working with AI assistants when developing new features. Use these patterns to get better results when implementing functionality.
+
+== Feature Development Workflow
+
+=== Stage 1: Planning & Design
+
+==== Initial Feature Discussion
+
+[source,adoc]
+----
+I want to add a feature that [describe feature at high level].
+
+Target users: [who will use this]
+Problem it solves: [what pain point it addresses]
+
+Before we start implementation, help me think through:
+1. What are the key components or modules needed?
+2. How should this integrate with the existing system?
+3. What are potential challenges or edge cases?
+4. What should I consider for scalability?
+5. Are there security concerns I should address?
+----
+
+==== Requirements Clarification
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I have these initial requirements:
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+Help me refine these requirements by:
+1. Identifying any missing requirements
+2. Suggesting specific, measurable acceptance criteria
+3. Highlighting potential ambiguities
+4. Recommending what should be out of scope for the initial version
+----
+
+==== Architecture Planning
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+Current system architecture:
+- [Component 1 and its responsibilities]
+- [Component 2 and its responsibilities]
+- [Current data flow]
+
+New feature requirements:
+- [List requirements]
+
+Please help me design the architecture for this feature:
+1. What new components are needed?
+2. How should they interact with existing components?
+3. What's the data flow for the main use cases?
+4. Where might there be bottlenecks or concerns?
+5. Suggest a phased implementation approach
+----
+
+=== Stage 2: Data Model & Schema
+
+==== Database Schema Design
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+Current database schema (relevant tables):
+```sql
+[Paste relevant existing schema]
+```
+
+New feature needs to store:
+- [Data point 1 with description]
+- [Data point 2 with description]
+- [Relationships to existing data]
+
+Please design the database schema:
+1. New tables needed with columns and types
+2. Relationships (foreign keys, junction tables)
+3. Indexes for performance
+4. Constraints for data integrity
+5. Migration strategy from current schema
+
+Technology: [PostgreSQL/MySQL/MongoDB/etc.]
+----
+
+==== Data Model Implementation
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+Database schema:
+```sql
+[Paste schema]
+```
+
+Please implement the data models for [ORM/framework]:
+- Technology: [Prisma/TypeORM/SQLAlchemy/Entity Framework/etc.]
+- Requirements:
+  - Include all necessary relationships
+  - Add validation rules
+  - Include type safety
+  - Add helpful methods for common queries
+  - Include timestamps and soft deletes if appropriate
+----
+
+=== Stage 3: API / Backend Implementation
+
+==== API Design
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to design REST API endpoints for this feature.
+
+Capabilities needed:
+- [Action 1: e.g., "Create a new post"]
+- [Action 2: e.g., "List posts with filtering"]
+- [Action 3: e.g., "Update post"]
+- [Action 4: e.g., "Delete post"]
+
+Please design the API:
+1. Endpoint paths following REST conventions
+2. HTTP methods (GET, POST, PUT, DELETE, PATCH)
+3. Request body schemas
+4. Response formats (success and error)
+5. Status codes
+6. Query parameters for filtering/pagination
+7. Authentication/authorization requirements
+
+API style: [REST/GraphQL/gRPC]
+Existing API patterns: [describe conventions in your project]
+----
+
+==== Backend Implementation
+
+[source,adoc]
+----
+Feature: [Feature name]
+Endpoint: [HTTP METHOD] /path/to/endpoint
+
+Requirements:
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+Please implement this endpoint:
+
+Technology: [Express/FastAPI/Spring Boot/ASP.NET/etc.]
+Database: [Database technology]
+
+Include:
+1. Request validation
+2. Authentication/authorization checks
+3. Business logic
+4. Database queries
+5. Error handling with appropriate status codes
+6. Response formatting
+7. Logging
+
+Constraints:
+- Must handle [X] concurrent requests
+- Response time < [Y] ms
+- Must work with existing [authentication system/middleware]
+----
+
+==== Business Logic
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to implement business logic for [specific functionality].
+
+Rules:
+- [Business rule 1]
+- [Business rule 2]
+- [Business rule 3]
+
+Input: [Describe input data]
+Output: [Describe expected output]
+
+Edge cases:
+- [Edge case 1]
+- [Edge case 2]
+
+Please implement:
+1. Main business logic function/method
+2. Input validation
+3. Error handling for rule violations
+4. Helper functions as needed
+5. Clear comments explaining complex logic
+
+Technology: [Language and framework]
+Code style: [Functional/OOP/etc.]
+----
+
+=== Stage 4: Frontend Implementation
+
+==== UI Component Design
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to create a UI component for [specific functionality].
+
+Requirements:
+- [UI requirement 1]
+- [UI requirement 2]
+- [User interaction 1]
+- [User interaction 2]
+
+Design:
+- [Description or link to design]
+- [Key UI elements]
+- [States: loading, error, success]
+
+Please create:
+1. Component structure
+2. State management approach
+3. Props interface/types
+4. Event handlers
+5. Loading and error states
+6. Accessibility features (ARIA labels, keyboard navigation)
+7. Responsive design considerations
+
+Technology: [React/Vue/Angular/Svelte/etc.]
+Styling: [CSS/Tailwind/styled-components/etc.]
+State management: [Redux/Zustand/Context/etc.]
+----
+
+==== Form Implementation
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to create a form for [purpose].
+
+Fields needed:
+- [Field 1: type, validation rules]
+- [Field 2: type, validation rules]
+- [Field 3: type, validation rules]
+
+Validation rules:
+- [Rule 1]
+- [Rule 2]
+
+Please implement:
+1. Form component with all fields
+2. Client-side validation
+3. Error message display
+4. Submit handler
+5. Loading state during submission
+6. Success/error feedback
+7. Form reset after submission
+
+Technology: [React Hook Form/Formik/etc.]
+Validation: [Zod/Yup/Joi/etc.]
+----
+
+==== State Management
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to manage state for [specific functionality].
+
+State needed:
+- [State item 1: description and type]
+- [State item 2: description and type]
+- [State item 3: description and type]
+
+Operations:
+- [Operation 1: e.g., "Fetch data from API"]
+- [Operation 2: e.g., "Update item"]
+- [Operation 3: e.g., "Delete item"]
+
+Please implement:
+1. State structure
+2. Actions/mutations
+3. Selectors/getters
+4. Side effects (API calls)
+5. Error handling
+6. Loading states
+7. Optimistic updates (if applicable)
+
+Technology: [Redux/Zustand/Pinia/MobX/etc.]
+Async handling: [Redux Thunk/Saga/RTK Query/etc.]
+----
+
+==== API Integration
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to integrate with the backend API.
+
+API endpoints:
+- [Endpoint 1: method, path, purpose]
+- [Endpoint 2: method, path, purpose]
+
+Requirements:
+- [Requirement 1]
+- [Requirement 2]
+
+Please implement:
+1. API client/service functions
+2. Request/response type definitions
+3. Error handling
+4. Loading states
+5. Retry logic (if needed)
+6. Caching strategy (if applicable)
+7. Request cancellation (if applicable)
+
+Technology: [fetch/axios/React Query/SWR/etc.]
+Base URL: [API base URL or environment variable]
+Authentication: [How auth tokens are included]
+----
+
+=== Stage 5: Testing
+
+==== Unit Tests
+
+[source,adoc]
+----
+Feature: [Feature name]
+Component/Function: [Name]
+
+Code to test:
+```
+[Paste code]
+```
+
+Please write comprehensive unit tests:
+1. Happy path scenarios
+2. Edge cases: [list specific cases]
+3. Error conditions: [list specific errors]
+4. Boundary values
+5. Mock external dependencies
+
+Requirements:
+- Test framework: [Jest/Vitest/Pytest/JUnit/etc.]
+- Coverage: Aim for >90%
+- Tests should be independent
+- Use descriptive test names
+
+For each test include:
+- Arrange: Setup
+- Act: Execute
+- Assert: Verify
+----
+
+==== Integration Tests
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need integration tests for the full feature flow.
+
+User flow:
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+APIs involved:
+- [API 1]
+- [API 2]
+
+Please write integration tests:
+1. Test the complete happy path
+2. Test failure scenarios
+3. Test data persistence
+4. Test API contracts
+5. Test authentication/authorization
+
+Technology: [Testing framework]
+Test database: [Strategy for test database]
+----
+
+==== E2E Tests
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need end-to-end tests simulating real user interactions.
+
+User scenarios:
+1. [Scenario 1 with steps]
+2. [Scenario 2 with steps]
+
+Please implement E2E tests:
+1. Setup test data
+2. Simulate user actions (clicks, inputs, navigation)
+3. Verify UI updates correctly
+4. Verify data persistence
+5. Test error handling
+6. Cleanup test data
+
+Technology: [Playwright/Cypress/Selenium/etc.]
+----
+
+=== Stage 6: Documentation
+
+==== API Documentation
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+Please document the API endpoints for this feature:
+
+Endpoints:
+[List all endpoints]
+
+For each endpoint provide:
+1. Description and purpose
+2. Authentication requirements
+3. Request format (headers, body, params)
+4. Response format (success and errors)
+5. Example requests and responses
+6. Possible error codes and meanings
+7. Rate limiting (if applicable)
+
+Format: [OpenAPI/Swagger/Markdown/etc.]
+----
+
+==== User Documentation
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+Please create user documentation for this feature:
+
+Target audience: [End users/Developers/Administrators]
+
+Include:
+1. Feature overview and benefits
+2. How to access the feature
+3. Step-by-step instructions with screenshots
+4. Common use cases and examples
+5. Troubleshooting section
+6. FAQs
+
+Format: [Markdown/Wiki/etc.]
+Tone: [Beginner-friendly/Technical/etc.]
+----
+
+== Common Feature Patterns
+
+=== CRUD Operations
+
+[source,adoc]
+----
+I need to implement CRUD operations for [entity].
+
+Entity: [Name]
+Fields: [List fields with types]
+
+Please implement complete CRUD:
+
+Backend:
+- Database model with validation
+- API endpoints (Create, Read, Update, Delete)
+- Business logic
+- Error handling
+
+Frontend:
+- List view with pagination and filtering
+- Create form
+- Edit form
+- Delete confirmation
+- Error handling and validation
+
+Testing:
+- Unit tests for business logic
+- Integration tests for APIs
+- E2E tests for UI flows
+
+Technology stack:
+- Backend: [Stack]
+- Frontend: [Stack]
+- Database: [Database]
+----
+
+=== Real-time Features
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to implement real-time updates for [specific data/events].
+
+Requirements:
+- Updates should appear within [X] seconds
+- Must support [Y] concurrent users
+- Must work across multiple browser tabs
+- Must handle connection drops gracefully
+
+Please design and implement:
+1. Backend real-time infrastructure
+2. Event publishing system
+3. Client subscription mechanism
+4. Connection management
+5. Reconnection logic
+6. Testing strategy
+
+Technology options to consider:
+- [WebSockets/Server-Sent Events/Polling]
+
+Questions:
+- What's the best approach for this scale?
+- How should we handle message ordering?
+- What about message persistence?
+----
+
+=== File Upload
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+I need to implement file upload functionality.
+
+Requirements:
+- File types: [image/video/document/etc.]
+- Maximum size: [X MB]
+- Storage: [Local/S3/Cloudinary/etc.]
+- Must validate: [type, size, virus scan?]
+- Must generate: [thumbnails/previews?]
+- Progress indication required: [Yes/No]
+
+Please implement:
+
+Backend:
+- File upload endpoint
+- Validation
+- Storage logic
+- Secure file serving
+- Cleanup of temporary files
+
+Frontend:
+- Upload UI with drag-and-drop
+- Progress indication
+- Preview before upload
+- Error handling
+- Multiple file support (if needed)
+
+Security:
+- Prevent malicious files
+- Limit upload rate
+- Validate file content, not just extension
+----
+
+=== Search & Filtering
+
+[source,adoc]
+----
+Feature: Search and filtering for [entity]
+
+Requirements:
+- Search across fields: [field1, field2, field3]
+- Filters: [filter1, filter2, filter3]
+- Sort by: [option1, option2, option3]
+- Pagination: [page size]
+- Performance: < [X] ms for [Y] records
+
+Please implement:
+
+Backend:
+- Search query building
+- Full-text search (if needed)
+- Filter application
+- Sort logic
+- Pagination
+- Performance optimization (indexes, etc.)
+
+Frontend:
+- Search input with debouncing
+- Filter UI (dropdowns, checkboxes, etc.)
+- Sort controls
+- Results list
+- Pagination controls
+- Loading states
+- Empty states
+
+Technology:
+- Database: [PostgreSQL/Elasticsearch/etc.]
+- Search approach: [Full-text/Like/Vector/etc.]
+----
+
+== Prompting Tips for Features
+
+=== 1. Start with "What" and "Why"
+
+[source]
+----
+I want to build [feature] so that [users] can [benefit].
+The current pain point is [problem].
+----
+
+=== 2. Provide Visual Context
+
+[source]
+----
+Here's a wireframe/mockup of what I want: [link or description]
+Similar to [example from another app]
+----
+
+=== 3. Specify Non-Functional Requirements
+
+[source]
+----
+This feature must:
+- Load in < 2 seconds
+- Support 10,000 concurrent users
+- Work offline with sync when back online
+- Be accessible (WCAG 2.1 AA)
+- Work on mobile and desktop
+----
+
+=== 4. Ask for Phased Approach
+
+[source]
+----
+This feature is complex. Please break it down into phases:
+1. What's the minimum viable version (MVP)?
+2. What can be added in phase 2?
+3. What are nice-to-have enhancements for phase 3?
+----
+
+=== 5. Request Code Review
+
+[source]
+----
+I've implemented [feature]. Please review for:
+- Code quality and maintainability
+- Performance issues
+- Security vulnerabilities
+- Best practices for [framework]
+- Missing edge cases
+- Test coverage gaps
+----
+
+## Troubleshooting During Development
+
+=== Feature Not Working as Expected
+
+[source,adoc]
+----
+I implemented [feature] but [describe unexpected behavior].
+
+Expected: [what should happen]
+Actual: [what actually happens]
+
+Code:
+```
+[relevant code]
+```
+
+I've tried:
+- [Attempt 1]
+- [Attempt 2]
+
+Can you help me identify the issue and fix it?
+----
+
+=== Performance Issues
+
+[source,adoc]
+----
+Feature: [Feature name]
+
+The feature is working but too slow: [describe performance issue]
+
+Current performance: [metrics]
+Target performance: [metrics]
+
+Bottlenecks identified (if any):
+- [Bottleneck 1]
+
+Please help optimize:
+1. Identify performance bottlenecks
+2. Suggest optimizations
+3. Show optimized code
+4. Explain trade-offs of each optimization
+----
+
+== Conclusion
+
+Effective feature development with AI assistance requires:
+
+1. *Clear requirements* from the start
+2. *Incremental prompts* - tackle one stage at a time
+3. *Provide context* about your stack and constraints
+4. *Ask for explanations* to understand the solutions
+5. *Iterate* based on feedback and testing
+
+Use these prompt templates as starting points and adapt them to your specific needs.

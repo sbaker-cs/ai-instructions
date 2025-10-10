@@ -1,0 +1,364 @@
+= BUG-1547 Login Timeout Fix
+:bugId: BUG-1547
+:toc: left
+:icons: font
+
+== Bug Summary
+
+*Bug ID*: BUG-1547 +
+*Title*: User login times out after 30 seconds on slow connections +
+*Severity*: High +
+*Priority*: P1 +
+*Reported Date*: 2025-01-20 +
+*Reporter*: Customer Support (multiple user complaints) +
+*Assigned To*: Jane Developer +
+*Status*: Fixed
+
+== Description
+
+Users on slow internet connections (3G, rural areas) are experiencing timeout errors when attempting to log in. The login request times out after exactly 30 seconds, preventing users from accessing the application. The issue affects approximately 5-8% of login attempts based on error logs.
+
+== Impact
+
+=== Affected Users
+- Users on slow internet connections (3G, satellite, rural broadband)
+- Mobile users in areas with poor connectivity
+- Estimated 5-8% of daily login attempts (approximately 200-300 users per day)
+
+=== Business Impact
+- User frustration and support ticket volume increase (15 tickets per day)
+- Users unable to access application, potential churn
+- Negative reviews mentioning "can't log in"
+- Revenue impact: Some users are paid subscribers unable to access service
+
+=== Affected Components
+- Authentication service (login endpoint)
+- API Gateway (timeout configuration)
+- Frontend login form (error handling)
+
+== Environment
+
+*Platform*: Web Application +
+*Version*: v2.4.1 +
+*Operating System*: All (browser-based) +
+*Browser*: All browsers (Chrome, Firefox, Safari, Edge) +
+*Database*: PostgreSQL 14 +
+*API Framework*: Express.js / Node.js 18
+
+== Steps to Reproduce
+
+. Open browser developer tools Network tab
+. Throttle network to "Slow 3G" (Chrome DevTools)
+. Navigate to login page at https://app.example.com/login
+. Enter valid credentials (email: user@example.com, password: ValidPass123)
+. Click "Login" button
+. Wait approximately 30-35 seconds
+. Observe the error message: "Request timeout. Please try again."
+
+== Expected Behavior
+
+Login should complete successfully even on slow connections. The authentication process itself takes less than 500ms on the server side, so slow network connections should not cause timeout failures. Users should see a loading indicator and the login should complete within 60-90 seconds even on very slow connections.
+
+== Actual Behavior
+
+After exactly 30 seconds, the request is aborted with a timeout error. The login form displays "Request timeout. Please try again." Users must retry, often multiple times, before successfully logging in (if the network improves) or give up entirely.
+
+== Evidence
+
+=== Error Messages
+
+Frontend console error:
+[source]
+----
+Error: timeout of 30000ms exceeded
+    at createError (createError.js:16)
+    at Timeout._onTimeout (axios.js:87)
+    at ontimeout (timers.js:427)
+POST https://api.example.com/auth/login 0 (timeout)
+----
+
+Backend logs (no error - request never completes):
+[source]
+----
+[2025-01-20 14:23:45] INFO: Login attempt for user@example.com
+[2025-01-20 14:23:45] INFO: Credentials validated successfully
+[2025-01-20 14:23:45] INFO: JWT tokens generated
+[2025-01-20 14:23:45] INFO: Login successful for user@example.com (342ms)
+----
+
+=== Screenshots
+* Screenshot 1: Timeout error message in login form
+* Screenshot 2: Network tab showing 30-second timeout
+* Screenshot 3: Application logs showing successful auth completion in <500ms
+
+=== Logs
+
+Network timing breakdown (from Chrome DevTools):
+[source]
+----
+Queueing: 2ms
+Stalled: 145ms
+DNS Lookup: 234ms
+Initial connection: 567ms
+SSL: 1,203ms
+Request sent: 12ms
+Waiting (TTFB): 342ms  ← Server responds quickly
+Content Download: 28,143ms  ← Slow download of response
+Total: 30,648ms → TIMEOUT
+----
+
+=== Test Data
+
+Test credentials used:
+[source]
+----
+Email: user@example.com
+Password: ValidPass123
+Network throttling: Slow 3G (400kbps, 2000ms latency)
+----
+
+== Root Cause Analysis
+
+=== Investigation Summary
+
+1. Checked server logs - auth completes in 342ms, well within timeout
+2. Analyzed network timing - server responds quickly, but response download takes 28+ seconds
+3. Inspected API response - JWT tokens in response are very large (42KB)
+4. Investigated token size - tokens include entire user object with all profile data, preferences, and 200+ organization memberships
+
+=== Root Cause
+
+The JWT access token includes the complete user object, including:
+- Full user profile (name, email, preferences, settings)
+- Array of 200+ organization memberships (each with details)
+- Role and permission details for each organization
+- User preferences (5KB of JSON)
+
+This results in a 42KB JWT token in the response. On slow connections, transmitting this large response takes 28+ seconds, causing the 30-second timeout.
+
+The original implementation embedded the full user context in the JWT to avoid database lookups on each request, but this creates an unnecessarily large token.
+
+=== Why It Wasn't Caught Earlier
+
+- Testing was primarily done on development machines with fast internet
+- Load testing focused on request volume, not slow connections
+- The issue only affects users with many organization memberships (power users) on slow connections
+- Initial implementation had reasonable token size (<5KB), but gradual feature additions increased token payload without review
+
+=== Related Issues
+
+* [BUG-1423]: Slow page loads on mobile - potentially related to large token in localStorage
+* [BUG-1389]: Login fails intermittently (likely timeout-related, closed as "cannot reproduce")
+
+== Solution
+
+=== Proposed Fix
+
+Reduce JWT token size by:
+1. Remove full user object from JWT token
+2. Store only essential claims in JWT: user_id, email, role
+3. Create a separate API endpoint `/api/user/profile` to fetch user details after login
+4. Implement token size limit (max 2KB) and monitoring
+5. Increase timeout from 30s to 60s as safety margin
+
+This approach:
+- Reduces token size from 42KB to ~500 bytes
+- Maintains security (still requires valid JWT for profile endpoint)
+- Improves performance for all users
+- Adds one additional API call after login (acceptable trade-off)
+
+=== Alternative Solutions Considered
+
+. *Alternative 1*: Simply increase timeout to 90 seconds
+** *Pros*: Minimal code change, quick fix
+** *Cons*: Doesn't address root cause, poor user experience, large tokens still cause other issues
+** *Decision*: Not chosen - treats symptom, not cause
+
+. *Alternative 2*: Compress JWT token payload
+** *Pros*: Reduces size while keeping same data
+** *Cons*: Adds complexity, still large (20KB compressed), non-standard JWT implementation
+** *Decision*: Not chosen - overly complex, doesn't follow JWT best practices
+
+. *Alternative 3*: Implement pagination for organizations in token
+** *Pros*: Keeps some org data in token
+** *Cons*: Incomplete data in token defeats purpose, complex logic
+** *Decision*: Not chosen - JWT should be minimal, fetch full data via API
+
+=== Files Modified
+
+* `src/auth/token.service.js`: Modify JWT payload to include only essential claims
+* `src/auth/auth.controller.js`: Update login response to exclude user object
+* `src/user/user.controller.js`: Create new `/api/user/profile` endpoint
+* `src/middleware/auth.middleware.js`: Update to work with smaller tokens
+* `frontend/src/api/auth.api.js`: Add profile fetch after login
+* `frontend/src/contexts/AuthContext.jsx`: Update login flow to fetch profile
+* `config/api.config.js`: Increase timeout from 30s to 60s
+
+=== Code Changes
+
+*Before - token.service.js:*
+[source,javascript]
+----
+generateAccessToken(user) {
+  const payload = {
+    userId: user.id,
+    email: user.email,
+    role: user.role,
+    profile: user.profile,        // ← Large object
+    organizations: user.organizations,  // ← 200+ items
+    preferences: user.preferences  // ← 5KB of data
+  };
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+}
+----
+
+*After - token.service.js:*
+[source,javascript]
+----
+generateAccessToken(user) {
+  const payload = {
+    userId: user.id,
+    email: user.email,
+    role: user.role
+  };
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+}
+----
+
+*New endpoint - user.controller.js:*
+[source,javascript]
+----
+async getUserProfile(req, res) {
+  try {
+    const userId = req.user.userId; // from JWT
+    const user = await User.findById(userId)
+      .populate('organizations')
+      .populate('preferences');
+    
+    res.json({ 
+      profile: user.profile,
+      organizations: user.organizations,
+      preferences: user.preferences
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+}
+----
+
+== Implementation Checklist
+
+=== Fix Implementation
+[%interactive]
+. [x] Create bugfix branch `bugfix/BUG-1547-login-timeout`
+. [x] Reduce JWT payload to essential claims only
+. [x] Create `/api/user/profile` endpoint
+. [x] Update frontend to fetch profile after login
+. [x] Increase API timeout to 60s
+. [x] Add token size monitoring
+. [x] Test fix locally with network throttling
+
+=== Testing
+[%interactive]
+. [x] Unit tests pass (added tests for new profile endpoint)
+. [x] Integration tests pass (updated auth flow tests)
+. [x] Manual testing with Slow 3G throttling - login completes in 8 seconds
+. [x] Tested with users having 200+ organizations - works correctly
+. [x] Tested with users having 1 organization - works correctly
+. [x] Performance testing - login 2x faster for all users
+. [x] Security review - confirmed minimal JWT payload is secure
+
+=== Documentation
+[%interactive]
+. [x] Updated API documentation for `/api/user/profile` endpoint
+. [x] Added code comments explaining JWT payload decisions
+. [x] Updated authentication flow diagram
+. [x] No user-facing documentation changes needed
+
+=== Review & Deployment
+[%interactive]
+. [x] Code review completed (approved by senior engineer)
+. [x] QA testing completed (verified fix on various connection speeds)
+. [x] Deploy to staging environment
+. [x] Verified fix in staging with throttled connection
+. [x] Deploy to production (deployed 2025-01-25)
+. [x] Monitor for issues - no spike in auth errors
+. [x] Close bug ticket - verified fixed
+
+== Testing Strategy
+
+=== Test Cases Added
+
+. *Test Case 1*: Login with slow connection
+** *Setup*: Throttle network to Slow 3G
+** *Input*: Valid credentials
+** *Expected Output*: Login completes successfully within 10 seconds
+
+. *Test Case 2*: Profile endpoint returns correct data
+** *Setup*: Authenticated user
+** *Input*: GET request to `/api/user/profile`
+** *Expected Output*: Complete user profile, organizations, preferences
+
+. *Test Case 3*: Token size validation
+** *Setup*: Generate JWT for various user types
+** *Input*: User with 1 org, User with 200+ orgs
+** *Expected Output*: Token size < 2KB in all cases
+
+=== Regression Testing
+Areas tested to ensure fix doesn't break other functionality:
+
+* Login flow for users with no organizations
+* Login flow for admin users
+* Token refresh flow
+* Protected route access
+* Logout functionality
+
+== Rollback Plan
+
+If the fix causes issues in production:
+
+. Revert API changes via feature flag `MINIMAL_JWT_ENABLED=false`
+. Revert to previous JWT payload structure
+. Monitor for timeout errors
+. Investigate issues further in staging
+. Apply refined fix
+
+Note: Rollback is low-risk as frontend gracefully handles both response formats (with user object or without).
+
+== Prevention
+
+=== Process Improvements
+
+* Add JWT token size to monitoring dashboard
+* Include slow network testing in QA checklist
+* Review token payload before adding new data
+* Establish guideline: JWT tokens should be < 2KB
+* Add automated alert if token size exceeds threshold
+
+=== Tests/Checks to Add
+
+* Automated test to verify JWT token size < 2KB
+* Performance test with throttled network connections
+* Load test with various user org membership counts
+* Security check to ensure minimal necessary data in tokens
+
+== Timeline
+
+*Reported*: 2025-01-20 +
+*Investigation Started*: 2025-01-20 +
+*Root Cause Found*: 2025-01-21 +
+*Fix Implemented*: 2025-01-22 +
+*Testing Completed*: 2025-01-24 +
+*Deployed to Production*: 2025-01-25 +
+*Verified*: 2025-01-26 +
+*Closed*: 2025-01-26
+
+== Notes & Updates
+
+* *2025-01-20*: Bug reported via support tickets, initial investigation started
+* *2025-01-21*: Root cause identified - token size is 42KB! Planning fix
+* *2025-01-22*: Implemented minimal JWT payload, created profile endpoint
+* *2025-01-24*: QA testing complete, all tests pass including slow network tests
+* *2025-01-25*: Deployed to production, monitoring closely
+* *2025-01-26*: Verified fixed - no timeout errors in 24 hours, support tickets dropped to zero
+* *2025-01-26*: Bonus improvement - all users now see 2x faster login times!

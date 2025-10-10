@@ -1,0 +1,451 @@
+= AI Prompting Best Practices
+:toc: left
+:icons: font
+
+== Overview
+
+This guide provides best practices for writing effective prompts when working with AI coding assistants like GitHub Copilot, ChatGPT, Claude, or other LLMs. Following these practices will help you get better, more accurate, and more useful responses.
+
+== Core Principles
+
+=== 1. Be Specific and Clear
+
+*Bad*: "Fix the bug" +
+*Good*: "The user login form is not validating email format correctly. When users enter 'user@domain' without the TLD, the form accepts it. Update the validation to require a proper email format like 'user@domain.com'."
+
+=== 2. Provide Context
+
+*Bad*: "Add authentication" +
+*Good*: "This is a REST API built with Express.js and PostgreSQL. Add JWT-based authentication with refresh tokens. Users should authenticate with email and password. Store hashed passwords using bcrypt."
+
+=== 3. Define Success Criteria
+
+*Bad*: "Make it faster" +
+*Good*: "The dashboard currently takes 3 seconds to load. Optimize the database queries and API calls to reduce load time to under 1 second for datasets up to 10,000 records."
+
+=== 4. Break Complex Tasks into Steps
+
+*Bad*: "Build a complete e-commerce checkout system" +
+*Good*: 
+[source]
+----
+Phase 1: Create shopping cart data model and API endpoints
+Phase 2: Build cart UI with add/remove/update functionality
+Phase 3: Implement checkout form with validation
+Phase 4: Integrate payment gateway
+Phase 5: Add order confirmation and email notifications
+----
+
+=== 5. Ask Questions When Unsure
+
+*Good Practice*: "I need to implement real-time notifications. Should I use WebSockets, Server-Sent Events, or polling? What are the trade-offs for a system with 5,000 concurrent users?"
+
+== Prompt Structure
+
+=== Effective Prompt Template
+
+[source,adoc]
+----
+## Context
+[Describe the project, technology stack, and relevant background]
+
+## Goal
+[What you want to achieve]
+
+## Requirements
+[Specific requirements or constraints]
+- Requirement 1
+- Requirement 2
+- Requirement 3
+
+## Success Criteria
+[How to measure success]
+
+## Questions
+[Any clarifications needed before proceeding]
+----
+
+=== Example Prompt
+
+[source,adoc]
+----
+## Context
+I'm building a blog platform using Next.js 14 (App Router), TypeScript, 
+and PostgreSQL with Prisma ORM. The app is deployed on Vercel.
+
+## Goal
+Implement a markdown editor with live preview for blog post creation.
+
+## Requirements
+- Support standard markdown syntax (headings, lists, links, images, code blocks)
+- Live preview updates as user types
+- Syntax highlighting for code blocks
+- Image upload with drag-and-drop
+- Auto-save drafts every 30 seconds
+- Mobile responsive
+
+## Success Criteria
+- Users can write and preview markdown in real-time
+- No lag or performance issues when typing
+- Images upload successfully and display in preview
+- Drafts are saved automatically without user intervention
+
+## Questions
+- Should we use an existing markdown library or build custom?
+- What image storage solution should we use (Vercel Blob, S3, Cloudinary)?
+- Do we need offline editing capability?
+----
+
+== Language & Framework Agnostic Prompting
+
+=== Use Generic Terms, Then Specify
+
+*Step 1 - Conceptual*:
+"I need to implement a caching layer between my application and database to reduce query load. What are my options and their trade-offs?"
+
+*Step 2 - Specific*:
+"Based on your recommendations, let's implement Redis caching for my Python Flask application using PostgreSQL."
+
+=== Focus on Patterns, Not Syntax
+
+*Good*: "Implement the Repository pattern to abstract database access" +
+*Then*: "Show me how this looks in [your language]"
+
+=== Describe Behavior, Not Implementation
+
+*Bad*: "Create a for loop to iterate through the array" +
+*Good*: "Process each item in the collection, transforming strings to uppercase and filtering out empty values"
+
+== Common Scenarios
+
+=== Scenario 1: New Feature Development
+
+[source,adoc]
+----
+I need to add a feature that allows users to [describe feature].
+
+Current architecture:
+- [Describe relevant parts of current system]
+
+Technology stack:
+- [List technologies]
+
+User story:
+As a [user type], I want to [action], so that [benefit].
+
+Constraints:
+- Must work with existing authentication system
+- Should support [X] concurrent users
+- Must maintain backwards compatibility
+
+Questions:
+- How should this integrate with [existing component]?
+- What's the best approach for [specific technical challenge]?
+----
+
+=== Scenario 2: Debugging
+
+[source,adoc]
+----
+I'm experiencing [describe the problem].
+
+Expected behavior:
+[What should happen]
+
+Actual behavior:
+[What actually happens]
+
+Error message:
+```
+[Paste full error message]
+```
+
+Environment:
+- [OS, browser, runtime versions]
+
+Code context:
+[Paste relevant code]
+
+What I've tried:
+- [Attempt 1 and result]
+- [Attempt 2 and result]
+
+Questions:
+- What could be causing this?
+- How can I debug this further?
+----
+
+=== Scenario 3: Code Review / Refactoring
+
+[source,adoc]
+----
+Please review this code for [specific aspects: performance, security, 
+maintainability, etc.].
+
+Current code:
+```
+[Paste code]
+```
+
+Context:
+[Explain what this code does and why]
+
+Concerns:
+- [Specific concern 1]
+- [Specific concern 2]
+
+Questions:
+- Are there any performance bottlenecks?
+- How can I make this more maintainable?
+- Are there security vulnerabilities?
+- Does this follow best practices for [language/framework]?
+----
+
+=== Scenario 4: Testing
+
+[source,adoc]
+----
+I need to write tests for [component/feature].
+
+Code to test:
+```
+[Paste code]
+```
+
+Testing framework: [Jest, Pytest, JUnit, etc.]
+
+Test coverage needed:
+- Happy path scenarios
+- Edge cases: [list specific edge cases]
+- Error conditions: [list error scenarios]
+
+Requirements:
+- Tests should be isolated and independent
+- Mock external dependencies (API calls, database)
+- Test coverage should be above [X]%
+
+Questions:
+- What test cases am I missing?
+- How should I structure these tests?
+----
+
+=== Scenario 5: Architecture Decision
+
+[source,adoc]
+----
+I need to make an architectural decision about [topic].
+
+Context:
+- Current system: [description]
+- Scale: [users, data volume, traffic]
+- Team: [size, expertise]
+- Timeline: [constraints]
+
+Requirements:
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+Options I'm considering:
+1. [Option 1]: [brief description]
+2. [Option 2]: [brief description]
+3. [Option 3]: [brief description]
+
+Questions:
+- What are the trade-offs between these approaches?
+- What are the long-term maintenance implications?
+- Which approach scales better?
+- What are the cost implications?
+- Are there other options I should consider?
+----
+
+== Iterative Refinement
+
+=== Start Broad, Then Narrow
+
+*First Prompt*: "I need to implement user authentication. What are my options?"
+
+*Second Prompt*: "Based on your recommendations, let's use OAuth 2.0 with JWT. Walk me through the implementation steps."
+
+*Third Prompt*: "Let's implement step 1: setting up the OAuth provider configuration."
+
+=== Ask Follow-up Questions
+
+- "Can you explain why you recommended [X] over [Y]?"
+- "What are the security implications of this approach?"
+- "How does this scale if we grow to 1 million users?"
+- "What are the maintenance costs of this solution?"
+
+=== Request Alternatives
+
+- "What are alternative approaches to this problem?"
+- "Show me a simpler solution, even if less optimal"
+- "What would this look like using [different technology]?"
+
+== Using Templates and Documentation
+
+=== Reference Templates
+
+[source]
+----
+I want to implement [feature]. Please follow the structure from 
+@templates/PlanningDoc.adoc to create an implementation plan.
+----
+
+=== Reference Existing Code
+
+[source]
+----
+I need to add similar functionality to what exists in @src/auth/login.ts.
+Follow the same patterns and conventions used there.
+----
+
+=== Reference Documentation
+
+[source]
+----
+Create a new React component following the patterns documented 
+in @docs/ComponentGuidelines.md.
+----
+
+== What to Avoid
+
+=== ❌ Vague Requests
+
+- "Make it better"
+- "Fix the code"
+- "Optimize this"
+
+=== ❌ Too Much at Once
+
+- "Build a complete CRM system with all features"
+- "Implement authentication, authorization, payments, and email in one go"
+
+=== ❌ Assuming Context
+
+- "Update the function" (Which function? What changes?)
+- "Use the usual approach" (What's usual for your project?)
+
+=== ❌ No Success Criteria
+
+- "Improve performance" (By how much? For what scenario?)
+- "Better error handling" (What does better mean?)
+
+=== ❌ Missing Important Details
+
+- Not mentioning constraints (time, resources, compatibility)
+- Omitting relevant technologies or versions
+- Leaving out error messages or logs
+
+== Tips for Better Results
+
+=== 1. Use Examples
+
+"Format the output like this: +
+`{ id: 1, name: "John", status: "active" }`"
+
+=== 2. Specify Constraints
+
+- "Must work with existing database schema"
+- "Cannot add new dependencies"
+- "Must complete in under 3 days"
+- "Should work in IE 11 and modern browsers"
+
+=== 3. Indicate Expertise Level
+
+- "Explain this as if I'm new to [technology]"
+- "I'm familiar with [X] but not [Y]"
+- "Assume advanced knowledge of [technology]"
+
+=== 4. Request Explanations
+
+- "Explain why you chose this approach"
+- "What are the trade-offs?"
+- "Walk me through the logic step by step"
+
+=== 5. Ask for Best Practices
+
+- "What are the best practices for [X] in [language/framework]?"
+- "How do production systems typically handle [scenario]?"
+- "What are common pitfalls to avoid?"
+
+== Language & Framework Specific Prompts
+
+=== When Working with Specific Technologies
+
+Include in your prompt:
+
+- *Version*: "Using React 18.2" not just "React"
+- *Runtime*: "Node.js 20" vs "Node.js 14"
+- *Features*: "Using async/await" or "Using TypeScript strict mode"
+
+=== Pattern for New Technology
+
+[source]
+----
+I'm new to [technology]. I need to [accomplish task].
+
+My background:
+- Familiar with: [similar technologies]
+- Experience level: [beginner/intermediate/advanced in related area]
+
+Please:
+1. Explain key concepts I need to understand
+2. Show me the idiomatic way to do this in [technology]
+3. Point out common mistakes to avoid
+4. Provide a complete, working example
+----
+
+== Prompt Checklist
+
+Before submitting a prompt, check:
+
+[%interactive]
+* [ ] *Context provided*: Technology stack, current state, constraints
+* [ ] *Goal is clear*: What you want to achieve is unambiguous
+* [ ] *Requirements listed*: Specific requirements are enumerated
+* [ ] *Success criteria defined*: How to measure success
+* [ ] *Questions asked*: Anything unclear is explicitly questioned
+* [ ] *Examples included*: Sample input/output or similar existing code
+* [ ] *Scope is reasonable*: Task is appropriately sized
+* [ ] *Terminology is correct*: Using accurate technical terms
+
+== Advanced Techniques
+
+=== Chain of Thought
+
+Ask the AI to think through the problem:
+
+"Before implementing, walk me through:
+1. What are the main components needed?
+2. How do they interact?
+3. What are potential issues?
+4. Then show me the implementation"
+
+=== Rubber Duck Debugging
+
+"I'm stuck on [problem]. Let me explain what I'm trying to do and what I've tried. Can you help me think through this?"
+
+=== Constraint-Based Prompting
+
+"Solve [problem] with these constraints:
+- No external libraries
+- Must work in [environment]
+- Performance: < 100ms
+- Code must be under 50 lines"
+
+=== Test-Driven Prompting
+
+"First, write tests for [functionality]. Then implement the code that makes those tests pass."
+
+== Conclusion
+
+Effective AI prompting is a skill that improves with practice. The key principles:
+
+1. *Be specific and provide context*
+2. *Define success criteria*
+3. *Break complex tasks into steps*
+4. *Ask questions when unsure*
+5. *Iterate and refine*
+
+The AI is your collaborative partner. The more information you provide and the clearer your goals, the better the results you'll get.

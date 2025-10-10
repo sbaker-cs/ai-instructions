@@ -1,0 +1,841 @@
+= AI Prompts for Test Generation
+:toc: left
+:icons: font
+
+== Overview
+
+This guide provides prompt templates for using AI assistants to generate comprehensive test suites. Whether you need unit tests, integration tests, or end-to-end tests, these patterns will help you create thorough test coverage.
+
+== Test Development Principles
+
+=== Test-Driven Development (TDD)
+
+[source,adoc]
+----
+I want to implement [feature] using TDD.
+
+Requirements:
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+Please help me:
+1. First, write failing tests that define the expected behavior
+2. Then, implement the minimal code to make tests pass
+3. Finally, refactor while keeping tests green
+
+Technology: [Testing framework]
+Language: [Programming language]
+----
+
+=== Testing Pyramid
+
+[source,adoc]
+----
+I need a comprehensive testing strategy for [component/feature].
+
+Please help me design tests following the testing pyramid:
+
+1. Unit Tests (70%):
+   - What functions/methods need unit tests?
+   - What should each test cover?
+
+2. Integration Tests (20%):
+   - What integrations need testing?
+   - What contracts need verification?
+
+3. E2E Tests (10%):
+   - What critical user flows need E2E coverage?
+
+Technology stack:
+- Unit: [Jest/Pytest/JUnit/etc.]
+- Integration: [Supertest/etc.]
+- E2E: [Playwright/Cypress/etc.]
+----
+
+== Unit Testing
+
+=== Basic Function Testing
+
+[source,adoc]
+----
+Write comprehensive unit tests for this function:
+
+```
+[Paste function code]
+```
+
+Test framework: [Jest/Vitest/Pytest/JUnit/etc.]
+Language: [Language]
+
+Please test:
+1. Happy path with typical inputs
+2. Edge cases (empty, null, undefined, boundary values)
+3. Error conditions
+4. All code branches
+
+Requirements:
+- Use descriptive test names
+- Follow AAA pattern (Arrange, Act, Assert)
+- Tests should be independent
+- Include comments explaining complex assertions
+----
+
+=== Class Testing
+
+[source,adoc]
+----
+Write comprehensive unit tests for this class:
+
+```
+[Paste class code]
+```
+
+Test framework: [Framework]
+
+Please test:
+1. Constructor and initialization
+2. Each public method
+3. State changes
+4. Method interactions
+5. Error handling
+6. Edge cases for each method
+
+Requirements:
+- Mock external dependencies
+- Test in isolation
+- Cover all public methods
+- Verify state changes correctly
+----
+
+=== Testing with Mocks
+
+[source,adoc]
+----
+This code has external dependencies that need mocking:
+
+```
+[Paste code]
+```
+
+External dependencies:
+- [Database calls]
+- [API requests]
+- [File system operations]
+- [Third-party services]
+
+Please write tests that:
+1. Mock all external dependencies
+2. Verify the code logic in isolation
+3. Test different mock return values
+4. Test error scenarios from dependencies
+
+Mocking library: [jest.mock/sinon/unittest.mock/etc.]
+----
+
+=== Testing Async Code
+
+[source,adoc]
+----
+Write tests for this async code:
+
+```
+[Paste async function]
+```
+
+Test framework: [Framework]
+
+Please test:
+1. Successful promise resolution
+2. Promise rejection/error handling
+3. Timeout scenarios (if applicable)
+4. Multiple concurrent calls (if applicable)
+5. Proper cleanup
+
+Ensure tests:
+- Properly handle async/await
+- Don't have timing issues
+- Test both success and failure paths
+----
+
+=== Testing Pure Functions
+
+[source,adoc]
+----
+Write tests for these pure functions:
+
+```
+[Paste pure functions]
+```
+
+Since these are pure functions, please write tests that:
+1. Test with various inputs
+2. Verify same input always produces same output
+3. Test edge cases thoroughly
+4. Use property-based testing if applicable
+
+Test framework: [Framework]
+Property-based testing: [fast-check/Hypothesis/etc. if applicable]
+----
+
+== Integration Testing
+
+=== API Endpoint Testing
+
+[source,adoc]
+----
+Write integration tests for this API endpoint:
+
+Endpoint: [METHOD] /path/to/endpoint
+
+Handler code:
+```
+[Paste endpoint handler]
+```
+
+Framework: [Express/FastAPI/Spring Boot/etc.]
+Test framework: [Supertest/TestClient/RestAssured/etc.]
+
+Please test:
+1. Successful requests with valid data
+2. Invalid input (validation errors)
+3. Authentication/authorization
+4. Different status codes
+5. Response format
+6. Error responses
+7. Edge cases
+
+Include:
+- Setup/teardown for test data
+- Assertions for response structure
+- Database verification (if applicable)
+----
+
+=== Database Integration Tests
+
+[source,adoc]
+----
+Write integration tests for this database code:
+
+```
+[Paste database access code]
+```
+
+Database: [PostgreSQL/MySQL/MongoDB/etc.]
+ORM: [Prisma/TypeORM/SQLAlchemy/etc.]
+
+Please test:
+1. CRUD operations
+2. Queries return correct data
+3. Transactions work correctly
+4. Constraints are enforced
+5. Relationships are maintained
+6. Error handling for DB errors
+
+Test setup:
+- How to set up test database
+- How to seed test data
+- How to clean up after tests
+----
+
+=== Service Integration Tests
+
+[source,adoc]
+----
+Write integration tests for these services working together:
+
+Service 1:
+```
+[Paste service 1 code]
+```
+
+Service 2:
+```
+[Paste service 2 code]
+```
+
+These services interact by: [describe interaction]
+
+Please test:
+1. Successful integration between services
+2. Data flow between services
+3. Error propagation
+4. Transaction boundaries
+5. Rollback scenarios
+
+Determine:
+- What needs mocking vs real integration
+- How to set up test environment
+- How to verify end-to-end behavior
+----
+
+=== External API Integration Tests
+
+[source,adoc]
+----
+Write integration tests for external API integration:
+
+API: [API name]
+Integration code:
+```
+[Paste integration code]
+```
+
+Please test:
+1. Successful API calls
+2. API error handling
+3. Rate limiting handling
+4. Timeout handling
+5. Retry logic (if applicable)
+6. Data transformation
+
+Test strategy:
+- Should I use real API or mocks for integration tests?
+- How to handle API credentials in tests?
+- How to make tests deterministic?
+- Recommend testing approach (VCR/contract testing/etc.)
+----
+
+== End-to-End Testing
+
+=== User Flow Testing
+
+[source,adoc]
+----
+Write E2E tests for this user flow:
+
+User Story:
+As a [user type], I want to [action], so that [benefit].
+
+Steps:
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+4. [Expected outcome]
+
+E2E framework: [Playwright/Cypress/Selenium/etc.]
+Application: [Web/Mobile/Desktop]
+
+Please write tests that:
+1. Set up necessary test data
+2. Simulate user interactions
+3. Verify UI updates correctly
+4. Verify data persists correctly
+5. Handle loading states
+6. Clean up test data
+
+Include:
+- Page object pattern (if applicable)
+- Proper waits for async operations
+- Screenshots on failure
+- Descriptive test names
+----
+
+=== Form Testing
+
+[source,adoc]
+----
+Write E2E tests for this form:
+
+Form: [Form name/purpose]
+
+Fields:
+- [Field 1: type and validation]
+- [Field 2: type and validation]
+- [Field 3: type and validation]
+
+E2E framework: [Framework]
+
+Please test:
+1. Filling out valid form and submitting
+2. Field validation (client-side)
+3. Required field checking
+4. Error message display
+5. Successful submission feedback
+6. Server-side validation
+7. Form reset after submission
+
+Edge cases:
+- Empty form submission
+- Invalid data formats
+- Boundary values
+- Special characters
+----
+
+=== Navigation Testing
+
+[source,adoc]
+----
+Write E2E tests for application navigation:
+
+Application: [App description]
+
+Navigation structure:
+- [Route 1]: [Purpose]
+- [Route 2]: [Purpose]
+- [Route 3]: [Purpose]
+
+Please test:
+1. Navigation between routes
+2. Back/forward browser buttons
+3. Direct URL access
+4. Deep linking
+5. Authentication guards
+6. Authorization-based routing
+7. 404 handling
+
+E2E framework: [Framework]
+----
+
+=== Multi-Step Process Testing
+
+[source,adoc]
+----
+Write E2E tests for this multi-step process:
+
+Process: [Process name]
+
+Steps:
+1. [Step 1 description]
+2. [Step 2 description]
+3. [Step 3 description]
+4. [Final step/confirmation]
+
+Please test:
+1. Complete happy path
+2. Step navigation (next, back)
+3. Data persistence between steps
+4. Validation at each step
+5. Abandonment and resume
+6. Edge cases at each step
+7. Error recovery
+
+E2E framework: [Framework]
+----
+
+== Testing Strategies
+
+=== Testing Edge Cases
+
+[source,adoc]
+----
+Help me identify and test edge cases for:
+
+Code:
+```
+[Paste code]
+```
+
+Please:
+1. List all edge cases I should test
+2. Explain why each is an edge case
+3. Write tests for each edge case
+4. Suggest any edge cases I might have missed
+
+Edge case categories:
+- Boundary values
+- Empty inputs
+- Null/undefined
+- Very large inputs
+- Special characters
+- Concurrent operations
+- Unusual but valid inputs
+----
+
+=== Testing Error Handling
+
+[source,adoc]
+----
+Write tests to verify error handling for:
+
+Code:
+```
+[Paste code]
+```
+
+Please test:
+1. All error conditions
+2. Error message clarity
+3. Proper error types/codes
+4. Error propagation
+5. Cleanup on error
+6. User-facing error messages
+7. Logging of errors
+
+Ensure tests verify:
+- Errors are caught appropriately
+- System remains stable after errors
+- No resource leaks on errors
+- Appropriate status codes (for APIs)
+----
+
+=== Performance Testing
+
+[source,adoc]
+----
+Write performance tests for:
+
+Code:
+```
+[Paste code]
+```
+
+Performance requirements:
+- Response time: < [X] ms
+- Throughput: [Y] requests/second
+- Concurrent users: [Z]
+- Memory usage: < [N] MB
+
+Please create tests that:
+1. Measure execution time
+2. Test with various load levels
+3. Verify memory usage
+4. Test concurrent operations
+5. Identify bottlenecks
+
+Tools to use: [k6/Artillery/JMeter/locust/etc.]
+----
+
+=== Security Testing
+
+[source,adoc]
+----
+Write security tests for:
+
+Component: [Component name]
+
+Code:
+```
+[Paste code]
+```
+
+Please test for:
+1. SQL injection (if applicable)
+2. XSS vulnerabilities (if applicable)
+3. CSRF protection
+4. Authentication bypass attempts
+5. Authorization violations
+6. Input validation
+7. Sensitive data exposure
+8. Rate limiting
+
+Framework: [Security testing framework if applicable]
+----
+
+=== Regression Testing
+
+[source,adoc]
+----
+We fixed a bug and need regression tests to prevent it from recurring.
+
+Bug description:
+[Describe the bug that was fixed]
+
+Code before fix:
+```
+[Paste code before fix]
+```
+
+Code after fix:
+```
+[Paste code after fix]
+```
+
+Please write regression tests that:
+1. Would have caught the original bug
+2. Verify the fix works
+3. Test related scenarios
+4. Prevent similar bugs in the future
+----
+
+== Test Quality
+
+=== Improving Test Quality
+
+[source,adoc]
+----
+Review and improve these tests:
+
+Current tests:
+```
+[Paste existing tests]
+```
+
+Please:
+1. Identify issues with current tests
+2. Suggest improvements
+3. Rewrite tests following best practices
+4. Explain the improvements
+
+Check for:
+- Test independence
+- Clear test names
+- Proper assertions
+- Good coverage
+- No flaky tests
+- Performance of tests themselves
+----
+
+=== Test Organization
+
+[source,adoc]
+----
+Help me organize these tests better:
+
+Current test structure:
+```
+[Paste test file structure]
+```
+
+Please suggest:
+1. Better file organization
+2. Test grouping strategy
+3. Shared setup/teardown
+4. Test utilities/helpers
+5. Naming conventions
+
+Test framework: [Framework]
+----
+
+=== Testing Best Practices
+
+[source,adoc]
+----
+Review my testing approach for this component:
+
+Component:
+```
+[Paste component code]
+```
+
+Current tests:
+```
+[Paste tests]
+```
+
+Please:
+1. Evaluate test coverage
+2. Suggest missing test cases
+3. Identify anti-patterns
+4. Recommend best practices for this type of component
+5. Suggest testing tools or libraries that would help
+
+Technology: [Stack]
+----
+
+== Test Data Management
+
+=== Test Data Generation
+
+[source,adoc]
+----
+I need test data for these tests:
+
+Entity/Model:
+```
+[Paste model/schema]
+```
+
+Please help create:
+1. Factory functions for test data
+2. Fixture data for common scenarios
+3. Edge case data sets
+4. Large dataset for performance testing
+5. Invalid data for negative testing
+
+Requirements:
+- Realistic but anonymized
+- Reusable across tests
+- Easy to maintain
+- Covers various scenarios
+
+Tools: [Factory-bot/Faker/etc.]
+----
+
+=== Test Database Setup
+
+[source,adoc]
+----
+Help me set up a test database strategy:
+
+Database: [PostgreSQL/MySQL/MongoDB/etc.]
+ORM: [Prisma/TypeORM/etc.]
+
+Please design:
+1. Test database setup/teardown
+2. Data seeding strategy
+3. Transaction rollback approach
+4. Isolation between tests
+5. Performance optimization
+
+Questions:
+- In-memory vs separate test DB?
+- Seed data before each test or once?
+- How to handle migrations in tests?
+----
+
+== Testing by Technology
+
+=== React Component Testing
+
+[source,adoc]
+----
+Write tests for this React component:
+
+Component:
+```
+[Paste React component]
+```
+
+Testing library: [React Testing Library/Enzyme]
+
+Please test:
+1. Component renders correctly
+2. Props are handled properly
+3. User interactions (clicks, inputs, etc.)
+4. State changes
+5. Side effects (API calls, etc.)
+6. Conditional rendering
+7. Error boundaries
+
+Include:
+- Proper queries (getByRole, etc.)
+- User-centric testing approach
+- Async operation testing
+----
+
+=== API Testing with Different Frameworks
+
+[source,adoc]
+----
+Write API tests for:
+
+Framework: [Express/FastAPI/Spring Boot/ASP.NET/etc.]
+
+Endpoints:
+- [GET] /api/endpoint1
+- [POST] /api/endpoint2
+- [PUT] /api/endpoint3
+
+Please create comprehensive API tests using framework-specific testing tools and best practices.
+
+Include:
+- Authentication testing
+- Request/response validation
+- Error scenarios
+- Status code verification
+----
+
+=== Database Query Testing
+
+[source,adoc]
+----
+Write tests for these database queries:
+
+Queries:
+```
+[Paste queries or ORM code]
+```
+
+Database: [Database type]
+
+Please test:
+1. Query returns correct data
+2. Query performance (if applicable)
+3. Query with different parameters
+4. Empty result sets
+5. Joins work correctly
+6. Aggregations are accurate
+7. Query optimization
+
+Test approach:
+- Test against real test database
+- Verify data integrity
+- Check for N+1 issues
+----
+
+## Test Automation
+
+=== CI/CD Test Integration
+
+[source,adoc]
+----
+Help me integrate tests into CI/CD:
+
+CI/CD platform: [GitHub Actions/GitLab CI/Jenkins/etc.]
+
+Test suites:
+- Unit tests: [command to run]
+- Integration tests: [command to run]
+- E2E tests: [command to run]
+
+Please create:
+1. CI configuration file
+2. Test execution strategy
+3. Parallel test execution setup
+4. Test result reporting
+5. Failure handling
+6. Performance optimization
+
+Requirements:
+- Fast feedback
+- Run different test levels at different stages
+- Cache dependencies
+- Fail fast on critical errors
+----
+
+=== Test Coverage
+
+[source,adoc]
+----
+Help me improve test coverage:
+
+Current coverage: [X]%
+Target coverage: [Y]%
+
+Code:
+```
+[Paste code]
+```
+
+Existing tests:
+```
+[Paste tests]
+```
+
+Please:
+1. Identify uncovered code paths
+2. Write tests to cover gaps
+3. Suggest coverage goals for different code areas
+4. Recommend coverage tool configuration
+
+Coverage tool: [Jest/Coverage.py/JaCoCo/etc.]
+----
+
+## Testing Checklist
+
+[%interactive]
+* [ ] *Unit tests* for all functions/methods
+* [ ] *Edge cases* thoroughly tested
+* [ ] *Error conditions* verified
+* [ ] *Integration tests* for component interactions
+* [ ] *API tests* for all endpoints
+* [ ] *E2E tests* for critical user flows
+* [ ] *Test independence* - tests don't depend on each other
+* [ ] *Fast execution* - tests run quickly
+* [ ] *Deterministic* - tests don't randomly fail
+* [ ] *Good coverage* - high percentage of code tested
+* [ ] *Clear test names* - easy to understand what failed
+* [ ] *Documentation* - complex tests are documented
+
+## Conclusion
+
+Effective testing with AI assistance requires:
+
+1. *Clear requirements*: What behavior are you testing?
+2. *Complete code context*: Provide the code being tested
+3. *Specify test type*: Unit, integration, E2E?
+4. *Define coverage goals*: What scenarios must be tested?
+5. *Request best practices*: Ask for idiomatic tests for your tech stack
+
+Good tests are an investment in code quality and confidence. Use AI to help you write comprehensive, maintainable test suites.

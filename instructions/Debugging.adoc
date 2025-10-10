@@ -1,0 +1,763 @@
+= AI Prompts for Debugging
+:toc: left
+:icons: font
+
+== Overview
+
+This guide provides prompt templates and strategies for using AI assistants to debug issues effectively. Whether you're dealing with runtime errors, logic bugs, or performance problems, these patterns will help you get to the root cause faster.
+
+== General Debugging Workflow
+
+=== Initial Bug Report
+
+[source,adoc]
+----
+I'm experiencing a bug in [component/feature].
+
+**Expected Behavior:**
+[What should happen]
+
+**Actual Behavior:**
+[What actually happens]
+
+**Steps to Reproduce:**
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+4. [Observe the bug]
+
+**Environment:**
+- Platform: [Web/Mobile/Desktop/API]
+- OS: [Operating system and version]
+- Browser: [Browser and version if applicable]
+- Runtime: [Node.js 20/Python 3.11/etc.]
+- Version: [Application version]
+
+**Error Message:**
+```
+[Paste full error message with stack trace]
+```
+
+**What I've tried:**
+- [Attempt 1 and result]
+- [Attempt 2 and result]
+
+Can you help me identify the root cause and fix?
+----
+
+== Common Bug Categories
+
+=== Runtime Errors
+
+==== Null/Undefined Reference Errors
+
+[source,adoc]
+----
+I'm getting a null/undefined reference error:
+
+Error:
+```
+[Paste error]
+```
+
+Code where error occurs:
+```
+[Paste code]
+```
+
+Context:
+- [When does this happen?]
+- [What data is expected vs actual?]
+
+Please help:
+1. Identify why the value is null/undefined
+2. Suggest defensive coding to prevent this
+3. Explain proper error handling for this case
+----
+
+==== Type Errors
+
+[source,adoc]
+----
+I'm getting a type error:
+
+Error:
+```
+[Paste error]
+```
+
+Code:
+```
+[Paste code]
+```
+
+Expected type: [type]
+Actual type: [type]
+
+Please:
+1. Explain why the type mismatch occurs
+2. Show how to fix it properly
+3. Suggest type guards or validation to prevent this
+----
+
+==== Async/Concurrency Errors
+
+[source,adoc]
+----
+I'm experiencing issues with async code:
+
+Problem: [describe the issue]
+
+Code:
+```
+[Paste async code]
+```
+
+Error (if any):
+```
+[Paste error]
+```
+
+Behavior:
+- Sometimes works, sometimes doesn't
+- Race condition suspected
+- Promises not resolving properly
+- [Other symptoms]
+
+Please:
+1. Identify the concurrency issue
+2. Explain what's happening
+3. Show the correct async pattern
+4. Suggest ways to test async behavior
+----
+
+=== Logic Bugs
+
+==== Incorrect Output
+
+[source,adoc]
+----
+My function/method produces incorrect output:
+
+Function:
+```
+[Paste function code]
+```
+
+Test cases:
+- Input: [input] → Expected: [expected] → Actual: [actual]
+- Input: [input] → Expected: [expected] → Actual: [actual]
+
+The logic should:
+[Describe intended logic]
+
+Please:
+1. Trace through the logic step by step
+2. Identify where the logic goes wrong
+3. Suggest the fix with explanation
+4. Recommend additional test cases
+----
+
+==== Edge Cases
+
+[source,adoc]
+----
+My code works for normal cases but fails for edge cases:
+
+Code:
+```
+[Paste code]
+```
+
+Normal case (works):
+- Input: [input]
+- Output: [correct output]
+
+Edge case (fails):
+- Input: [edge case input]
+- Expected: [expected output]
+- Actual: [actual output]
+
+Edge cases to handle:
+- [Empty input]
+- [Null values]
+- [Boundary values]
+- [Special characters]
+- [Large datasets]
+
+Please:
+1. Identify which edge cases aren't handled
+2. Show how to handle each edge case
+3. Suggest a pattern for comprehensive edge case handling
+----
+
+==== Off-by-One Errors
+
+[source,adoc]
+----
+I suspect an off-by-one error in this code:
+
+Code:
+```
+[Paste code with loops/array access]
+```
+
+Symptom:
+- [Missing first/last element]
+- [Array index out of bounds]
+- [One iteration too many/few]
+
+Please:
+1. Identify the off-by-one error
+2. Explain why it's happening
+3. Show the corrected code
+4. Explain how to avoid this in future
+----
+
+=== Performance Issues
+
+==== Slow Performance
+
+[source,adoc]
+----
+This code is performing slowly:
+
+Code:
+```
+[Paste code]
+```
+
+Performance:
+- Current: [X seconds/ms]
+- Expected: [Y seconds/ms]
+- Dataset size: [N records/items]
+
+Where it's slow:
+[Specific operation or section if known]
+
+Please:
+1. Identify performance bottlenecks
+2. Explain why each bottleneck exists
+3. Suggest optimizations with complexity analysis
+4. Show optimized code
+5. Discuss trade-offs
+----
+
+==== Memory Leaks
+
+[source,adoc]
+----
+I suspect a memory leak in this code:
+
+Code:
+```
+[Paste code]
+```
+
+Symptoms:
+- Memory usage: [grows from X to Y over Z time]
+- Application eventually crashes
+- [Other symptoms]
+
+Suspected cause:
+[If you have suspicions]
+
+Please:
+1. Identify potential memory leaks
+2. Explain why they occur
+3. Show how to fix them
+4. Suggest tools/techniques to detect memory leaks
+----
+
+==== N+1 Query Problem
+
+[source,adoc]
+----
+I have slow database queries:
+
+Code:
+```
+[Paste code with database queries]
+```
+
+Symptoms:
+- [X] queries executed for [Y] records
+- Response time grows linearly with dataset size
+
+Database: [PostgreSQL/MySQL/etc.]
+ORM: [Prisma/TypeORM/SQLAlchemy/etc.]
+
+Please:
+1. Identify the N+1 query problem
+2. Explain why it's happening
+3. Show optimized version using joins/eager loading
+4. Demonstrate the performance difference
+----
+
+=== Integration Issues
+
+==== API Integration Problems
+
+[source,adoc]
+----
+I'm having issues integrating with an API:
+
+API endpoint: [endpoint]
+Method: [GET/POST/etc.]
+
+Request code:
+```
+[Paste code]
+```
+
+Problem:
+- [Error message or unexpected behavior]
+
+API documentation: [link or description]
+
+Expected response:
+```json
+[Expected JSON]
+```
+
+Actual response:
+```json
+[Actual JSON or error]
+```
+
+Please:
+1. Identify what's wrong with the request
+2. Show correct API call
+3. Explain proper error handling
+4. Suggest testing strategies
+----
+
+==== Database Connection Issues
+
+[source,adoc]
+----
+I'm experiencing database connection issues:
+
+Error:
+```
+[Paste error]
+```
+
+Connection configuration:
+```
+[Paste connection config, remove sensitive info]
+```
+
+Database: [PostgreSQL/MySQL/MongoDB/etc.]
+Environment: [Development/Production/Docker/etc.]
+
+Symptoms:
+- [Connection timeout]
+- [Too many connections]
+- [Authentication failure]
+- [Other]
+
+Please:
+1. Diagnose the connection issue
+2. Suggest fixes for the configuration
+3. Recommend best practices for connection management
+4. Explain connection pooling if relevant
+----
+
+==== Third-Party Library Issues
+
+[source,adoc]
+----
+I'm having problems with [library name]:
+
+Library version: [version]
+My code:
+```
+[Paste code using the library]
+```
+
+Error:
+```
+[Paste error]
+```
+
+Documentation I followed: [link or description]
+
+Please:
+1. Identify if I'm using the library incorrectly
+2. Show the correct usage
+3. Check if this is a known issue with this version
+4. Suggest workarounds or alternative approaches
+----
+
+== Debugging Strategies
+
+=== Systematic Debugging
+
+[source,adoc]
+----
+I need help debugging this systematically:
+
+Problem: [describe problem]
+
+Code:
+```
+[Paste relevant code]
+```
+
+Help me create a debugging plan:
+1. What hypotheses should I test?
+2. What logging should I add?
+3. What test cases should I create?
+4. What tools should I use?
+5. In what order should I investigate?
+----
+
+=== Rubber Duck Debugging with AI
+
+[source,adoc]
+----
+Let me walk through this problem:
+
+I'm trying to [describe what you're trying to do].
+
+Here's my understanding of the code:
+[Explain your understanding]
+
+Here's what I think should happen:
+[Explain expected flow]
+
+Here's what actually happens:
+[Explain actual behavior]
+
+I think the issue might be [your hypothesis], but I'm not sure.
+
+Can you:
+1. Point out any flaws in my understanding?
+2. Validate or correct my hypothesis?
+3. Suggest what I'm missing?
+----
+
+=== Binary Search Debugging
+
+[source,adoc]
+----
+I have a large codebase and need to isolate where the bug is:
+
+Context:
+- [Describe the feature/component]
+- Last known working state: [description or commit]
+- When bug appeared: [timeframe]
+
+Current hypothesis:
+The bug is somewhere in [general area]
+
+Can you help me:
+1. Design a binary search strategy to isolate the bug?
+2. Suggest key points to test?
+3. Recommend logging to add?
+----
+
+== Debugging by Technology
+
+=== Frontend Debugging
+
+==== React/Vue/Angular Issues
+
+[source,adoc]
+----
+Framework: [React/Vue/Angular]
+Version: [version]
+
+Issue: [describe issue]
+
+Component code:
+```
+[Paste component]
+```
+
+Symptoms:
+- [UI not updating]
+- [State not persisting]
+- [Props not passing correctly]
+- [Rendering infinitely]
+- [Other]
+
+Browser console errors:
+```
+[Paste console errors]
+```
+
+Please:
+1. Identify the framework-specific issue
+2. Explain why it's happening
+3. Show the corrected code
+4. Explain best practices to avoid this
+----
+
+==== State Management Bugs
+
+[source,adoc]
+----
+State management: [Redux/Zustand/Pinia/etc.]
+
+Issue: [describe issue]
+
+State structure:
+```
+[Paste state structure]
+```
+
+Action/mutation code:
+```
+[Paste relevant code]
+```
+
+Problem:
+- [State not updating]
+- [State updating incorrectly]
+- [Race condition in updates]
+- [Other]
+
+Please:
+1. Identify the state management issue
+2. Explain the correct pattern
+3. Show fixed code
+4. Suggest debugging tools for state
+----
+
+=== Backend Debugging
+
+==== API Endpoint Issues
+
+[source,adoc]
+----
+Endpoint: [METHOD] /path/to/endpoint
+Framework: [Express/FastAPI/Spring Boot/etc.]
+
+Code:
+```
+[Paste endpoint handler]
+```
+
+Issue:
+- [Wrong response]
+- [Wrong status code]
+- [Not handling errors properly]
+- [Other]
+
+Request:
+```
+[Paste example request]
+```
+
+Expected response:
+```
+[Paste expected response]
+```
+
+Actual response:
+```
+[Paste actual response]
+```
+
+Please:
+1. Identify the issue in the endpoint
+2. Show corrected code
+3. Explain proper error handling
+4. Suggest testing approach
+----
+
+==== Database Query Bugs
+
+[source,adoc]
+----
+Database: [PostgreSQL/MySQL/MongoDB/etc.]
+
+Query:
+```sql
+[Paste query]
+```
+
+Or ORM code:
+```
+[Paste ORM query code]
+```
+
+Expected result:
+[Describe expected data]
+
+Actual result:
+[Describe actual data]
+
+Please:
+1. Identify what's wrong with the query
+2. Show corrected query
+3. Explain the logic
+4. Suggest optimization if applicable
+----
+
+=== Mobile Debugging
+
+[source,adoc]
+----
+Platform: [iOS/Android/React Native/Flutter]
+Device: [Specific device or emulator]
+OS version: [version]
+
+Issue: [describe issue]
+
+Code:
+```
+[Paste relevant code]
+```
+
+Error logs:
+```
+[Paste device logs]
+```
+
+Only happens on:
+- [Specific devices/OS versions?]
+- [Specific conditions?]
+
+Please:
+1. Identify platform-specific issues
+2. Suggest fixes
+3. Recommend testing on different devices
+4. Point out platform best practices
+----
+
+== Debugging Tools & Techniques
+
+=== Adding Effective Logging
+
+[source,adoc]
+----
+I need to add logging to debug this issue:
+
+Code:
+```
+[Paste code]
+```
+
+What should I log to effectively debug:
+1. What values/states should I log?
+2. Where should I place log statements?
+3. What log level should I use?
+4. What context should I include?
+5. Show example log statements
+----
+
+=== Debugging with Breakpoints
+
+[source,adoc]
+----
+I want to use breakpoints to debug this:
+
+Code:
+```
+[Paste code]
+```
+
+Guide me:
+1. Where should I set breakpoints?
+2. What variables should I inspect?
+3. What should I look for at each breakpoint?
+4. What execution flow should I expect?
+----
+
+=== Writing Debugging Tests
+
+[source,adoc]
+----
+I want to write tests to help debug this issue:
+
+Issue: [describe]
+
+Code:
+```
+[Paste code]
+```
+
+Help me write:
+1. Tests that reproduce the bug
+2. Tests for edge cases that might reveal the issue
+3. Tests that will prevent regression
+4. Suggestions for test-driven debugging approach
+----
+
+## Prevention Strategies
+
+=== Code Review for Common Issues
+
+[source,adoc]
+----
+Review this code for common bugs before I deploy:
+
+Code:
+```
+[Paste code]
+```
+
+Check for:
+- Null/undefined handling
+- Edge cases
+- Error handling
+- Resource leaks
+- Race conditions
+- Security issues
+- Performance problems
+- Logic errors
+
+What potential issues do you see?
+----
+
+=== Defensive Programming
+
+[source,adoc]
+----
+Make this code more defensive and error-resistant:
+
+Code:
+```
+[Paste code]
+```
+
+Please add:
+1. Input validation
+2. Error handling
+3. Null/undefined checks
+4. Type checking (if applicable)
+5. Logging for debugging
+6. Graceful degradation
+7. Helpful error messages
+----
+
+## Debugging Checklist
+
+When debugging, ask AI to help with:
+
+[%interactive]
+* [ ] *Reproduce the bug*: Create minimal reproduction
+* [ ] *Isolate the issue*: Narrow down to specific code
+* [ ] *Understand the context*: What should happen vs what happens
+* [ ] *Check assumptions*: Verify what you think is true
+* [ ] *Review recent changes*: What changed before bug appeared
+* [ ] *Check environment*: Different in dev/staging/prod?
+* [ ] *Add logging*: Strategic log statements
+* [ ] *Write test*: Test that reproduces the bug
+* [ ] *Fix and verify*: Fix and confirm test passes
+* [ ] *Prevent regression*: Keep the test, improve error handling
+
+## Conclusion
+
+Effective debugging with AI requires:
+
+1. *Clear problem description*: What should happen vs what happens
+2. *Complete context*: Code, errors, environment, steps to reproduce
+3. *What you've tried*: Show your debugging attempts
+4. *Specific questions*: Guide the AI to help you effectively
+5. *Iterative approach*: Start broad, narrow down systematically
+
+The AI is your debugging partner—the more context you provide, the better it can help you find and fix issues.

@@ -1,0 +1,321 @@
+= Code Review Checklist
+:toc: left
+:icons: font
+
+== Overview
+
+This checklist provides a comprehensive guide for conducting thorough code reviews. Use it to ensure code quality, maintainability, security, and adherence to best practices.
+
+== Review Information
+
+*PR/MR Number*: [Number] +
+*Title*: [Pull Request Title] +
+*Author*: [Developer Name] +
+*Reviewer*: [Your Name] +
+*Review Date*: [YYYY-MM-DD] +
+*Component/Module*: [Affected Component]
+
+== General Assessment
+
+=== Purpose & Scope
+
+[%interactive]
+* [ ] *Clear Purpose*: The change has a clear, well-defined purpose
+* [ ] *Appropriate Scope*: The change is focused and doesn't include unrelated modifications
+* [ ] *Linked to Issue/Ticket*: The PR references the relevant issue or ticket
+* [ ] *Description Complete*: The PR description adequately explains what and why
+
+=== Overall Quality
+
+[%interactive]
+* [ ] *Meets Requirements*: The code implements the stated requirements
+* [ ] *No Breaking Changes*: Or breaking changes are intentional and documented
+* [ ] *Backwards Compatible*: Or migration path is provided
+* [ ] *Ready for Review*: Code is complete, not a work-in-progress
+
+== Code Quality
+
+=== Readability & Maintainability
+
+[%interactive]
+* [ ] *Clear Naming*: Variables, functions, classes have descriptive, meaningful names
+* [ ] *Appropriate Abstraction*: Code is neither too abstract nor too concrete
+* [ ] *DRY Principle*: No unnecessary code duplication
+* [ ] *Single Responsibility*: Functions/classes do one thing well
+* [ ] *Consistent Style*: Code follows project style guidelines
+* [ ] *Reasonable Complexity*: Code is as simple as possible but no simpler
+* [ ] *Self-Documenting*: Code is understandable without excessive comments
+
+=== Comments & Documentation
+
+[%interactive]
+* [ ] *Comments Add Value*: Comments explain why, not what
+* [ ] *No Commented Code*: Unused code is removed, not commented out
+* [ ] *API Documentation*: Public APIs are documented
+* [ ] *Complex Logic Explained*: Non-obvious logic has explanatory comments
+* [ ] *TODOs Tracked*: Any TODO comments are tracked in issue system
+
+=== Architecture & Design
+
+[%interactive]
+* [ ] *Follows Architecture*: Adheres to established architectural patterns
+* [ ] *Proper Layering*: Respects separation of concerns and layers
+* [ ] *Appropriate Patterns*: Design patterns used correctly and when needed
+* [ ] *Loose Coupling*: Components are loosely coupled
+* [ ] *High Cohesion*: Related functionality is grouped together
+* [ ] *SOLID Principles*: Follows SOLID principles where applicable
+
+== Functionality
+
+=== Correctness
+
+[%interactive]
+* [ ] *Logic Correct*: The logic correctly implements the requirements
+* [ ] *Edge Cases Handled*: Edge cases and boundary conditions are handled
+* [ ] *Error Handling*: Errors are handled appropriately
+* [ ] *No Off-by-One Errors*: Array/list indexing is correct
+* [ ] *Null/Undefined Handled*: Null/undefined/nil cases are handled
+* [ ] *Race Conditions*: No race conditions in concurrent code
+* [ ] *Resource Cleanup*: Resources (files, connections) are properly cleaned up
+
+=== Performance
+
+[%interactive]
+* [ ] *No Performance Regressions*: New code doesn't degrade performance
+* [ ] *Efficient Algorithms*: Appropriate algorithm complexity (O(n), etc.)
+* [ ] *No Memory Leaks*: Memory is managed properly
+* [ ] *Database Efficient*: Queries are optimized, N+1 avoided
+* [ ] *Caching Used*: Caching implemented where beneficial
+* [ ] *Lazy Loading*: Resources loaded only when needed
+* [ ] *No Blocking Operations*: Long-running operations don't block
+
+== Testing
+
+=== Test Coverage
+
+[%interactive]
+* [ ] *Tests Included*: New code has corresponding tests
+* [ ] *Meaningful Tests*: Tests verify actual behavior, not implementation
+* [ ] *Edge Cases Tested*: Tests cover edge cases and boundaries
+* [ ] *Error Cases Tested*: Tests verify error handling
+* [ ] *All Tests Pass*: Existing and new tests all pass
+* [ ] *No Flaky Tests*: Tests are deterministic and reliable
+* [ ] *Appropriate Test Level*: Unit, integration, E2E tests as appropriate
+
+=== Test Quality
+
+[%interactive]
+* [ ] *Clear Test Names*: Test names clearly describe what is being tested
+* [ ] *Arrange-Act-Assert*: Tests follow AAA or similar pattern
+* [ ] *Independent Tests*: Tests don't depend on each other
+* [ ] *Test Data Clear*: Test data is understandable
+* [ ] *Mocks Appropriate*: Mocking is used appropriately, not excessively
+
+== Security
+
+=== Security Best Practices
+
+[%interactive]
+* [ ] *Input Validation*: All user input is validated
+* [ ] *Output Encoding*: Output is properly encoded/escaped
+* [ ] *Authentication Checked*: Authentication is verified where required
+* [ ] *Authorization Enforced*: Authorization is checked appropriately
+* [ ] *No Sensitive Data Logged*: Passwords, tokens, PII not logged
+* [ ] *Secrets Not Hardcoded*: No hardcoded passwords, keys, or tokens
+* [ ] *SQL Injection Safe*: Parameterized queries or ORM used
+* [ ] *XSS Protected*: Cross-site scripting vulnerabilities prevented
+* [ ] *CSRF Protected*: Cross-site request forgery prevented
+
+=== Data Security
+
+[%interactive]
+* [ ] *Encryption Used*: Sensitive data encrypted at rest and in transit
+* [ ] *Secure Protocols*: HTTPS/TLS used for communication
+* [ ] *Access Controls*: Proper access controls on data
+* [ ] *PII Handled Properly*: Personal data follows privacy regulations
+
+== Error Handling & Logging
+
+=== Error Handling
+
+[%interactive]
+* [ ] *Errors Caught*: Exceptions/errors are caught appropriately
+* [ ] *Meaningful Error Messages*: Error messages are helpful for debugging
+* [ ] *Graceful Degradation*: System degrades gracefully on errors
+* [ ] *No Silent Failures*: Errors aren't silently swallowed
+* [ ] *Proper Error Types*: Appropriate error types/classes used
+
+=== Logging
+
+[%interactive]
+* [ ] *Appropriate Logging*: Important events are logged
+* [ ] *Log Levels Correct*: DEBUG, INFO, WARN, ERROR used appropriately
+* [ ] *Structured Logging*: Logs are structured and queryable
+* [ ] *No Excessive Logging*: Not too verbose in production
+* [ ] *Contextual Information*: Logs include relevant context
+
+== Dependencies & Configuration
+
+=== Dependencies
+
+[%interactive]
+* [ ] *Dependencies Justified*: New dependencies are necessary
+* [ ] *Dependencies Maintained*: Dependencies are actively maintained
+* [ ] *No Vulnerable Dependencies*: Dependencies have no known vulnerabilities
+* [ ] *Minimal Dependencies*: Using minimal set of dependencies
+* [ ] *License Compatible*: Dependency licenses are compatible
+
+=== Configuration
+
+[%interactive]
+* [ ] *Configurable*: Hard-coded values extracted to configuration
+* [ ] *Environment Specific*: Environment-specific config separated
+* [ ] *Sensible Defaults*: Reasonable default values provided
+* [ ] *Configuration Documented*: Configuration options documented
+
+== Database & Data
+
+=== Database Changes
+
+[%interactive]
+* [ ] *Migrations Included*: Database migrations provided if needed
+* [ ] *Rollback Available*: Migration can be rolled back
+* [ ] *Data Preserved*: Existing data is preserved or migrated
+* [ ] *Indexes Added*: Appropriate indexes for new queries
+* [ ] *Schema Consistent*: Schema changes are consistent
+
+=== Data Integrity
+
+[%interactive]
+* [ ] *Constraints Enforced*: Data constraints enforced at DB level
+* [ ] *Transactions Used*: Transactions used for atomic operations
+* [ ] *Data Validation*: Data validated before persistence
+* [ ] *Referential Integrity*: Foreign keys and relationships correct
+
+== API & Interfaces
+
+=== API Design
+
+[%interactive]
+* [ ] *Consistent API*: API follows project conventions
+* [ ] *RESTful*: REST APIs follow REST principles (if applicable)
+* [ ] *Versioned*: API versioning considered for breaking changes
+* [ ] *Error Responses*: Errors return appropriate HTTP status codes
+* [ ] *Request Validation*: API requests validated
+* [ ] *Response Format*: Consistent response format
+
+=== Backwards Compatibility
+
+[%interactive]
+* [ ] *No Breaking Changes*: Existing APIs not broken
+* [ ] *Deprecation Noted*: Deprecated features marked clearly
+* [ ] *Migration Path*: Path provided for deprecated features
+
+== Documentation
+
+=== Code Documentation
+
+[%interactive]
+* [ ] *README Updated*: README updated if needed
+* [ ] *API Docs Updated*: API documentation updated
+* [ ] *Architecture Docs*: Architecture docs updated for significant changes
+* [ ] *Change Log*: CHANGELOG or release notes updated
+* [ ] *Migration Guide*: Migration guide provided if needed
+
+=== Developer Experience
+
+[%interactive]
+* [ ] *Setup Instructions*: New setup steps documented
+* [ ] *Examples Provided*: Usage examples provided
+* [ ] *Gotchas Documented*: Known issues or gotchas documented
+
+== Build & Deployment
+
+=== Build
+
+[%interactive]
+* [ ] *Build Succeeds*: Code builds without errors
+* [ ] *No Build Warnings*: No new compiler/linter warnings
+* [ ] *CI Passes*: Continuous integration pipeline passes
+* [ ] *Linter Passes*: Code passes linting rules
+
+=== Deployment
+
+[%interactive]
+* [ ] *Deployment Plan*: Deployment approach considered
+* [ ] *Feature Flags*: Feature flags used for risky changes
+* [ ] *Rollback Plan*: Rollback strategy defined
+* [ ] *Monitoring Added*: Monitoring for new features/endpoints
+
+== Language/Framework Specific
+
+[Add language or framework-specific checks here]
+
+=== [Language Name]
+
+[%interactive]
+* [ ] *[Check 1]*: [Description]
+* [ ] *[Check 2]*: [Description]
+* [ ] *[Check 3]*: [Description]
+
+== Final Assessment
+
+=== Approval Decision
+
+[%interactive]
+* [ ] *Approve*: Code is ready to merge
+* [ ] *Approve with Comments*: Minor issues noted but can merge
+* [ ] *Request Changes*: Changes required before merging
+* [ ] *Reject*: Fundamental issues require new approach
+
+=== Priority Issues
+
+[List any high-priority issues that must be addressed:]
+
+. [Issue 1]
+. [Issue 2]
+. [Issue 3]
+
+=== Minor Issues
+
+[List minor issues or suggestions:]
+
+. [Suggestion 1]
+. [Suggestion 2]
+. [Suggestion 3]
+
+=== Positive Feedback
+
+[Note what was done well:]
+
+* [Positive observation 1]
+* [Positive observation 2]
+
+== Notes
+
+[Additional notes or context:]
+
+* *[Note 1]*: [Description]
+* *[Note 2]*: [Description]
+
+---
+
+== Code Review Best Practices
+
+=== For Reviewers
+
+. *Be Constructive*: Provide actionable feedback
+. *Ask Questions*: Ask "why" rather than demanding changes
+. *Consider Context*: Understand the constraints and trade-offs
+. *Praise Good Work*: Acknowledge good practices and clever solutions
+. *Be Timely*: Review promptly to avoid blocking others
+. *Focus on Important Issues*: Don't nitpick trivial style issues
+
+=== For Authors
+
+. *Small PRs*: Keep changes focused and reviewable
+. *Self-Review*: Review your own code before requesting review
+. *Add Context*: Explain why changes were made
+. *Be Receptive*: View feedback as learning opportunity
+. *Respond Promptly*: Address feedback in timely manner
+. *Ask for Clarification*: If feedback is unclear, ask questions

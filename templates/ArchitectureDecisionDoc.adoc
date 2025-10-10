@@ -1,0 +1,223 @@
+= ADR {number}: {title}
+:number: [Number]
+:title: [Short Title]
+:toc: left
+:icons: font
+
+== Status
+
+*Status*: [Proposed/Accepted/Deprecated/Superseded] +
+*Date*: [YYYY-MM-DD] +
+*Deciders*: [List people involved in the decision] +
+*Supersedes*: [ADR number if applicable] +
+*Superseded by*: [ADR number if applicable]
+
+== Context
+
+[Describe the issue or problem that needs to be addressed. Include:]
+
+* What is the technical or business context?
+* What forces are at play (requirements, constraints, assumptions)?
+* Why do we need to make this decision now?
+* What is the problem we're trying to solve?
+
+[Keep this section focused on the context and forces, not the solution]
+
+== Decision
+
+[Describe the architectural decision that was made]
+
+We will [describe the decision in clear, declarative language].
+
+[Be specific and concrete. The decision should be clear and unambiguous]
+
+== Rationale
+
+[Explain why this decision was made over alternatives. Include:]
+
+* What are the key factors that led to this decision?
+* What principles or values does this decision support?
+* What trade-offs are we making?
+* How does this decision align with our architecture principles?
+
+== Consequences
+
+=== Positive Consequences
+
+[List the benefits and positive outcomes of this decision:]
+
+* *Benefit 1*: [Description]
+* *Benefit 2*: [Description]
+* *Benefit 3*: [Description]
+
+=== Negative Consequences
+
+[List the drawbacks, costs, or risks of this decision:]
+
+* *Drawback 1*: [Description]
+* *Drawback 2*: [Description]
+* *Drawback 3*: [Description]
+
+=== Trade-offs
+
+[Describe what we're trading off:]
+
+* We're trading [X] for [Y] because [reason]
+* We're accepting [negative] to gain [positive]
+
+== Alternatives Considered
+
+=== Alternative 1: [Name]
+
+*Description*: [Describe this alternative approach]
+
+*Pros*:
+* [Pro 1]
+* [Pro 2]
+
+*Cons*:
+* [Con 1]
+* [Con 2]
+
+*Why Not Chosen*: [Explain why this alternative was rejected]
+
+=== Alternative 2: [Name]
+
+*Description*: [Describe this alternative approach]
+
+*Pros*:
+* [Pro 1]
+* [Pro 2]
+
+*Cons*:
+* [Con 1]
+* [Con 2]
+
+*Why Not Chosen*: [Explain why this alternative was rejected]
+
+=== Alternative 3: [Name]
+
+*Description*: [Describe this alternative approach]
+
+*Pros*:
+* [Pro 1]
+* [Pro 2]
+
+*Cons*:
+* [Con 1]
+* [Con 2]
+
+*Why Not Chosen*: [Explain why this alternative was rejected]
+
+== Implementation
+
+=== What Needs to Change
+
+[List the components, systems, or processes that need to change:]
+
+* *Component 1*: [What changes]
+* *Component 2*: [What changes]
+* *Component 3*: [What changes]
+
+=== Migration Path
+
+[If applicable, describe how to migrate from old to new:]
+
+. [Step 1]
+. [Step 2]
+. [Step 3]
+
+=== Timeline
+
+*Decision Date*: [YYYY-MM-DD] +
+*Implementation Start*: [YYYY-MM-DD] +
+*Target Completion*: [YYYY-MM-DD] +
+*Review Date*: [YYYY-MM-DD - when to review this decision]
+
+== Compliance & Standards
+
+[If applicable, note how this decision relates to standards, regulations, or policies:]
+
+* *Standard/Policy 1*: [How this decision complies]
+* *Standard/Policy 2*: [How this decision complies]
+
+== Related Decisions
+
+[Link to related ADRs or decisions:]
+
+* link:adr-XXXX.adoc[ADR-XXXX: Related Decision Title]
+* link:adr-YYYY.adoc[ADR-YYYY: Another Related Decision]
+
+== References
+
+[List any references, documentation, or resources that informed this decision:]
+
+* [Reference 1]: [URL or description]
+* [Reference 2]: [URL or description]
+* [Reference 3]: [URL or description]
+
+== Success Metrics
+
+[Define how success of this decision will be measured:]
+
+* *Metric 1*: [What to measure and target value]
+* *Metric 2*: [What to measure and target value]
+* *Metric 3*: [What to measure and target value]
+
+== Review & Validation
+
+=== Review Criteria
+
+[Define when/how this decision should be reviewed:]
+
+* Review every [X months/years]
+* Review when [specific trigger event]
+* Review if [specific condition changes]
+
+=== Validation Questions
+
+[Questions to ask when reviewing this decision:]
+
+. [Question 1]?
+. [Question 2]?
+. [Question 3]?
+
+== Notes
+
+[Additional notes, clarifications, or updates:]
+
+* *[Date]*: [Note or update]
+* *[Date]*: [Note or update]
+
+---
+
+== ADR Template Guidelines
+
+=== When to Write an ADR
+
+Write an ADR for decisions that:
+
+* Have significant structural impact on the system
+* Are difficult or expensive to reverse
+* Affect multiple teams or components
+* Establish important precedents
+* Involve significant trade-offs
+
+=== When NOT to Write an ADR
+
+Don't write an ADR for:
+
+* Trivial decisions (e.g., variable naming)
+* Decisions that are easily reversible
+* Implementation details that don't affect architecture
+* Temporary workarounds
+
+=== Best Practices
+
+. *One Decision per ADR*: Keep each ADR focused on a single architectural decision
+. *Write When Decision is Made*: Capture the context while it's fresh
+. *Be Specific*: Avoid vague language; be concrete about the decision
+. *Document Alternatives*: Show what was considered and why it wasn't chosen
+. *Update Status*: Keep the status field current as decisions evolve
+. *Link Related ADRs*: Create a web of connected decisions
+. *Review Regularly*: Revisit ADRs periodically to ensure they're still valid
