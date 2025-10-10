@@ -1,0 +1,45 @@
+= {artifact} AI Instruction Plan
+:artifact: [Template]
+:project_name: [Project Name]
+
+== Overview
+
+This plan establishes a reusable, language-agnostic and framework-agnostic instruction set for `{project_name}` so any AI agent understands the project's goals, guardrails, and expected collaboration style.
+
+== Context
+
+Goal & Context:: Describe the core problem the agent solves, who benefits, and why it matters right now. Capture only the essentials required to onboard a new contributor.
+
+Key Decisions:: List commitments already made (tooling restrictions, delivery format, reviewer expectations). Flag open decisions explicitly so the agent knows to confirm them.
+
+Technical Architecture:: Summarize integrations, data flow, and critical constraints without prescribing implementation details. Focus on inputs/outputs an AI agent must respect.
+
+Phases:: Break the work into independent chunks the agent can execute or delegate. Highlight prerequisites and potential blockers per phase.
+
+== Goal
+
+* [ ] Capture the user outcomes the instructions must enable.
+* [ ] Define collaboration expectations, including asking clarifying questions when unsure.
+* [ ] Document constraints that keep the guidance language and framework agnostic.
+
+== Success Criteria
+
+*Vague:* "Agent follows the plan."
+
+*Clear:* "Instructions outline goals, guardrails, and Q/A expectations; reference only technology-agnostic constraints; and explicitly direct the agent to seek clarification whenever information is missing or ambiguous."
+
+== Implementation Checklist
+
+[%interactive]
+. Research Inputs
+** [ ] Confirm source materials (requirements, prior docs, constraints).
+** [ ] Identify stakeholders to ping when clarification gaps appear.
+. Draft Instruction Pillars
+** [ ] Write purpose and scope statements the agent can restate.
+** [ ] Enumerate must-ask questions for ambiguous requirements.
+. Validate Neutrality
+** [ ] Strip language-, framework-, or vendor-specific assumptions unless mandated.
+** [ ] Add guidance for selecting tools when none are specified.
+. Publish Template
+** [ ] Review with the team and capture feedback deltas inline.
+** [ ] Version the template and note how other projects should customize it.

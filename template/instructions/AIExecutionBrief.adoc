@@ -1,0 +1,45 @@
+= {instruction_title} AI Execution Brief
+:instruction_title: [Template]
+:project_code: [Repo or Project Code]
+
+== Overview
+
+Use this brief to capture the actionable instructions an AI agent must follow while working on `{project_code}`. Keep the wording concise so it can be pasted directly into agent setups or runbooks.
+
+== Context
+
+Goal & Context:: Summarize the user problem, scope boundaries, and expected outcomes. Link to upstream docs if deeper detail exists.
+
+Key Decisions:: Enumerate non-negotiable choices (style guides, review process, testing philosophy). Mark any tentative decisions that still need confirmation.
+
+Technical Architecture:: Note the key systems, interfaces, or data contracts the agent should respect. Avoid tying instructions to a specific language or framework unless absolutely mandatory.
+
+Phases:: Break execution into numbered phases (e.g., Discovery, Build, Validate, Handoff) and outline the success signal and exit criteria for each.
+
+== Goal
+
+* [ ] Provide the agent with a clear mission statement and done definition.
+* [ ] Require the agent to ask clarifying questions whenever information is missing or contradictory.
+* [ ] Preserve technology neutrality so the template works across stacks and tooling.
+
+== Success Criteria
+
+*Vague:* "The agent knows what to do."
+
+*Clear:* "The brief spells out objectives, constraints, deliverables, and clarification checkpoints; the agent can execute without guessing domain specifics; and every section can be customized without rewriting the structure."
+
+== Implementation Checklist
+
+[%interactive]
+. Prepare Inputs
+** [ ] Collect product background, user personas, and acceptance expectations.
+** [ ] Gather links to repos, environments, or datasets the agent may access.
+. Draft Instructions
+** [ ] Write step-by-step guidance for each phase, highlighting decision points.
+** [ ] Add prompts that nudge the agent to confirm uncertainties before acting.
+. Neutrality Review
+** [ ] Replace tech-specific examples with abstract/interface-oriented language.
+** [ ] List optional technology choices separately from mandatory constraints.
+. Finalize Template
+** [ ] Peer review or self-audit for missing context and ambiguity.
+** [ ] Publish the brief, including notes on how future projects should adapt fields.

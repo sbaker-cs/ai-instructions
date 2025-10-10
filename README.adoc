@@ -1,3 +1,22 @@
 = ai-instructions
 
-AI instruction templates and instructions
+Reusable AsciiDoc templates for planning and authoring AI agent instructions that stay language- and framework-agnostic.
+
+== Repository Layout
+
+[source,text]
+----
+ai-instructions/
+|-- README.adoc
+`-- template/
+    |-- PlanningDoc.adoc
+    `-- instructions/
+        |-- AIExecutionBrief.adoc
+        `-- AIInstructionPlan.adoc
+----
+
+`template/PlanningDoc.adoc`:: Base reference for the structure every instruction artifact should follow.
+
+`template/instructions/AIInstructionPlan.adoc`:: Planning template that helps teams gather the context and constraints an AI agent needs before writing the final brief.
+
+`template/instructions/AIExecutionBrief.adoc`:: Drop-in execution brief for configuring or onboarding AI agents; keeps requirements explicit, asks for clarification when unsure, and avoids locking to a particular stack.
