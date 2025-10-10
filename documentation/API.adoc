@@ -1,0 +1,201 @@
+= API Documentation Plan - {api-name}
+:api-name: [API Name]
+
+== Overview
+
+This plan outlines creating comprehensive API documentation for {api-name}. Good API documentation helps developers understand, integrate, and use the API effectively.
+
+== Context
+
+API documentation should include:
+
+* Overview and getting started
+* Authentication and authorization
+* Endpoint reference with examples
+* Request/response formats
+* Error codes and handling
+* Rate limiting and quotas
+* SDKs and code examples
+* Changelog and versioning
+
+== Questions to Clarify
+
+. **API Type**: What kind of API?
+   - [REST, GraphQL, gRPC, WebSocket, SOAP]
+
+. **Audience**: Who will use this API?
+   - [Internal developers, External partners, Public developers]
+
+. **Current State**: Does documentation exist?
+   - [None, Partial, Outdated, Complete]
+
+. **Documentation Format**: What format?
+   - [OpenAPI/Swagger, GraphQL schema, Custom docs, Interactive docs]
+
+. **Examples**: What examples are needed?
+   - [Code samples in multiple languages, cURL examples, SDKs]
+
+== Goals
+
+* [ ] Document all API endpoints
+* [ ] Provide clear examples for each endpoint
+* [ ] Document authentication and authorization
+* [ ] Document error responses
+* [ ] Create getting started guide
+* [ ] Keep documentation up to date
+
+== Success Criteria
+
+- All endpoints documented with examples
+- Authentication process clearly explained
+- All error codes documented
+- Getting started guide allows developer to make first API call in < 10 minutes
+- Code examples in at least {N} languages
+- Documentation is searchable
+- Documentation kept in sync with API changes
+
+== Implementation Checklist
+
+[%interactive]
+. **Getting Started**
+** [ ] Write API overview
+** [ ] Document base URL and versioning
+** [ ] Create quickstart guide
+** [ ] Document authentication setup
+** [ ] Provide first API call example
+
+. **Authentication**
+** [ ] Document authentication method
+** [ ] Provide authentication examples
+** [ ] Document how to obtain credentials
+** [ ] Explain token refresh process (if applicable)
+
+. **Endpoint Documentation**
+** [ ] List all endpoints
+** [ ] For each endpoint document:
+   - HTTP method and path
+   - Description and purpose
+   - Request parameters
+   - Request body schema
+   - Response schema
+   - Status codes
+   - Example requests
+   - Example responses
+   - Error scenarios
+
+. **Data Models**
+** [ ] Document all data models/schemas
+** [ ] Document field types and constraints
+** [ ] Provide example objects
+
+. **Error Handling**
+** [ ] Document error response format
+** [ ] List all error codes with meanings
+** [ ] Provide error handling examples
+
+. **Rate Limiting**
+** [ ] Document rate limits
+** [ ] Explain rate limit headers
+** [ ] Document how to handle rate limiting
+
+. **Code Examples**
+** [ ] Provide cURL examples
+** [ ] Provide SDK examples (if available)
+** [ ] Provide language-specific examples
+
+. **Changelog**
+** [ ] Document API versions
+** [ ] Document breaking changes
+** [ ] Document deprecations
+
+== API Endpoint Template
+
+----
+=== {METHOD} {path}
+
+{Description of what this endpoint does}
+
+**Authentication**: Required | Not Required
+
+**Parameters**:
+
+|===
+|Name |Type |Required |Description
+
+|param1
+|string
+|Yes
+|Description
+
+|param2
+|integer
+|No
+|Description
+|===
+
+**Request Body**:
+
+[source,json]
+----
+{
+  "field1": "value",
+  "field2": 123
+}
+----
+
+**Response** (200 OK):
+
+[source,json]
+----
+{
+  "id": "uuid",
+  "field1": "value",
+  "field2": 123
+}
+----
+
+**Error Responses**:
+
+* 400 Bad Request: Invalid input
+* 401 Unauthorized: Missing or invalid authentication
+* 404 Not Found: Resource not found
+* 500 Internal Server Error: Server error
+
+**Example Request**:
+
+[source,bash]
+----
+curl -X {METHOD} \
+  https://api.example.com{path} \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "field1": "value",
+    "field2": 123
+  }'
+----
+
+**Example Response**:
+
+[source,json]
+----
+{
+  "id": "uuid",
+  "field1": "value",
+  "field2": 123,
+  "createdAt": "2025-01-15T10:30:00Z"
+}
+----
+----
+
+== Notes
+
+[Space for additional notes about API documentation approach]
+
+== References
+
+[Links to:
+- OpenAPI specification
+- API documentation tools (Swagger, Postman, etc.)
+- API design best practices
+- Example API documentation sites]

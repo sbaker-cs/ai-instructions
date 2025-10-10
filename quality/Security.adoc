@@ -1,0 +1,121 @@
+= Security Hardening Plan - {system-name}
+:system-name: [System/Feature Name]
+
+== Overview
+
+This plan outlines security measures to protect {system-name} against common vulnerabilities and threats. Security should be considered throughout development, not as an afterthought.
+
+== Context
+
+Security is about protecting:
+
+* Data (confidentiality, integrity, availability)
+* Users (privacy, authentication, authorization)
+* Systems (availability, integrity)
+* Business (reputation, compliance, operations)
+
+== Questions to Clarify
+
+. **System Type**: What are we securing?
+   - [Web application, API, Mobile app, Database, Infrastructure, etc.]
+
+. **Data Sensitivity**: What data is handled?
+   - [Public, PII, Financial, Health, Credentials, etc.]
+
+. **Compliance Requirements**: What regulations apply?
+   - [GDPR, HIPAA, PCI-DSS, SOC2, None]
+
+. **Threat Model**: What are the main threats?
+   - [Unauthorized access, Data breach, DDoS, Injection attacks, etc.]
+
+. **Current Security**: What exists?
+   - [Authentication method, Encryption, Firewalls, etc.]
+
+. **Users**: Who uses the system?
+   - [Public, Employees, Partners, etc.]
+
+==Goals
+
+* [ ] Implement authentication and authorization
+* [ ] Protect against injection attacks
+* [ ] Encrypt sensitive data
+* [ ] Secure APIs and endpoints
+* [ ] Implement security monitoring
+* [ ] Ensure compliance with regulations
+
+== Success Criteria
+
+- All sensitive data encrypted at rest and in transit
+- Authentication required for all protected endpoints
+- Zero high-severity vulnerabilities in security scan
+- All inputs validated and sanitized
+- Security headers configured
+- Audit logging implemented
+- Incident response plan documented
+
+== Implementation Checklist
+
+[%interactive]
+. **Authentication**
+** [ ] Implement secure authentication mechanism
+** [ ] Use strong password requirements
+** [ ] Implement multi-factor authentication (if needed)
+** [ ] Secure session management
+** [ ] Implement account lockout after failed attempts
+
+. **Authorization**
+** [ ] Implement role-based access control
+** [ ] Enforce principle of least privilege
+** [ ] Validate authorization on every request
+** [ ] Protect against privilege escalation
+
+. **Data Protection**
+** [ ] Encrypt sensitive data at rest
+** [ ] Use TLS/HTTPS for all communications
+** [ ] Sanitize data in logs
+** [ ] Implement secure key management
+** [ ] Secure database connections
+
+. **Input Validation**
+** [ ] Validate all inputs server-side
+** [ ] Sanitize inputs to prevent injection
+** [ ] Implement parameterized queries
+** [ ] Validate file uploads
+** [ ] Implement rate limiting
+
+. **Security Headers**
+** [ ] Content-Security-Policy
+** [ ] X-Frame-Options
+** [ ] X-Content-Type-Options
+** [ ] Strict-Transport-Security
+
+. **Monitoring and Logging**
+** [ ] Log security events
+** [ ] Monitor for suspicious activity
+** [ ] Set up alerts for security incidents
+** [ ] Implement audit trails
+
+== Common Vulnerabilities
+
+* SQL Injection
+* Cross-Site Scripting (XSS)
+* Cross-Site Request Forgery (CSRF)
+* Authentication bypass
+* Authorization bypass
+* Sensitive data exposure
+* XML External Entities (XXE)
+* Insecure Deserialization
+* Using Components with Known Vulnerabilities
+* Insufficient Logging & Monitoring
+
+== Notes
+
+[Space for security considerations specific to this system]
+
+== References
+
+[Links to:
+- OWASP Top 10
+- Security guidelines
+- Compliance documentation
+- Security tools and scanners]

@@ -1,0 +1,181 @@
+= Technical Documentation Plan - {system-name}
+:system-name: [System/Component Name]
+
+== Overview
+
+This plan outlines creating technical documentation for {system-name}. Technical documentation helps developers understand the system architecture, design decisions, and implementation details.
+
+== Context
+
+Technical documentation should include:
+
+* Architecture overview
+* Design decisions and rationale
+* Component descriptions
+* Data flow diagrams
+* Deployment architecture
+* Development setup
+* Contributing guidelines
+* Troubleshooting guides
+
+== Questions to Clarify
+
+. **Audience**: Who will read this?
+   - [New team members, Contributors, Operations team]
+
+. **System Complexity**: How complex is the system?
+   - [Simple, Moderate, Complex]
+
+. **Current State**: Does documentation exist?
+   - [None, Partial, Outdated]
+
+. **Documentation Goals**: What should readers understand?
+   - [How to set up dev environment, How system works, How to contribute, How to deploy, How to troubleshoot]
+
+== Goals
+
+* [ ] Document system architecture
+* [ ] Document key design decisions
+* [ ] Create development setup guide
+* [ ] Document deployment process
+* [ ] Create troubleshooting guide
+* [ ] Keep documentation up to date
+
+== Success Criteria
+
+- New developer can set up environment in < {X} hours
+- Architecture is clearly diagrammed
+- Key design decisions documented with rationale
+- All major components documented
+- Deployment process is repeatable
+- Common issues have documented solutions
+
+== Implementation Checklist
+
+[%interactive]
+. **Architecture Documentation**
+** [ ] Create high-level architecture diagram
+** [ ] Document system components
+** [ ] Document data flow
+** [ ] Document external dependencies
+** [ ] Document deployment architecture
+
+. **Design Decisions**
+** [ ] Document architectural decisions (ADRs)
+** [ ] Explain technology choices
+** [ ] Document trade-offs
+** [ ] Document patterns used
+
+. **Component Documentation**
+** [ ] Document each major component
+** [ ] Explain component responsibilities
+** [ ] Document interfaces/APIs
+** [ ] Document configuration
+
+. **Development Guide**
+** [ ] Document prerequisites
+** [ ] Write setup instructions
+** [ ] Document development workflow
+** [ ] Document testing approach
+** [ ] Document debugging tips
+
+. **Deployment Documentation**
+** [ ] Document deployment process
+** [ ] Document infrastructure requirements
+** [ ] Document configuration management
+** [ ] Document rollback procedures
+
+. **Operations Guide**
+** [ ] Document monitoring
+** [ ] Document alerting
+** [ ] Document common operations tasks
+** [ ] Create troubleshooting guide
+** [ ] Document incident response
+
+== Documentation Structure
+
+. **Overview**
+   - System purpose
+   - High-level architecture
+   - Technology stack
+
+. **Architecture**
+   - Component diagram
+   - Data flow
+   - External dependencies
+   - Scalability approach
+
+. **Design Decisions**
+   - ADR 1: {Decision}
+   - ADR 2: {Decision}
+   - [Continue]
+
+. **Development**
+   - Setup guide
+   - Development workflow
+   - Testing
+   - Contributing guidelines
+
+. **Deployment**
+   - Deployment process
+   - Configuration
+   - Infrastructure
+
+. **Operations**
+   - Monitoring
+   - Troubleshooting
+   - Runbooks
+
+== Architecture Decision Record Template
+
+----
+= ADR {number}: {Title}
+
+**Status**: Proposed | Accepted | Deprecated | Superseded
+
+**Date**: {YYYY-MM-DD}
+
+== Context
+
+[Describe the issue motivating this decision]
+
+== Decision
+
+[Describe the decision made]
+
+== Consequences
+
+**Positive**:
+- [Benefit 1]
+- [Benefit 2]
+
+**Negative**:
+- [Trade-off 1]
+- [Trade-off 2]
+
+**Neutral**:
+- [Other impact]
+
+== Alternatives Considered
+
+. **Alternative 1**
+   - Description
+   - Why not chosen
+
+. **Alternative 2**
+   - Description
+   - Why not chosen
+----
+
+== Notes
+
+[Space for additional notes about technical documentation]
+
+== References
+
+[Links to:
+- ADR templates
+- Diagram tools
+- Documentation best practices
+- Code repository
+- Related systems]

@@ -1,0 +1,464 @@
+= {feature} - New Feature Implementation Plan
+:feature: [Feature Name]
+
+== Overview
+
+This plan outlines the steps to implement the new {feature} feature within the application. This feature will enable [brief description of what the feature does and its main benefit to users].
+
+== Context
+
+Understanding the context helps ensure the feature aligns with the overall system:
+
+* Current system state: [What exists now?]
+* User pain point: [What problem does this solve?]
+* Business value: [Why is this feature important?]
+* Related features: [What existing features does this connect to?]
+
+== Questions to Clarify
+
+Before planning implementation, please provide answers to these questions:
+
+. **Feature Purpose**: What specific problem does this feature solve?
+   - User story: As a [user type], I want to [capability] so that [benefit]
+   - Success scenario: [Describe what success looks like from user perspective]
+
+. **User Experience**: How should users interact with this feature?
+   - Entry points: [How do users access this feature?]
+   - User flow: [Step-by-step user journey]
+   - UI requirements: [Describe interface needs or reference wireframes]
+   - Feedback: [What feedback does user receive?]
+
+. **Functional Requirements**: What must this feature do?
+   - Primary capability: [Core functionality]
+   - Edge cases: [Special scenarios to handle]
+   - Validation rules: [Input validation, business rules]
+   - Error handling: [What happens when things go wrong?]
+
+. **Data Requirements**: What data does this feature need?
+   - Input data: [What data comes from users/systems?]
+   - Stored data: [What needs to be persisted?]
+   - Output data: [What data is returned/displayed?]
+   - Data relationships: [How does this relate to existing data?]
+
+. **Integration Points**: What does this feature interact with?
+   - Internal: [Existing modules, services, databases]
+   - External: [Third-party APIs, external systems]
+   - Authentication: [Who can use this feature?]
+   - Authorization: [What permissions are needed?]
+
+. **Performance Requirements**: What are the performance expectations?
+   - Response time: [< X milliseconds/seconds]
+   - Throughput: [X operations per second]
+   - Scalability: [Expected user volume]
+   - Concurrency: [Simultaneous users/operations]
+
+. **Technical Approach**: Are there technical preferences or constraints?
+   - Preferred patterns: [Design patterns, architecture style]
+   - Libraries/frameworks: [Any specific tools to use/avoid?]
+   - Language/technology: [Confirm language/framework for implementation]
+   - Compatibility: [Browsers, devices, versions to support]
+
+. **Testing Requirements**: How should this be tested?
+   - Unit tests: [Expected coverage level]
+   - Integration tests: [Key integration scenarios]
+   - E2E tests: [Critical user journeys]
+   - Manual testing: [Specific test scenarios]
+
+. **Deployment Considerations**: How will this be released?
+   - Feature flag: [Should this be behind a feature toggle?]
+   - Rollout strategy: [All users, gradual rollout, specific users]
+   - Backward compatibility: [Must work with existing versions?]
+   - Migration: [Any data migration needed?]
+
+. **Documentation Needs**: What documentation is required?
+   - User documentation: [Help articles, tooltips, user guide]
+   - API documentation: [If exposing new APIs]
+   - Technical documentation: [Architecture decisions, how it works]
+   - Release notes: [What to communicate to users]
+
+== Goals
+
+Based on your answers above, the implementation goals are:
+
+* [ ] Implement core {feature} functionality
+* [ ] Ensure feature meets performance requirements
+* [ ] Provide clear user feedback and error handling
+* [ ] Write comprehensive tests (unit, integration, E2E)
+* [ ] Document feature for users and developers
+* [ ] Deploy safely with appropriate rollout strategy
+
+== Success Criteria
+
+*Vague:* "Feature should work well and users should like it."
+
+*Clear:*
+- Users can complete the primary user flow in < {X} steps
+- Feature responds within {Y}ms for 95th percentile requests
+- Zero critical bugs and < {Z} minor bugs after release
+- Test coverage > {N}% for feature code
+- {M}% of target users successfully complete the feature flow
+- User satisfaction score > {S}/10 in post-release survey
+
+== Implementation Checklist
+
+[%interactive]
+. **Design and Planning**
+** [ ] Review and finalize requirements
+** [ ] Create/review UI mockups or wireframes
+** [ ] Design data model changes (if needed)
+** [ ] Design API contracts (if applicable)
+** [ ] Identify affected components and modules
+** [ ] Estimate effort and identify risks
+
+. **Data Layer Changes**
+** [ ] Design database schema changes
+** [ ] Write database migration scripts
+** [ ] Update data models/entities
+** [ ] Implement repository/data access methods
+** [ ] Write unit tests for data layer
+** [ ] Test migrations on development environment
+
+. **Business Logic Implementation**
+** [ ] Implement core business logic
+** [ ] Implement validation rules
+** [ ] Implement error handling
+** [ ] Add logging and monitoring hooks
+** [ ] Write unit tests for business logic
+** [ ] Handle edge cases and boundary conditions
+
+. **API/Service Layer** (if applicable)
+** [ ] Create new API endpoints or update existing
+** [ ] Implement request/response DTOs
+** [ ] Add input validation and sanitization
+** [ ] Implement authentication checks
+** [ ] Implement authorization checks
+** [ ] Add rate limiting (if needed)
+** [ ] Write API tests
+** [ ] Update API documentation
+
+. **Frontend Implementation** (if applicable)
+** [ ] Create or update UI components
+** [ ] Implement state management
+** [ ] Add form validation (client-side)
+** [ ] Implement error handling and user feedback
+** [ ] Add loading states and optimistic updates
+** [ ] Ensure responsive design
+** [ ] Test accessibility (keyboard navigation, screen readers)
+** [ ] Write component tests
+
+. **Integration**
+** [ ] Integrate frontend with backend APIs
+** [ ] Integrate with external services (if applicable)
+** [ ] Handle integration errors gracefully
+** [ ] Write integration tests
+** [ ] Test end-to-end user flows
+
+. **Performance Optimization**
+** [ ] Profile feature for performance bottlenecks
+** [ ] Optimize database queries
+** [ ] Add caching where appropriate
+** [ ] Optimize frontend rendering
+** [ ] Implement lazy loading (if applicable)
+** [ ] Test under expected load
+
+. **Testing**
+** [ ] Write unit tests (target: {X}% coverage)
+** [ ] Write integration tests for key scenarios
+** [ ] Write E2E tests for critical user journeys
+** [ ] Perform manual exploratory testing
+** [ ] Test error scenarios and edge cases
+** [ ] Test on different browsers/devices
+** [ ] Test with accessibility tools
+** [ ] Perform security testing (input validation, auth, etc.)
+
+. **Documentation**
+** [ ] Write/update API documentation
+** [ ] Write/update user documentation
+** [ ] Document architecture decisions
+** [ ] Add inline code comments for complex logic
+** [ ] Create/update README or developer guide
+** [ ] Prepare release notes
+
+. **Code Review and Quality**
+** [ ] Self-review code for quality and standards
+** [ ] Submit pull request with clear description
+** [ ] Address code review feedback
+** [ ] Verify all tests pass in CI
+** [ ] Check code coverage meets standards
+** [ ] Verify linting and formatting rules pass
+
+. **Deployment Preparation**
+** [ ] Set up feature flag (if applicable)
+** [ ] Prepare database migrations
+** [ ] Update environment configuration
+** [ ] Create deployment checklist
+** [ ] Plan rollback procedure
+** [ ] Coordinate with team on deployment timing
+
+. **Deployment and Monitoring**
+** [ ] Deploy to staging environment
+** [ ] Verify feature works in staging
+** [ ] Run smoke tests
+** [ ] Deploy to production
+** [ ] Monitor error rates and performance metrics
+** [ ] Monitor user adoption and feedback
+** [ ] Verify feature flag works correctly (if applicable)
+
+. **Post-Deployment**
+** [ ] Announce feature to users (if applicable)
+** [ ] Monitor for issues in first 24-48 hours
+** [ ] Gather user feedback
+** [ ] Address any critical issues immediately
+** [ ] Plan follow-up improvements based on feedback
+
+== Technical Design
+
+=== Architecture Overview
+
+[Describe how this feature fits into the overall architecture]
+
+* Components involved: [List components/modules]
+* Data flow: [Describe how data flows through the system]
+* External dependencies: [Third-party services, APIs]
+
+=== Data Model
+
+[Describe new or modified data structures]
+
+----
+[Example schema or data structure]
+
+Example:
+Table: feature_data
+- id (primary key)
+- user_id (foreign key)
+- feature_property_1 (type, constraints)
+- feature_property_2 (type, constraints)
+- created_at (timestamp)
+- updated_at (timestamp)
+----
+
+=== API Design
+
+[Describe new or modified API endpoints]
+
+. **Endpoint**: POST /api/feature
+** Description: [What this endpoint does]
+** Authentication: [Required: Yes/No, Method]
+** Request Body:
++
+[source,json]
+----
+{
+  "property1": "value",
+  "property2": 123
+}
+----
+** Response (200 OK):
++
+[source,json]
+----
+{
+  "id": "uuid",
+  "property1": "value",
+  "property2": 123,
+  "createdAt": "2025-01-15T10:30:00Z"
+}
+----
+** Error Responses:
+   - 400: Invalid request data
+   - 401: Unauthorized
+   - 403: Forbidden
+   - 500: Server error
+
+. **Endpoint**: GET /api/feature/{id}
+** [Similar structure]
+
+=== Component Design
+
+==== Backend Components
+
+. **Component: FeatureService**
+** Responsibility: [Core business logic for feature]
+** Methods:
+   - createFeature(data): [Creates new feature instance]
+   - getFeature(id): [Retrieves feature by ID]
+   - updateFeature(id, data): [Updates existing feature]
+   - deleteFeature(id): [Deletes feature]
+** Dependencies: [FeatureRepository, ExternalService, etc.]
+
+. **Component: FeatureRepository**
+** Responsibility: [Data access for feature]
+** Methods:
+   - save(feature): [Persists feature]
+   - findById(id): [Retrieves from database]
+   - findByUserId(userId): [Queries by user]
+** Dependencies: [Database connection]
+
+==== Frontend Components
+
+. **Component: FeatureForm**
+** Responsibility: [User input for feature]
+** Props: [onSubmit, initialValues, etc.]
+** State: [Form field values, validation errors]
+** Events: [Submit, cancel, field changes]
+
+. **Component: FeatureList**
+** Responsibility: [Display list of features]
+** Props: [features, onSelect, etc.]
+** State: [Selected item, loading state]
+** Events: [Item selection, pagination]
+
+=== Security Considerations
+
+* Authentication: [How users authenticate]
+* Authorization: [Permission checks required]
+* Input validation: [All inputs validated and sanitized]
+* Output encoding: [Prevent XSS attacks]
+* SQL injection prevention: [Use parameterized queries/ORM]
+* Rate limiting: [Prevent abuse]
+* Sensitive data: [How sensitive data is protected]
+
+=== Error Handling
+
+* User-facing errors: [Clear, actionable messages]
+* Validation errors: [Field-level feedback]
+* System errors: [Logged for debugging, generic message to user]
+* Network errors: [Retry logic, offline handling]
+* External service errors: [Fallback behavior]
+
+=== Edge Cases
+
+. **Edge Case 1**: [Describe scenario]
+   - Handling: [How this is handled]
+
+. **Edge Case 2**: [Another scenario]
+   - Handling: [How this is handled]
+
+== Testing Strategy
+
+=== Unit Tests
+
+* FeatureService: [Test all business logic methods]
+* FeatureRepository: [Test database operations]
+* Validation: [Test all validation rules]
+* Utilities: [Test helper functions]
+
+=== Integration Tests
+
+* API endpoints: [Test all endpoints with various inputs]
+* Database integration: [Test data persistence and retrieval]
+* External service integration: [Test with mocks/stubs]
+
+=== End-to-End Tests
+
+. **Test Case 1**: Happy path
+   - Steps: [User actions from start to finish]
+   - Expected: [Successful completion]
+
+. **Test Case 2**: Error scenario
+   - Steps: [User actions that trigger error]
+   - Expected: [Appropriate error handling]
+
+=== Manual Testing Checklist
+
+[%interactive]
+* [ ] Test on Chrome
+* [ ] Test on Firefox
+* [ ] Test on Safari
+* [ ] Test on mobile device
+* [ ] Test with screen reader
+* [ ] Test keyboard navigation
+* [ ] Test slow network connection
+* [ ] Test with invalid inputs
+* [ ] Test concurrent operations
+* [ ] Test with production-like data volume
+
+== Performance Considerations
+
+* Database queries: [Optimized with indexes, avoid N+1]
+* API response time: [Target < {X}ms]
+* Frontend rendering: [Minimize re-renders, lazy loading]
+* Caching: [Cache static data, API responses]
+* Bundle size: [Code splitting, tree shaking]
+
+== Rollout Plan
+
+. **Phase 1: Internal Testing**
+   - Deploy behind feature flag (disabled)
+   - Enable for development team only
+   - Gather feedback and fix issues
+
+. **Phase 2: Beta Testing**
+   - Enable for {X}% of users or specific beta group
+   - Monitor metrics and gather feedback
+   - Iterate based on feedback
+
+. **Phase 3: Full Rollout**
+   - Enable for all users
+   - Monitor closely for first 48 hours
+   - Be prepared to disable if critical issues arise
+
+== Rollback Plan
+
+If critical issues arise:
+
+. Disable feature flag immediately
+. Investigate root cause
+. Prepare fix
+. Re-enable after fix is verified
+. If database migrations involved: [Describe rollback procedure]
+
+== Monitoring and Metrics
+
+=== Key Metrics to Track
+
+* Usage: [Number of feature uses per day/week]
+* Performance: [Response times, error rates]
+* User engagement: [Completion rates, abandonment]
+* Business impact: [Conversion, revenue, etc.]
+
+=== Alerts to Configure
+
+* Error rate > {X}%
+* Response time > {Y}ms
+* Feature usage drops > {Z}%
+
+== Risks and Mitigation
+
+. **Risk**: [Potential problem]
+   - Impact: [High / Medium / Low]
+   - Probability: [High / Medium / Low]
+   - Mitigation: [How to prevent or handle]
+
+. **Risk**: [Another potential problem]
+   - Impact: [High / Medium / Low]
+   - Probability: [High / Medium / Low]
+   - Mitigation: [How to address]
+
+== Dependencies
+
+* [ ] [Dependency 1: e.g., External API access]
+* [ ] [Dependency 2: e.g., Database migration completed]
+* [ ] [Dependency 3: e.g., Design mockups finalized]
+
+== Future Enhancements
+
+[Features or improvements that are out of scope for initial release but may be added later]
+
+* [Enhancement 1]
+* [Enhancement 2]
+* [Enhancement 3]
+
+== Notes
+
+[Space for additional notes, decisions, or context during implementation]
+
+== References
+
+[Links to:
+- Related tickets/issues
+- Design mockups
+- API documentation
+- Similar features in other systems
+- Technical articles or documentation]

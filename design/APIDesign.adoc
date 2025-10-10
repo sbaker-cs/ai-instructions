@@ -1,0 +1,350 @@
+= API Design Plan - {api-name}
+:api-name: [API Name]
+
+== Overview
+
+This plan outlines designing a well-structured API for {api-name}. Good API design makes the API intuitive, maintainable, and pleasant to use.
+
+== Context
+
+API design principles:
+
+* RESTful conventions (if REST)
+* Consistent naming and structure
+* Clear resource modeling
+* Appropriate HTTP methods and status codes
+* Versioning strategy
+* Error handling
+* Documentation
+
+== Questions to Clarify
+
+. **API Style**: What type of API?
+   - [REST, GraphQL, gRPC, WebSocket, Other]
+
+. **Resources**: What resources are exposed?
+   - [List main entities]
+
+. **Operations**: What operations are supported?
+   - [CRUD operations, Custom operations]
+
+. **Authentication**: How will API authenticate?
+   - [API keys, OAuth, JWT, Basic auth, None]
+
+. **Versioning**: How will API be versioned?
+   - [URL versioning, Header versioning, No versioning yet]
+
+. **Audience**: Who will use the API?
+   - [Internal, External partners, Public]
+
+. **Use Cases**: What are primary use cases?
+   - [Describe typical API usage patterns]
+
+== Goals
+
+* [ ] Design intuitive resource structure
+* [ ] Define all endpoints
+* [ ] Design request/response formats
+* [ ] Define error handling strategy
+* [ ] Plan authentication mechanism
+* [ ] Plan versioning strategy
+* [ ] Document API contracts
+
+== Success Criteria
+
+- API is RESTful and follows conventions
+- Resource naming is consistent and intuitive
+- All CRUD operations supported where appropriate
+- Error responses are consistent and helpful
+- API is well-documented
+- API is versioned appropriately
+- Authentication is secure
+- Response times meet requirements
+
+== Implementation Checklist
+
+[%interactive]
+. **Resource Modeling**
+** [ ] Identify all resources
+** [ ] Define resource hierarchies
+** [ ] Define resource relationships
+** [ ] Choose plural names for collections
+
+. **Endpoint Design**
+** [ ] Design URL structure
+** [ ] Define HTTP methods for each operation
+** [ ] Follow REST conventions
+** [ ] Keep URLs noun-based (not verbs)
+** [ ] Use proper HTTP methods (GET, POST, PUT, PATCH, DELETE)
+
+. **Request Design**
+** [ ] Define query parameters
+** [ ] Define request body schemas
+** [ ] Define required vs optional fields
+** [ ] Plan validation rules
+
+. **Response Design**
+** [ ] Define response body schemas
+** [ ] Use consistent response structure
+** [ ] Include metadata where helpful
+** [ ] Design pagination for lists
+** [ ] Design filtering and sorting
+
+. **Status Codes**
+** [ ] Use appropriate status codes
+** [ ] 200 OK for successful GET
+** [ ] 201 Created for successful POST
+** [ ] 204 No Content for successful DELETE
+** [ ] 400 Bad Request for client errors
+** [ ] 401 Unauthorized for auth errors
+** [ ] 404 Not Found for missing resources
+** [ ] 500 Internal Server Error for server errors
+
+. **Error Handling**
+** [ ] Design error response format
+** [ ] Include error codes
+** [ ] Include helpful error messages
+** [ ] Include field-level errors for validation
+** [ ] Document all error codes
+
+. **Authentication**
+** [ ] Choose authentication method
+** [ ] Design token format
+** [ ] Design token refresh mechanism
+** [ ] Plan authorization rules
+
+. **Versioning**
+** [ ] Choose versioning strategy
+** [ ] Plan deprecation policy
+** [ ] Document version lifecycle
+
+. **Rate Limiting**
+** [ ] Define rate limits
+** [ ] Design rate limit headers
+** [ ] Design rate limit error responses
+
+. **Documentation**
+** [ ] Create OpenAPI/Swagger spec
+** [ ] Document all endpoints
+** [ ] Provide examples for all operations
+** [ ] Create getting started guide
+
+== REST API Design Patterns
+
+=== Resource URLs
+
+----
+Good:
+GET    /api/users              # List users
+GET    /api/users/123          # Get specific user
+POST   /api/users              # Create user
+PUT    /api/users/123          # Replace user
+PATCH  /api/users/123          # Update user
+DELETE /api/users/123          # Delete user
+
+GET    /api/users/123/orders   # Get user's orders
+
+Bad:
+GET    /api/getUsers           # Don't use verbs
+POST   /api/user               # Use plural for collections
+GET    /api/users/123/delete   # Use HTTP method, not URL
+----
+
+=== HTTP Methods
+
+* **GET**: Retrieve resource(s), no side effects, idempotent
+* **POST**: Create new resource, not idempotent
+* **PUT**: Replace entire resource, idempotent
+* **PATCH**: Partially update resource, may be idempotent
+* **DELETE**: Delete resource, idempotent
+
+=== Pagination
+
+----
+Request:
+GET /api/users?page=2&per_page=20
+
+Response:
+{
+  "data": [...],
+  "pagination": {
+    "page": 2,
+    "per_page": 20,
+    "total": 100,
+    "total_pages": 5,
+    "links": {
+      "first": "/api/users?page=1&per_page=20",
+      "prev": "/api/users?page=1&per_page=20",
+      "next": "/api/users?page=3&per_page=20",
+      "last": "/api/users?page=5&per_page=20"
+    }
+  }
+}
+----
+
+=== Filtering and Sorting
+
+----
+GET /api/users?status=active&role=admin
+GET /api/users?sort=created_at:desc
+GET /api/users?fields=id,name,email
+----
+
+=== Error Response Format
+
+----
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid request data",
+    "details": [
+      {
+        "field": "email",
+        "message": "Email is required"
+      },
+      {
+        "field": "age",
+        "message": "Age must be a positive number"
+      }
+    ]
+  }
+}
+----
+
+== API Endpoint Template
+
+----
+=== {METHOD} {path}
+
+**Description**: [What this endpoint does]
+
+**Authentication**: Required | Not Required
+
+**Parameters**:
+
+Query Parameters:
+|===
+|Name |Type |Required |Description
+
+|param1
+|string
+|Yes
+|Description
+|===
+
+Path Parameters:
+|===
+|Name |Type |Description
+
+|id
+|string
+|User ID
+|===
+
+**Request Body**: (for POST, PUT, PATCH)
+
+[source,json]
+----
+{
+  "field1": "value",
+  "field2": 123
+}
+----
+
+**Response** (200/201):
+
+[source,json]
+----
+{
+  "id": "uuid",
+  "field1": "value",
+  "field2": 123,
+  "created_at": "2025-01-15T10:30:00Z"
+}
+----
+
+**Error Responses**:
+
+* 400: Invalid request data
+* 401: Unauthorized
+* 404: Resource not found
+* 500: Server error
+----
+
+== Versioning Strategies
+
+. **URL Versioning** (Recommended)
+   - `/api/v1/users`
+   - `/api/v2/users`
+   - Pros: Explicit, easy to route
+   - Cons: URL changes
+
+. **Header Versioning**
+   - `Accept: application/vnd.api.v1+json`
+   - Pros: Clean URLs
+   - Cons: Less visible
+
+. **Query Parameter**
+   - `/api/users?version=1`
+   - Pros: Simple
+   - Cons: Mixes versioning with filtering
+
+== Authentication Design
+
+. **API Key**
+   - `Authorization: Bearer API_KEY`
+   - Simple, for server-to-server
+
+. **JWT Token**
+   - `Authorization: Bearer JWT_TOKEN`
+   - Stateless, includes claims
+
+. **OAuth 2.0**
+   - Standard for third-party access
+   - More complex setup
+
+== Rate Limiting
+
+Response Headers:
+----
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200
+----
+
+Error Response (429):
+----
+{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "Rate limit exceeded. Try again in 60 seconds.",
+    "retry_after": 60
+  }
+}
+----
+
+== Best Practices
+
+* Use nouns for resources, not verbs
+* Use plural names for collections
+* Use proper HTTP methods
+* Use proper status codes
+* Keep URLs hierarchical and logical
+* Support filtering, sorting, pagination
+* Version your API
+* Document everything
+* Be consistent
+* Handle errors gracefully
+
+== Notes
+
+[Space for additional API design notes and decisions]
+
+== References
+
+[Links to:
+- REST API best practices
+- OpenAPI specification
+- API design guides
+- Similar APIs for inspiration
+- Team API standards]

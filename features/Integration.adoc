@@ -1,0 +1,688 @@
+= {service-name} Integration Plan
+:service-name: [Service/API Name]
+
+== Overview
+
+This plan outlines the steps to integrate {service-name} with the application. This integration will enable [brief description of what the integration accomplishes and the value it provides to users or the system].
+
+== Context
+
+Understanding the integration context is essential:
+
+* Integration purpose: [Why integrate with this service?]
+* Business value: [What value does this provide?]
+* User impact: [How will users benefit?]
+* Alternatives considered: [What other options were evaluated?]
+
+== Questions to Clarify
+
+Before planning the integration, please provide answers to these questions:
+
+. **Integration Purpose**: Why are we integrating with this service?
+   - Primary capability needed: [What does the service provide?]
+   - Use cases: [When/how will this be used?]
+   - Business requirement: [What problem does this solve?]
+   - User benefit: [How do users benefit?]
+
+. **Service Information**: What is being integrated?
+   - Service name: [{service-name}]
+   - Service type: [Payment, Authentication, Storage, Analytics, Communication, etc.]
+   - Documentation: [Link to official API documentation]
+   - Service tier/plan: [Free, Paid, Enterprise]
+
+. **Integration Scope**: What features will be used?
+   - Required API endpoints: [List specific APIs needed]
+   - Optional features: [Nice-to-have capabilities]
+   - Explicitly not using: [What won't be used]
+   - Data exchange: [What data goes in/out?]
+
+. **Authentication**: How will the service authenticate requests?
+   - Method: [API key, OAuth 2.0, JWT, Basic Auth, Certificate]
+   - Credential management: [How/where stored?]
+   - Token refresh: [If applicable, refresh strategy]
+   - Scopes/Permissions: [What access is needed?]
+
+. **Data Flow**: What data flows between systems?
+   - Outbound data: [What we send to the service]
+   - Inbound data: [What we receive from the service]
+   - Data format: [JSON, XML, Form data, Binary]
+   - Data sensitivity: [PII, financial, health, public]
+   - Data retention: [How long is data kept?]
+
+. **Integration Pattern**: How will systems communicate?
+   - Synchronous: [Direct API calls, immediate response]
+   - Asynchronous: [Webhooks, message queues, polling]
+   - Batch: [Scheduled jobs, bulk operations]
+   - Real-time: [WebSockets, streaming]
+
+. **Error Handling**: How should failures be handled?
+   - Retry strategy: [Exponential backoff, fixed retry, no retry]
+   - Fallback behavior: [What happens if service is down?]
+   - User communication: [How to inform users of issues?]
+   - Circuit breaker: [Needed for high-traffic integrations?]
+
+. **Rate Limits**: What are the service's rate limits?
+   - Requests per second/minute/hour/day: [Limits]
+   - Concurrent requests: [Parallel request limits]
+   - Quota management: [How to stay within limits?]
+   - Overage handling: [What happens if exceeded?]
+
+. **Service Reliability**: What are the service's SLA and reliability characteristics?
+   - Uptime guarantee: [SLA percentage]
+   - Average response time: [Latency expectations]
+   - Known issues: [Common problems, outage history]
+   - Status page: [Link to service status monitoring]
+
+. **Costs**: What are the financial implications?
+   - Pricing model: [Per request, per user, flat rate, free]
+   - Expected volume: [Requests per day/month]
+   - Estimated cost: [Monthly/annual costs]
+   - Cost monitoring: [How to track spending?]
+
+. **Security and Compliance**: What security requirements exist?
+   - Data encryption: [In transit, at rest]
+   - Compliance requirements: [GDPR, HIPAA, PCI-DSS, etc.]
+   - Credential security: [Secret management]
+   - Audit logging: [What to log for compliance]
+
+. **Testing**: How will the integration be tested?
+   - Sandbox/Test environment: [Available?]
+   - Test credentials: [How to obtain?]
+   - Test data: [Sample data for testing]
+   - Webhook testing: [Tools like ngrok, webhook.site]
+
+. **Monitoring**: What should be monitored?
+   - Success/failure rates
+   - Response times
+   - API quota usage
+   - Error types and frequencies
+   - Cost tracking
+
+== Goals
+
+Based on your answers above, the integration goals are:
+
+* [ ] Successfully integrate with {service-name} API
+* [ ] Implement secure credential management
+* [ ] Handle errors gracefully with appropriate fallbacks
+* [ ] Respect rate limits and implement throttling
+* [ ] Monitor integration health and performance
+* [ ] Document integration for future maintenance
+
+== Success Criteria
+
+*Vague:* "Integration should work reliably."
+
+*Clear:*
+- {X}% of requests complete successfully
+- Integration responds within {Y}ms for 95th percentile
+- Zero exposed credentials or security violations
+- Rate limits never exceeded
+- All error scenarios handled gracefully with user feedback
+- Monitoring dashboards show integration health
+- Cost remains within ${Z} per month
+- Documentation allows another developer to maintain integration within {N} hours
+
+== Implementation Checklist
+
+[%interactive]
+. **Research and Planning**
+** [ ] Read official API documentation thoroughly
+** [ ] Understand authentication requirements
+** [ ] Identify required API endpoints
+** [ ] Understand rate limits and quotas
+** [ ] Review pricing and cost implications
+** [ ] Check service reliability and SLA
+** [ ] Identify test/sandbox environment
+** [ ] Review security and compliance requirements
+
+. **Account and Access Setup**
+** [ ] Create account with {service-name}
+** [ ] Obtain API credentials (keys, secrets, tokens)
+** [ ] Configure webhook endpoints (if applicable)
+** [ ] Set up test/sandbox environment
+** [ ] Configure IP whitelisting (if applicable)
+** [ ] Set up billing alerts (if applicable)
+** [ ] Document account information securely
+
+. **Credential Management**
+** [ ] Choose secret management solution (environment variables, vault, secrets manager)
+** [ ] Store credentials securely (never in code)
+** [ ] Configure credential rotation (if applicable)
+** [ ] Set up different credentials for dev/staging/prod
+** [ ] Document credential retrieval process
+** [ ] Implement credential access logging
+
+. **API Client Implementation**
+** [ ] Create API client module/class
+** [ ] Implement authentication logic
+** [ ] Implement request signing (if required)
+** [ ] Add request/response logging
+** [ ] Implement timeout configuration
+** [ ] Add user-agent headers
+** [ ] Handle API versioning
+
+. **Core Integration Logic**
+** [ ] Implement required API endpoint calls
+** [ ] Implement request payload construction
+** [ ] Implement response parsing
+** [ ] Implement data transformation (our format ” service format)
+** [ ] Add input validation before API calls
+** [ ] Implement idempotency (if applicable)
+
+. **Error Handling**
+** [ ] Implement HTTP error handling (4xx, 5xx)
+** [ ] Implement service-specific error parsing
+** [ ] Implement retry logic with exponential backoff
+** [ ] Implement timeout handling
+** [ ] Implement circuit breaker (if high traffic)
+** [ ] Implement fallback behavior
+** [ ] Add comprehensive error logging
+
+. **Rate Limiting**
+** [ ] Implement rate limit tracking
+** [ ] Implement request throttling
+** [ ] Handle rate limit errors (429 responses)
+** [ ] Implement queue for request management (if needed)
+** [ ] Add rate limit monitoring
+
+. **Webhook Implementation** (if applicable)
+** [ ] Create webhook endpoint in application
+** [ ] Implement webhook signature verification
+** [ ] Implement idempotency for webhook events
+** [ ] Handle duplicate webhook events
+** [ ] Implement webhook retry logic (store for replay)
+** [ ] Register webhook URL with service
+** [ ] Test webhook with sample events
+
+. **Data Management**
+** [ ] Design data models for service data
+** [ ] Implement data persistence (if caching)
+** [ ] Implement data synchronization (if bidirectional)
+** [ ] Implement data validation
+** [ ] Handle data format differences
+** [ ] Implement data cleanup/retention policies
+
+. **Security Implementation**
+** [ ] Implement TLS/HTTPS for all requests
+** [ ] Validate SSL certificates
+** [ ] Sanitize data before sending to service
+** [ ] Validate data received from service
+** [ ] Implement audit logging
+** [ ] Review for security vulnerabilities
+** [ ] Ensure compliance with regulations
+
+. **Testing**
+** [ ] Write unit tests for API client
+** [ ] Write unit tests for data transformation
+** [ ] Write integration tests against sandbox
+** [ ] Test authentication and authorization
+** [ ] Test all API endpoints being used
+** [ ] Test error scenarios (network errors, API errors)
+** [ ] Test rate limiting behavior
+** [ ] Test webhook receiving (if applicable)
+** [ ] Test with production-like data volumes
+** [ ] Perform security testing
+
+. **Monitoring and Observability**
+** [ ] Add structured logging for all API calls
+** [ ] Track success/failure metrics
+** [ ] Track response time metrics
+** [ ] Track API quota usage
+** [ ] Set up error alerting
+** [ ] Set up performance alerting
+** [ ] Set up cost alerting (if applicable)
+** [ ] Create monitoring dashboard
+
+. **Documentation**
+** [ ] Document integration architecture
+** [ ] Document API endpoints used
+** [ ] Document authentication setup
+** [ ] Document error handling strategy
+** [ ] Document rate limiting approach
+** [ ] Document monitoring and alerts
+** [ ] Create troubleshooting guide
+** [ ] Document cost considerations
+
+. **Deployment Preparation**
+** [ ] Configure production credentials
+** [ ] Test in staging environment
+** [ ] Set up feature flag (if gradual rollout)
+** [ ] Prepare rollback plan
+** [ ] Coordinate with service provider (if needed)
+** [ ] Notify stakeholders of deployment
+
+. **Deployment and Verification**
+** [ ] Deploy to production
+** [ ] Verify credentials work in production
+** [ ] Verify API calls succeed
+** [ ] Verify webhooks receive events (if applicable)
+** [ ] Monitor error rates
+** [ ] Monitor performance
+** [ ] Verify monitoring and alerts work
+
+. **Post-Deployment**
+** [ ] Monitor integration for 24-48 hours
+** [ ] Analyze usage patterns
+** [ ] Review costs against estimates
+** [ ] Gather feedback on integration
+** [ ] Address any issues discovered
+** [ ] Optimize based on real-world usage
+
+== Technical Design
+
+=== Integration Architecture
+
+[Describe how the integration fits into the overall system]
+
+----
+[ASCII diagram or description]
+
+Example:
+                 
+  Our Application
+                 
+                                      
+  Integration  <     ¶  {service-name} 
+    Module   À <            API        
+                                      
+                
+        ¼        
+               
+    Database   
+               
+                 
+----
+
+=== Authentication Flow
+
+[Describe authentication mechanism]
+
+Example for OAuth 2.0:
+. Application redirects user to {service-name} authorization URL
+. User authorizes application
+. {service-name} redirects back with authorization code
+. Application exchanges code for access token
+. Application uses access token for API requests
+. Refresh token before expiration
+
+=== API Endpoints Used
+
+. **Endpoint: [Name/Purpose]**
+** URL: [Method] https://api.service.com/v1/endpoint
+** Purpose: [What this endpoint does]
+** Request:
++
+[source,json]
+----
+{
+  "field1": "value",
+  "field2": 123
+}
+----
+** Response (200 OK):
++
+[source,json]
+----
+{
+  "id": "uuid",
+  "result": "success"
+}
+----
+** Errors:
+   - 400: [Meaning and handling]
+   - 401: [Meaning and handling]
+   - 429: [Rate limit - handling]
+   - 500: [Service error - handling]
+
+. **Endpoint: [Another endpoint]**
+** [Similar structure]
+
+=== Data Mapping
+
+[How data maps between systems]
+
+|===
+|Our System Field |Service Field |Transformation
+
+|user_email
+|email
+|Direct mapping
+
+|user_full_name
+|first_name + last_name
+|Split into two fields
+
+|created_at (ISO 8601)
+|timestamp (Unix epoch)
+|Convert to timestamp
+|===
+
+=== Error Handling Strategy
+
+. **Network Errors**
+   - Connection timeout: Retry up to 3 times with exponential backoff
+   - DNS resolution failure: Log and alert, fail gracefully
+
+. **HTTP Errors**
+   - 400 Bad Request: Log details, return error to user
+   - 401 Unauthorized: Refresh token and retry once
+   - 403 Forbidden: Log and alert, insufficient permissions
+   - 404 Not Found: Handle as valid response (resource doesn't exist)
+   - 429 Too Many Requests: Implement backoff, respect Retry-After header
+   - 500 Server Error: Retry up to 3 times
+   - 503 Service Unavailable: Retry with exponential backoff
+
+. **Service-Specific Errors**
+   - [Error code 1]: [How to handle]
+   - [Error code 2]: [How to handle]
+
+. **Circuit Breaker** (if applicable)
+   - Open circuit after [X] consecutive failures
+   - Half-open after [Y] seconds to test recovery
+   - Close circuit after [Z] successful requests
+
+=== Rate Limiting Strategy
+
+Service limits: [X requests per Y time period]
+
+Our strategy:
+- Track request count per time window
+- Implement token bucket or leaky bucket algorithm
+- Queue requests when approaching limit
+- Implement backoff when rate limited
+- Distribute load across time (avoid bursts)
+
+=== Webhook Handling (if applicable)
+
+. **Webhook Endpoint**: POST /webhooks/service-name
+. **Authentication**: Verify signature using shared secret
+. **Processing**:
+   - Validate signature immediately
+   - Return 200 OK quickly (process asynchronously)
+   - Store event for processing
+   - Implement idempotency check (event ID)
+   - Process event in background job
+   - Handle event replay (webhooks may be sent multiple times)
+
+=== Data Storage
+
+[If caching or storing data from the service]
+
+* Cache duration: [How long to cache responses]
+* Invalidation strategy: [When to refresh cache]
+* Database schema: [If persisting service data]
+* Synchronization: [How to keep data in sync]
+
+== Security Considerations
+
+=== Credential Security
+
+* Storage: [Environment variables, Secret manager, Vault]
+* Access control: [Who/what can access credentials]
+* Rotation policy: [How often to rotate, if applicable]
+* Auditing: [Log all credential access]
+
+=== Data Security
+
+* Encryption in transit: [TLS 1.2+]
+* Encryption at rest: [If storing service data]
+* PII handling: [How personal data is protected]
+* Data retention: [How long data is kept]
+* Data deletion: [How to remove data when required]
+
+=== Compliance
+
+* GDPR: [Data processing agreement, user consent]
+* HIPAA: [If health data, BAA required]
+* PCI-DSS: [If payment data, compliance requirements]
+* [Other regulations]: [Requirements]
+
+=== Audit Logging
+
+Log the following for security and compliance:
+
+* All API requests (sanitized)
+* All authentication attempts
+* All credential access
+* All errors and failures
+* User actions triggering integration
+
+== Testing Strategy
+
+=== Unit Tests
+
+* API client authentication logic
+* Request payload construction
+* Response parsing and transformation
+* Error handling logic
+* Rate limiting logic
+* Retry logic
+
+=== Integration Tests
+
+* API calls against sandbox environment
+* Authentication flow
+* Each endpoint used
+* Error scenarios (mock error responses)
+* Rate limiting behavior
+* Webhook receiving and processing
+
+=== Manual Testing Checklist
+
+[%interactive]
+* [ ] Test successful API calls
+* [ ] Test with invalid credentials
+* [ ] Test with invalid input data
+* [ ] Test network timeout scenario
+* [ ] Test service error responses
+* [ ] Test rate limiting
+* [ ] Test webhook receipt (if applicable)
+* [ ] Test with production-like data volume
+* [ ] Test cost estimation with real usage
+
+== Monitoring and Metrics
+
+=== Key Metrics
+
+. **Success Rate**
+   - Metric: Successful requests / Total requests
+   - Target: > 99%
+   - Alert: < 95%
+
+. **Response Time**
+   - Metric: 95th percentile API response time
+   - Target: < {X}ms
+   - Alert: > {Y}ms
+
+. **Error Rate**
+   - Metric: Failed requests / Total requests
+   - Target: < 1%
+   - Alert: > 5%
+
+. **Rate Limit Usage**
+   - Metric: Requests used / Total quota
+   - Target: < 80% of quota
+   - Alert: > 90% of quota
+
+. **Cost**
+   - Metric: Monthly spend
+   - Target: < ${X}
+   - Alert: > ${Y}
+
+=== Logging
+
+Log the following (with appropriate sanitization):
+
+* Every API request (method, endpoint, timestamp)
+* Response status and time
+* Errors with full context
+* Rate limit headers
+* Webhook events received
+
+=== Alerts
+
+Configure alerts for:
+
+* Error rate exceeds threshold
+* Response time exceeds threshold
+* Rate limit approaching quota
+* Cost exceeds budget
+* Service downtime detected
+* Authentication failures
+
+=== Dashboard
+
+Create dashboard showing:
+
+* Request volume over time
+* Success/failure rates
+* Response time percentiles
+* Error breakdown by type
+* Rate limit usage
+* Cost trend
+
+== Cost Management
+
+=== Cost Estimation
+
+* Expected volume: [X requests per month]
+* Cost per request: [$Y]
+* Estimated monthly cost: [$Z]
+* Annual cost: [$A]
+
+=== Cost Optimization Strategies
+
+* Implement caching to reduce API calls
+* Batch requests where possible
+* Use webhook events instead of polling
+* Monitor and optimize slow queries
+* Consider service tier adjustments
+
+=== Budget Alerts
+
+* Warning alert: ${X} per month
+* Critical alert: ${Y} per month
+* Automatic circuit breaker: ${Z} per month (prevent runaway costs)
+
+== Rollback Plan
+
+If integration causes issues:
+
+. **Immediate Mitigation**:
+   - Disable feature flag (if used)
+   - Route traffic away from integration
+   - Fall back to manual process (if applicable)
+
+. **Root Cause Analysis**:
+   - Review logs and metrics
+   - Identify failure point
+   - Determine fix required
+
+. **Resolution**:
+   - Prepare fix
+   - Test in staging
+   - Re-deploy with fix
+
+== Maintenance and Operations
+
+=== Regular Maintenance Tasks
+
+* [ ] Review and rotate credentials periodically
+* [ ] Monitor API deprecation notices
+* [ ] Update to latest API version
+* [ ] Review and optimize costs
+* [ ] Update documentation as API changes
+* [ ] Review error logs for patterns
+
+=== Troubleshooting Guide
+
+. **Problem**: Integration requests failing
+   - Check: Service status page
+   - Check: Credentials still valid
+   - Check: Rate limits not exceeded
+   - Check: Application logs for errors
+
+. **Problem**: Slow response times
+   - Check: Service performance (status page)
+   - Check: Network latency
+   - Check: Request payload size
+   - Check: Database queries (if caching)
+
+. **Problem**: Unexpected costs
+   - Check: Request volume trends
+   - Check: Unusual usage patterns
+   - Check: Pricing tier changes
+   - Check: Error rates causing retries
+
+== Service Provider Contact
+
+* Support email: [support@service.com]
+* Status page: [https://status.service.com]
+* Documentation: [https://docs.service.com]
+* Emergency contact: [For production issues]
+* Account manager: [If applicable]
+
+== Risks and Mitigation
+
+. **Risk**: Service outage impacts our application
+   - Impact: High
+   - Probability: Low
+   - Mitigation: Implement graceful degradation, cache responses, provide fallback
+   - Contingency: Manual process for critical operations
+
+. **Risk**: Rate limits insufficient for growth
+   - Impact: Medium
+   - Probability: Medium
+   - Mitigation: Monitor usage trends, optimize requests, plan tier upgrade
+   - Contingency: Negotiate higher limits or switch providers
+
+. **Risk**: API breaking changes
+   - Impact: High
+   - Probability: Low
+   - Mitigation: Subscribe to API changelog, implement API versioning, test regularly
+   - Contingency: Update integration quickly or revert to previous API version
+
+. **Risk**: Costs exceed budget
+   - Impact: Medium
+   - Probability: Medium
+   - Mitigation: Implement cost monitoring, alerts, request optimization
+   - Contingency: Circuit breaker to prevent runaway costs, budget approval process
+
+. **Risk**: Security breach via integration
+   - Impact: High
+   - Probability: Low
+   - Mitigation: Secure credential management, input validation, audit logging
+   - Contingency: Revoke credentials, incident response plan
+
+== Dependencies
+
+* [ ] [Service account created and approved]
+* [ ] [API credentials obtained]
+* [ ] [Legal review of service terms (if required)]
+* [ ] [Budget approval (if paid service)]
+* [ ] [Security review completed]
+
+== Future Enhancements
+
+[Additional capabilities that could be added later]
+
+* [Use additional API endpoints]
+* [Implement bidirectional sync]
+* [Add advanced caching strategies]
+* [Implement batch processing]
+
+== Notes
+
+[Space for additional notes, discoveries, or important decisions made during integration]
+
+== References
+
+[Links to:
+- Service API documentation
+- Service status page
+- Authentication documentation
+- Webhook documentation
+- Security best practices
+- Compliance documentation
+- Service support resources]

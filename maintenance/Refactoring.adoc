@@ -1,0 +1,614 @@
+= Refactoring Plan - {component-name}
+:component-name: [Component/Module Name]
+
+== Overview
+
+This plan outlines a systematic approach to refactoring {component-name} to improve code quality, maintainability, and/or performance without changing external behavior. Refactoring should be done carefully with comprehensive testing to ensure no regressions are introduced.
+
+== Context
+
+Refactoring improves code structure while preserving functionality:
+
+* Makes code easier to understand and maintain
+* Reduces technical debt
+* Improves testability
+* Can improve performance
+* Should NOT change external behavior
+
+== Questions to Clarify
+
+Before planning the refactoring, please provide answers to these questions:
+
+. **Refactoring Purpose**: Why is this refactoring needed?
+   - Code smell: [What problem exists? Duplication, complexity, unclear naming, etc.]
+   - Maintenance difficulty: [What's hard to maintain or extend?]
+   - Performance issue: [What's slow?]
+   - Technical debt: [What needs modernization?]
+   - Preparation: [Refactoring to enable future work?]
+
+. **Current State**: What is the current code situation?
+   - Component location: [Path to files]
+   - Lines of code: [Approximate size]
+   - Complexity: [Cyclomatic complexity if known]
+   - Test coverage: [Current test coverage percentage]
+   - Known issues: [Bugs, limitations, pain points]
+
+. **Scope**: What will be refactored?
+   - Specific files: [Which files will change?]
+   - Functions/classes: [Which components specifically?]
+   - Related code: [What else might need updating?]
+   - Out of scope: [What will NOT be changed?]
+
+. **Refactoring Type**: What kind of refactoring is this?
+   - Extract Method/Function: [Break large functions into smaller ones]
+   - Rename: [Improve naming for clarity]
+   - Extract Class/Module: [Separate concerns]
+   - Inline: [Remove unnecessary abstraction]
+   - Move: [Reorganize code location]
+   - Simplify logic: [Reduce complexity]
+   - Modernize: [Update to current patterns/standards]
+   - Performance: [Optimize algorithms or data structures]
+   - Other: [Specify]
+
+. **Testing Strategy**: How will we ensure no regression?
+   - Existing tests: [Are there tests for current behavior?]
+   - Test coverage: [Is coverage adequate?]
+   - New tests needed: [What tests should be added?]
+   - Testing approach: [Test before, during, after refactoring?]
+
+. **Dependencies**: What depends on this code?
+   - Internal dependencies: [What other code calls this?]
+   - External dependencies: [APIs, interfaces exposed?]
+   - Database dependencies: [Schema changes needed?]
+   - Configuration: [Config or environment changes?]
+
+. **Risk Level**: How risky is this refactoring?
+   - Change size: [Small, Medium, Large]
+   - Criticality: [How critical is this code to the system?]
+   - Test coverage: [Well-tested, Partially tested, Untested]
+   - Dependencies: [Few, Many, Highly coupled]
+
+. **Performance Considerations**: Could this affect performance?
+   - Current performance: [Baseline metrics]
+   - Expected impact: [Improve, No change, Potential degradation]
+   - Performance testing: [How to measure impact?]
+
+. **Deployment Strategy**: How should this be deployed?
+   - All at once: [Complete refactoring deployed together]
+   - Incremental: [Deploy refactored parts gradually]
+   - Feature flag: [Behind a toggle for safety]
+   - Parallel run: [Old and new code coexist temporarily]
+
+. **Success Metrics**: How will we measure success?
+   - Metrics: [Complexity reduction, performance improvement, test coverage increase]
+   - Code quality: [Readability, maintainability improvements]
+   - Developer velocity: [Easier to add features after refactoring?]
+
+== Goals
+
+Based on your answers above, the refactoring goals are:
+
+* [ ] Improve code structure and maintainability
+* [ ] Maintain or increase test coverage
+* [ ] Ensure zero functional regressions
+* [ ] Improve code readability and clarity
+* [ ] Reduce technical debt
+* [ ] Document architectural decisions
+
+== Success Criteria
+
+*Vague:* "Code should be better and cleaner."
+
+*Clear:*
+- All existing tests continue to pass
+- Code coverage remains {X}% or increases
+- Cyclomatic complexity decreases by {Y}% or from {A} to {B}
+- Zero functional bugs introduced
+- Code review confirms readability improvement
+- Performance remains same or improves by {Z}%
+- New team member can understand refactored code in < {N} hours
+- Future feature additions easier (measurable by implementation time)
+
+== Implementation Checklist
+
+[%interactive]
+. **Preparation and Analysis**
+** [ ] Read and understand current code thoroughly
+** [ ] Document current behavior precisely
+** [ ] Run existing tests and verify all pass
+** [ ] Measure code metrics (complexity, coupling, etc.)
+** [ ] Identify all dependencies and dependents
+** [ ] Create dependency diagram (if complex)
+** [ ] Identify risks and plan mitigations
+
+. **Test Preparation**
+** [ ] Review existing test coverage
+** [ ] Add missing tests for current behavior
+** [ ] Ensure all tests pass before starting refactoring
+** [ ] Create characterization tests (document actual behavior)
+** [ ] Verify tests are reliable (not flaky)
+** [ ] Set up performance benchmarks (if applicable)
+
+. **Refactoring Plan**
+** [ ] Break refactoring into small, incremental steps
+** [ ] Identify safe refactoring sequence
+** [ ] Plan for rollback at each step
+** [ ] Document refactoring approach
+** [ ] Get team review of refactoring plan
+** [ ] Set up refactoring branch
+
+. **Incremental Refactoring**
+** [ ] Step 1: [Describe first small refactoring step]
+   - Make change
+   - Run tests
+   - Commit if all pass
+** [ ] Step 2: [Describe next small step]
+   - Make change
+   - Run tests
+   - Commit if all pass
+** [ ] Step 3: [Continue with small steps]
+   - Make change
+   - Run tests
+   - Commit if all pass
+** [ ] [Add more steps as needed - each should be independently committable]
+
+. **Code Quality**
+** [ ] Improve naming (variables, functions, classes)
+** [ ] Add clear comments for complex logic
+** [ ] Remove dead code
+** [ ] Remove commented-out code
+** [ ] Ensure consistent formatting
+** [ ] Follow language/framework idioms
+** [ ] Apply SOLID principles
+** [ ] Reduce coupling, increase cohesion
+
+. **Testing During Refactoring**
+** [ ] Run full test suite after each change
+** [ ] Fix any broken tests immediately
+** [ ] Add new tests for new structures
+** [ ] Ensure no test coverage loss
+** [ ] Run performance tests (if applicable)
+** [ ] Manual testing of affected functionality
+
+. **Documentation Updates**
+** [ ] Update inline code comments
+** [ ] Update architecture documentation
+** [ ] Update API documentation (if public interfaces changed)
+** [ ] Document new patterns introduced
+** [ ] Document rationale for changes
+** [ ] Update developer guides
+
+. **Code Review**
+** [ ] Self-review all changes
+** [ ] Verify all tests pass
+** [ ] Check code metrics improved
+** [ ] Create pull request with clear description
+** [ ] Explain rationale and approach
+** [ ] Address reviewer feedback
+** [ ] Get approval
+
+. **Integration and Deployment**
+** [ ] Merge to main branch
+** [ ] Deploy to development environment
+** [ ] Run smoke tests
+** [ ] Deploy to staging environment
+** [ ] Run full test suite in staging
+** [ ] Performance testing in staging
+** [ ] Deploy to production
+** [ ] Monitor closely
+
+. **Post-Refactoring Validation**
+** [ ] Verify all functionality works in production
+** [ ] Monitor error rates
+** [ ] Monitor performance metrics
+** [ ] Verify no user-reported issues
+** [ ] Confirm code metrics improved
+** [ ] Gather team feedback on maintainability
+
+. **Follow-up**
+** [ ] Document lessons learned
+** [ ] Identify additional refactoring opportunities
+** [ ] Update team guidelines based on insights
+** [ ] Celebrate improved codebase!
+
+== Current State Analysis
+
+=== Code Smells Identified
+
+. **Code Smell 1**: [Name, e.g., "Long Method", "Duplicated Code"]
+   - Location: [File and function]
+   - Description: [What's wrong]
+   - Impact: [Why it's a problem]
+
+. **Code Smell 2**: [Another code smell]
+   - Location: [File and function]
+   - Description: [What's wrong]
+   - Impact: [Why it's a problem]
+
+=== Current Structure
+
+[Describe current code organization]
+
+----
+[Show current class/module structure]
+
+Example:
+class UserService {
+    // 500 lines of code with multiple responsibilities
+    function createUser() { ... }
+    function validateUser() { ... }
+    function sendWelcomeEmail() { ... }
+    function logUserActivity() { ... }
+    function generateUserReport() { ... }
+}
+----
+
+=== Metrics (Before Refactoring)
+
+* Lines of code: [Number]
+* Cyclomatic complexity: [Number]
+* Number of functions/methods: [Number]
+* Average function length: [Lines]
+* Test coverage: [Percentage]
+* Coupling: [Number of dependencies]
+* Cohesion: [Low/Medium/High]
+
+=== Pain Points
+
+. **Pain Point 1**: [Description]
+   - Frequency: [How often is this a problem?]
+   - Impact: [Time wasted, bugs caused, etc.]
+
+. **Pain Point 2**: [Another pain point]
+   - Frequency: [How often]
+   - Impact: [Effect]
+
+== Proposed Refactoring
+
+=== Target Structure
+
+[Describe improved code organization]
+
+----
+[Show proposed structure]
+
+Example:
+class UserService {
+    function createUser() { ... }
+}
+
+class UserValidator {
+    function validate() { ... }
+}
+
+class UserNotifier {
+    function sendWelcomeEmail() { ... }
+}
+
+class UserActivityLogger {
+    function logActivity() { ... }
+}
+
+class UserReportGenerator {
+    function generateReport() { ... }
+}
+----
+
+=== Refactoring Steps
+
+. **Step 1**: [First refactoring action]
+   - Change: [What will be done]
+   - Reason: [Why this change]
+   - Risk: [Low/Medium/High]
+   - Tests affected: [Which tests might break]
+
+. **Step 2**: [Second refactoring action]
+   - Change: [What will be done]
+   - Reason: [Why this change]
+   - Risk: [Low/Medium/High]
+   - Tests affected: [Which tests might break]
+
+. **Step 3**: [Continue with incremental steps]
+
+=== Expected Improvements
+
+|===
+|Metric |Before |After (Expected)
+
+|Lines of code
+|[500]
+|[400]
+
+|Cyclomatic complexity
+|[25]
+|[10]
+
+|Test coverage
+|[60%]
+|[85%]
+
+|Average function length
+|[50 lines]
+|[15 lines]
+
+|Number of classes
+|[1]
+|[5]
+|===
+
+=== Design Patterns Applied
+
+* [Pattern 1]: [e.g., Extract Class - separate concerns]
+* [Pattern 2]: [e.g., Strategy Pattern - for different validation strategies]
+* [Pattern 3]: [e.g., Dependency Injection - improve testability]
+
+== Testing Strategy
+
+=== Pre-Refactoring Tests
+
+[%interactive]
+* [ ] All existing tests pass
+* [ ] Identify gaps in test coverage
+* [ ] Add tests for uncovered behavior
+* [ ] Create characterization tests for complex behavior
+* [ ] Verify tests are reliable (run multiple times)
+* [ ] Document current performance baselines
+
+=== During-Refactoring Testing
+
+[%interactive]
+* [ ] Run full test suite after each refactoring step
+* [ ] Don't proceed if any tests fail
+* [ ] Add tests for new structures created
+* [ ] Refactor tests alongside production code
+* [ ] Ensure test readability and maintainability
+
+=== Post-Refactoring Tests
+
+[%interactive]
+* [ ] All original tests still pass
+* [ ] New tests for refactored structure pass
+* [ ] Integration tests pass
+* [ ] E2E tests pass
+* [ ] Performance tests show no regression
+* [ ] Manual testing of key workflows
+
+=== Test Coverage Goals
+
+* Current coverage: {X}%
+* Target coverage: {Y}%
+* Critical paths: 100% coverage
+* New code: 100% coverage
+
+== Risk Assessment and Mitigation
+
+=== Risk Level: [Low / Medium / High]
+
+=== Risks Identified
+
+. **Risk**: Introducing bugs during refactoring
+   - Probability: Medium
+   - Impact: High
+   - Mitigation:
+     * Comprehensive test coverage before starting
+     * Small, incremental changes
+     * Run tests after every change
+     * Thorough code review
+   - Contingency: Revert to previous working version
+
+. **Risk**: Breaking dependent code
+   - Probability: Medium
+   - Impact: High
+   - Mitigation:
+     * Identify all dependencies first
+     * Update dependents in same PR
+     * Maintain backward compatibility where possible
+     * Clear communication with team
+   - Contingency: Fix dependents immediately or revert
+
+. **Risk**: Performance degradation
+   - Probability: Low
+   - Impact: Medium
+   - Mitigation:
+     * Establish performance baselines
+     * Performance test after refactoring
+     * Profile before and after
+   - Contingency: Revert or optimize
+
+. **Risk**: Incomplete refactoring
+   - Probability: Low
+   - Impact: Medium
+   - Mitigation:
+     * Clear scope definition
+     * Incremental approach with milestones
+     * Regular progress reviews
+   - Contingency: Complete in follow-up PR
+
+=== Rollback Plan
+
+If refactoring causes issues:
+
+. Revert commits to last working state
+. Investigate root cause
+. Address issues in refactoring approach
+. Re-attempt with revised plan
+
+== Incremental Refactoring Approach
+
+=== Phase 1: Foundation
+
+[%interactive]
+. **Add Comprehensive Tests**
+** [ ] Test all current behavior
+** [ ] Achieve {X}% coverage minimum
+** [ ] Verify tests are reliable
+
+. **Extract Small Functions**
+** [ ] Identify long functions
+** [ ] Extract helper functions
+** [ ] Test after each extraction
+
+. **Improve Naming**
+** [ ] Rename unclear variables
+** [ ] Rename unclear functions
+** [ ] Update documentation
+
+=== Phase 2: Structural Changes
+
+[%interactive]
+. **Separate Concerns**
+** [ ] Identify mixed responsibilities
+** [ ] Extract classes/modules
+** [ ] Move methods to appropriate classes
+** [ ] Test after each major move
+
+. **Reduce Coupling**
+** [ ] Identify tight coupling
+** [ ] Introduce interfaces/abstractions
+** [ ] Use dependency injection
+** [ ] Test after each change
+
+=== Phase 3: Optimization
+
+[%interactive]
+. **Optimize Performance** (if needed)
+** [ ] Profile code
+** [ ] Identify bottlenecks
+** [ ] Optimize algorithms
+** [ ] Verify performance improvement
+
+. **Final Cleanup**
+** [ ] Remove dead code
+** [ ] Consolidate duplicates
+** [ ] Polish naming and comments
+** [ ] Final test suite run
+
+== Code Review Focus Areas
+
+When reviewing this refactoring, focus on:
+
+. **Correctness**: Does it maintain the same behavior?
+. **Readability**: Is the code easier to understand?
+. **Maintainability**: Will this be easier to maintain and extend?
+. **Test Coverage**: Are tests comprehensive and clear?
+. **Performance**: Any performance implications?
+. **Patterns**: Are design patterns applied appropriately?
+. **Documentation**: Is the reasoning clear?
+
+== Dependencies and Coordination
+
+=== Code Dependencies
+
+* Files that depend on this code: [List]
+* Files this code depends on: [List]
+* External APIs affected: [None, or list]
+* Database changes required: [None, or describe]
+
+=== Team Coordination
+
+* [ ] Notify team of refactoring plan
+* [ ] Coordinate with developers working on related code
+* [ ] Schedule code review session (if complex)
+* [ ] Communicate deployment timing
+
+== Performance Impact
+
+=== Current Performance
+
+* Metric 1: [e.g., Function execution time] = [X ms]
+* Metric 2: [e.g., Memory usage] = [Y MB]
+* Metric 3: [e.g., Database queries] = [Z queries]
+
+=== Expected Performance
+
+* Metric 1: [Same, Improved to A ms, or Slight degradation to B ms]
+* Metric 2: [Expected change]
+* Metric 3: [Expected change]
+
+=== Performance Testing
+
+[%interactive]
+* [ ] Establish performance baselines
+* [ ] Create performance test suite
+* [ ] Run performance tests before refactoring
+* [ ] Run performance tests after refactoring
+* [ ] Compare results
+* [ ] Investigate any degradation
+
+== Documentation
+
+=== Code Documentation
+
+* [ ] Inline comments explaining complex logic
+* [ ] Function/method documentation
+* [ ] Class/module documentation
+* [ ] Architecture decision records (ADRs) for significant decisions
+
+=== Team Documentation
+
+* [ ] Update architecture diagrams
+* [ ] Update developer onboarding docs
+* [ ] Create "before and after" comparison document
+* [ ] Document new patterns introduced
+* [ ] Update coding standards (if applicable)
+
+== Post-Refactoring Review
+
+=== Metrics (After Refactoring)
+
+* Lines of code: [Number]
+* Cyclomatic complexity: [Number]
+* Number of functions/methods: [Number]
+* Average function length: [Lines]
+* Test coverage: [Percentage]
+* Coupling: [Number of dependencies]
+* Cohesion: [Low/Medium/High]
+
+=== Improvements Achieved
+
+. **Improvement 1**: [Metric or qualitative improvement]
+   - Before: [State]
+   - After: [State]
+   - Benefit: [How this helps]
+
+. **Improvement 2**: [Another improvement]
+   - Before: [State]
+   - After: [State]
+   - Benefit: [How this helps]
+
+=== Lessons Learned
+
+. **What Worked Well**:
+   - [Success 1]
+   - [Success 2]
+
+. **What Could Be Improved**:
+   - [Lesson 1]
+   - [Lesson 2]
+
+. **Process Improvements**:
+   - [Improvement to refactoring process 1]
+   - [Improvement 2]
+
+=== Future Refactoring Opportunities
+
+Based on this refactoring, identified opportunities:
+
+* [Opportunity 1: Similar code that could be refactored]
+* [Opportunity 2: Another area needing improvement]
+* [Opportunity 3: Pattern that could be applied elsewhere]
+
+== Notes
+
+[Space for additional notes, discoveries, or important context during refactoring]
+
+== References
+
+[Links to:
+- Code smell catalogs
+- Refactoring patterns
+- Martin Fowler's Refactoring book
+- Design pattern references
+- Team coding standards
+- Architecture documentation
+- Related refactorings]

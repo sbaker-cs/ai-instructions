@@ -1,0 +1,641 @@
+= Testing Plan - {component-name}
+:component-name: [Component/Feature Name]
+
+== Overview
+
+This plan outlines a comprehensive testing strategy for {component-name}. Good tests provide confidence in code correctness, enable safe refactoring, serve as documentation, and catch regressions early.
+
+== Context
+
+Effective testing balances:
+
+* Coverage vs effort
+* Speed vs thoroughness
+* Unit vs integration vs E2E tests
+* Automated vs manual testing
+* Test maintainability
+
+== Questions to Clarify
+
+Before planning tests, please provide answers to these questions:
+
+. **What Are We Testing**: What component/feature needs tests?
+   - New feature: [Never had tests]
+   - Existing feature: [Adding more tests]
+   - Bug fix: [Adding regression tests]
+   - Refactored code: [Ensuring behavior unchanged]
+
+. **Current Test State**: What testing exists?
+   - Test coverage: [Current percentage]
+   - Test types: [Unit, Integration, E2E currently present?]
+   - Test quality: [Are existing tests reliable?]
+   - Gaps: [What's not tested?]
+
+. **Testing Goals**: What should tests achieve?
+   - Target coverage: [Desired percentage]
+   - Confidence level: [High, Medium]
+   - Test speed: [Fast feedback vs comprehensive]
+   - Regression prevention: [Critical paths to protect]
+
+. **Component Type**: What type of component is being tested?
+   - Backend: [API, Service, Database layer]
+   - Frontend: [Component, Page, User flow]
+   - Integration: [External service integration]
+   - Algorithm: [Business logic, Calculation]
+   - Infrastructure: [Deployment, Configuration]
+
+. **Test Environment**: Where will tests run?
+   - Local development: [Yes/No]
+   - CI/CD pipeline: [Yes/No]
+   - Dedicated test environment: [Yes/No]
+   - Test data: [Mock data, Test database, Production copy]
+
+. **Testing Framework**: What tools will be used?
+   - Unit testing: [Jest, pytest, JUnit, etc.]
+   - Integration testing: [Supertest, pytest, etc.]
+   - E2E testing: [Playwright, Cypress, Selenium, etc.]
+   - Mocking: [Library for mocks/stubs]
+   - Or: "Let AI suggest based on language/framework"
+
+. **Dependencies**: What does this component depend on?
+   - External APIs: [How to handle in tests?]
+   - Database: [Real, In-memory, Mocked]
+   - File system: [Real, Virtual, Mocked]
+   - Time/dates: [How to make deterministic?]
+   - Random data: [How to make reproducible?]
+
+. **Test Data**: What data is needed?
+   - Test fixtures: [Sample data to use]
+   - Edge cases: [Boundary values, null, empty, etc.]
+   - Invalid inputs: [For error testing]
+   - Large datasets: [For performance/stress testing]
+
+. **Success Criteria**: When are tests sufficient?
+   - Coverage threshold: [Minimum percentage]
+   - Critical paths: [Must have 100% coverage]
+   - Regression protection: [All bugs have tests]
+   - Speed: [Test suite runs in < X minutes]
+
+. **Maintenance**: Who maintains tests?
+   - Owner: [Team/person responsible]
+   - Review process: [How are test changes reviewed?]
+   - CI integration: [Automated on every commit?]
+   - Flaky test policy: [How to handle unreliable tests?]
+
+== Goals
+
+Based on your answers above, the testing goals are:
+
+* [ ] Achieve {X}% code coverage for {component-name}
+* [ ] Write unit tests for all functions/methods
+* [ ] Write integration tests for key workflows
+* [ ] Write E2E tests for critical user journeys
+* [ ] Ensure tests are fast, reliable, and maintainable
+* [ ] Integrate tests into CI/CD pipeline
+
+== Success Criteria
+
+*Vague:* "Tests should cover the code well."
+
+*Clear:*
+- Test coverage e {X}% for {component-name}
+- 100% coverage for critical business logic
+- All public APIs have integration tests
+- Top {N} user journeys have E2E tests
+- Test suite runs in < {Y} minutes
+- Zero flaky tests (>99% reliability)
+- All tests pass in CI before merge
+- Code review includes test review
+
+== Testing Strategy
+
+=== Test Pyramid
+
+----
+        /\
+       /E2E\      ê Few, slow, expensive (10%)
+      /------\
+     /Integr.\   ê Some, medium speed (20%)
+    /----------\
+   /   Unit     \ ê Many, fast, cheap (70%)
+  /--------------\
+----
+
+=== Test Types and Scope
+
+. **Unit Tests** (70% of tests)
+   - Test individual functions/methods in isolation
+   - Fast execution (milliseconds)
+   - Mock external dependencies
+   - Focus: Logic correctness, edge cases, error handling
+
+. **Integration Tests** (20% of tests)
+   - Test interaction between components
+   - Medium execution time (seconds)
+   - Use real dependencies where practical
+   - Focus: Component interaction, data flow, API contracts
+
+. **End-to-End Tests** (10% of tests)
+   - Test complete user workflows
+   - Slow execution (seconds to minutes)
+   - Test entire system together
+   - Focus: Critical user journeys, cross-system functionality
+
+== Implementation Checklist
+
+[%interactive]
+. **Test Setup**
+** [ ] Choose and set up testing framework
+** [ ] Configure test runner
+** [ ] Set up test directory structure
+** [ ] Create test utilities and helpers
+** [ ] Set up mocking library
+** [ ] Configure code coverage tool
+** [ ] Integrate with CI/CD
+
+. **Unit Tests**
+** [ ] Identify all functions/methods to test
+** [ ] Write tests for happy path (expected usage)
+** [ ] Write tests for edge cases (boundaries, empty, null)
+** [ ] Write tests for error cases (invalid input, exceptions)
+** [ ] Mock external dependencies
+** [ ] Test pure logic without side effects
+** [ ] Aim for fast test execution (< 100ms per test)
+
+. **Integration Tests**
+** [ ] Identify integration points
+** [ ] Test API endpoints (if applicable)
+** [ ] Test database operations
+** [ ] Test external service calls (with test/mock services)
+** [ ] Test message queue interactions (if applicable)
+** [ ] Test authentication and authorization
+** [ ] Test data flow through multiple layers
+
+. **End-to-End Tests**
+** [ ] Identify critical user journeys
+** [ ] Set up E2E test environment
+** [ ] Write tests for top {N} user workflows
+** [ ] Test across browsers (if web)
+** [ ] Test on different devices/screen sizes (if applicable)
+** [ ] Test with realistic data
+** [ ] Test error scenarios (network failures, timeouts)
+
+. **Test Data Management**
+** [ ] Create test fixtures
+** [ ] Set up test database seeding
+** [ ] Create factory functions for test data
+** [ ] Ensure test data is isolated (tests don't affect each other)
+** [ ] Clean up test data after each test
+** [ ] Document test data requirements
+
+. **Edge Case and Error Testing**
+** [ ] Test with null/undefined inputs
+** [ ] Test with empty inputs (empty string, array, object)
+** [ ] Test with boundary values (min, max, zero, negative)
+** [ ] Test with invalid inputs (wrong type, format)
+** [ ] Test with oversized inputs
+** [ ] Test error handling and error messages
+** [ ] Test timeout scenarios
+** [ ] Test concurrent operations (if applicable)
+
+. **Performance and Load Testing** (if applicable)
+** [ ] Set performance baselines
+** [ ] Test with large datasets
+** [ ] Test response time under load
+** [ ] Test resource usage (memory, CPU)
+** [ ] Test with concurrent users/requests
+** [ ] Identify performance bottlenecks
+
+. **Security Testing** (if applicable)
+** [ ] Test authentication mechanisms
+** [ ] Test authorization rules
+** [ ] Test input validation and sanitization
+** [ ] Test for SQL injection vulnerabilities
+** [ ] Test for XSS vulnerabilities
+** [ ] Test for CSRF protection
+** [ ] Test sensitive data handling
+
+. **Test Maintenance**
+** [ ] Remove duplicate tests
+** [ ] Refactor complex test setups
+** [ ] Fix flaky tests immediately
+** [ ] Update tests when code changes
+** [ ] Keep tests readable and well-named
+** [ ] Document complex test scenarios
+
+. **CI/CD Integration**
+** [ ] Run tests automatically on commit
+** [ ] Run tests on pull requests
+** [ ] Block merge if tests fail
+** [ ] Generate coverage reports
+** [ ] Publish test results
+** [ ] Set up test failure notifications
+
+== Unit Tests
+
+=== Functions/Methods to Test
+
+[%interactive]
+. **Function: {functionName}**
+** Purpose: [What does this function do?]
+** Test Cases:
+   - [ ] Happy path: [Expected input í expected output]
+   - [ ] Edge case 1: [Specific scenario]
+   - [ ] Edge case 2: [Another scenario]
+   - [ ] Error case 1: [Invalid input í expected error]
+   - [ ] Error case 2: [Another error scenario]
+
+. **Function: {anotherFunction}**
+** Purpose: [What does this do?]
+** Test Cases:
+   - [ ] [Test scenarios]
+
+=== Unit Test Example Template
+
+----
+[Pseudo-code test structure]
+
+describe("{Component/Module}", () => {
+  describe("{functionName}", () => {
+    test("should {expected behavior} when {condition}", () => {
+      // Arrange: Set up test data and mocks
+      const input = ...;
+      const expectedOutput = ...;
+
+      // Act: Call the function
+      const result = functionName(input);
+
+      // Assert: Verify the result
+      expect(result).toBe(expectedOutput);
+    });
+
+    test("should throw error when {invalid condition}", () => {
+      const invalidInput = ...;
+
+      expect(() => functionName(invalidInput)).toThrow("Expected error message");
+    });
+  });
+});
+----
+
+=== Mocking Strategy
+
+**What to Mock**:
+* External API calls
+* Database queries
+* File system operations
+* Time-dependent operations (Date.now(), etc.)
+* Random number generation
+
+**How to Mock**:
+* Use mocking library ([Jest, Sinon, unittest.mock, etc.])
+* Create mock objects with expected behavior
+* Verify mocks were called correctly
+* Clean up mocks after each test
+
+== Integration Tests
+
+=== Integration Points to Test
+
+[%interactive]
+. **API Endpoint: {method} {path}**
+** Purpose: [What does this endpoint do?]
+** Test Cases:
+   - [ ] Valid request í 200 OK with expected response
+   - [ ] Invalid request í 400 Bad Request with error message
+   - [ ] Unauthorized request í 401 Unauthorized
+   - [ ] Forbidden request í 403 Forbidden
+   - [ ] Not found í 404 Not Found
+   - [ ] Server error handling í 500 Internal Server Error
+
+. **Database Integration: {operation}**
+** Purpose: [Create/Read/Update/Delete operation]
+** Test Cases:
+   - [ ] Successful operation
+   - [ ] Constraint violations (unique, foreign key, etc.)
+   - [ ] Transaction rollback on error
+   - [ ] Data integrity after operation
+
+. **External Service Integration: {serviceName}**
+** Purpose: [What integration does]
+** Test Cases:
+   - [ ] Successful API call
+   - [ ] API error handling
+   - [ ] Timeout handling
+   - [ ] Retry logic
+   - [ ] Circuit breaker behavior (if applicable)
+
+=== Integration Test Example
+
+----
+[Pseudo-code integration test]
+
+describe("User API Integration", () => {
+  beforeEach(async () => {
+    // Set up test database
+    await setupTestDatabase();
+  });
+
+  afterEach(async () => {
+    // Clean up test database
+    await cleanupTestDatabase();
+  });
+
+  test("POST /api/users creates a new user", async () => {
+    const userData = {
+      email: "test@example.com",
+      name: "Test User"
+    };
+
+    const response = await request(app)
+      .post("/api/users")
+      .send(userData)
+      .expect(201);
+
+    expect(response.body).toMatchObject({
+      id: expect.any(String),
+      email: userData.email,
+      name: userData.name
+    });
+
+    // Verify user was actually created in database
+    const user = await db.users.findById(response.body.id);
+    expect(user).toBeTruthy();
+  });
+});
+----
+
+== End-to-End Tests
+
+=== Critical User Journeys
+
+[%interactive]
+. **Journey: {User Journey Name}**
+** Description: [What user accomplishes]
+** Steps:
+   - [ ] User navigates to [page/screen]
+   - [ ] User performs [action 1]
+   - [ ] User sees [expected result 1]
+   - [ ] User performs [action 2]
+   - [ ] User sees [expected result 2]
+   - [ ] Final state: [What should be true at end]
+
+. **Journey: {Another Journey}**
+** Description: [Another workflow]
+** Steps:
+   - [ ] [Steps...]
+
+=== E2E Test Example
+
+----
+[Pseudo-code E2E test]
+
+test("User can sign up and create first post", async () => {
+  // Navigate to signup page
+  await page.goto("/signup");
+
+  // Fill in signup form
+  await page.fill('input[name="email"]', "newuser@example.com");
+  await page.fill('input[name="password"]', "SecurePassword123");
+  await page.click('button[type="submit"]');
+
+  // Verify redirected to dashboard
+  await expect(page).toHaveURL("/dashboard");
+  await expect(page.locator('h1')).toContainText("Welcome");
+
+  // Create a post
+  await page.click('button:has-text("New Post")');
+  await page.fill('input[name="title"]', "My First Post");
+  await page.fill('textarea[name="content"]', "Hello World!");
+  await page.click('button:has-text("Publish")');
+
+  // Verify post appears
+  await expect(page.locator('.post-title')).toContainText("My First Post");
+});
+----
+
+== Test Data Management
+
+=== Fixtures
+
+[Define common test data]
+
+----
+[Example test fixtures]
+
+const testUser = {
+  id: "test-user-1",
+  email: "test@example.com",
+  name: "Test User",
+  role: "user"
+};
+
+const testAdmin = {
+  id: "test-admin-1",
+  email: "admin@example.com",
+  name: "Admin User",
+  role: "admin"
+};
+----
+
+=== Factory Functions
+
+[Create functions to generate test data]
+
+----
+[Example factory]
+
+function createTestUser(overrides = {}) {
+  return {
+    id: generateId(),
+    email: `test${random()}@example.com`,
+    name: "Test User",
+    createdAt: new Date(),
+    ...overrides
+  };
+}
+----
+
+=== Test Database Management
+
+. **Setup**:
+   - Use separate test database
+   - Seed with initial test data
+   - Run migrations
+
+. **Cleanup**:
+   - Clear database after each test
+   - Or use transactions and rollback
+
+. **Isolation**:
+   - Tests should not depend on execution order
+   - Each test should set up its own data
+
+== Coverage Requirements
+
+=== Coverage Targets
+
+|===
+|Component Type |Minimum Coverage |Target Coverage
+
+|Business Logic
+|90%
+|100%
+
+|API Endpoints
+|80%
+|95%
+
+|Utilities
+|80%
+|90%
+
+|UI Components
+|70%
+|85%
+
+|Integration Glue
+|60%
+|75%
+|===
+
+=== Critical Paths
+
+[List critical functionality that MUST have 100% coverage]
+
+* [ ] Authentication and authorization
+* [ ] Payment processing
+* [ ] Data creation/modification
+* [ ] Security-related functions
+* [ ] [Other critical paths]
+
+== Test Quality Checklist
+
+[%interactive]
+* [ ] **Fast**: Unit tests run in < 10ms each
+* [ ] **Isolated**: Tests don't depend on each other
+* [ ] **Repeatable**: Tests produce same result every time
+* [ ] **Self-validating**: Tests pass or fail automatically (no manual verification)
+* [ ] **Timely**: Tests written alongside code (not after)
+* [ ] **Readable**: Test names clearly describe what they test
+* [ ] **Maintainable**: Tests are easy to update when code changes
+* [ ] **Thorough**: Edge cases and error cases covered
+
+== Common Testing Patterns
+
+=== AAA Pattern (Arrange-Act-Assert)
+
+----
+test("description", () => {
+  // Arrange: Set up test data and conditions
+  const input = ...;
+  const expected = ...;
+
+  // Act: Execute the code under test
+  const result = functionUnderTest(input);
+
+  // Assert: Verify the result
+  expect(result).toBe(expected);
+});
+----
+
+=== Given-When-Then (Behavior-Driven Development)
+
+----
+test("user can log in with valid credentials", () => {
+  // Given: User has an account
+  const user = createTestUser();
+
+  // When: User attempts to log in with correct credentials
+  const result = login(user.email, user.password);
+
+  // Then: User is authenticated
+  expect(result.authenticated).toBe(true);
+  expect(result.user.id).toBe(user.id);
+});
+----
+
+== Handling Flaky Tests
+
+**Prevention**:
+* Avoid test interdependencies
+* Use fixed/mocked time instead of real time
+* Use deterministic data (no random values without seed)
+* Properly clean up after tests
+* Avoid unnecessary async operations
+
+**Detection**:
+* Run tests multiple times
+* Track test reliability metrics
+* Alert on inconsistent results
+
+**Resolution**:
+* Fix immediately (don't ignore)
+* Add retries only as last resort
+* Quarantine if can't fix quickly (mark as skip)
+* Remove if can't be made reliable
+
+== CI/CD Integration
+
+=== Test Execution in CI
+
+[%interactive]
+* [ ] Run unit tests on every commit
+* [ ] Run integration tests on every commit
+* [ ] Run E2E tests on pull requests
+* [ ] Run full test suite before merge to main
+* [ ] Block merge if any tests fail
+* [ ] Block merge if coverage decreases
+
+=== Test Reporting
+
+[%interactive]
+* [ ] Generate test coverage reports
+* [ ] Publish coverage to dashboard
+* [ ] Display test results in PR
+* [ ] Notify team on test failures
+* [ ] Track test trends over time
+
+=== Performance
+
+* Unit tests: Should complete in < 1 minute
+* Integration tests: Should complete in < 5 minutes
+* E2E tests: Should complete in < 15 minutes
+* Optimize or parallelize if slower
+
+== Test Maintenance
+
+=== Regular Tasks
+
+* [ ] Review and remove obsolete tests
+* [ ] Refactor duplicate test code
+* [ ] Update tests when requirements change
+* [ ] Fix flaky tests immediately
+* [ ] Keep test dependencies up to date
+* [ ] Review test coverage regularly
+
+=== Test Code Review
+
+When reviewing tests, check:
+
+* [ ] Tests actually test what they claim
+* [ ] Tests are independent and isolated
+* [ ] Tests are readable and well-named
+* [ ] Tests cover edge cases and errors
+* [ ] Mocks are appropriate and minimal
+* [ ] Tests run quickly
+* [ ] Tests are deterministic (not flaky)
+
+== Notes
+
+[Space for additional notes about testing approach, special considerations, or discovered issues]
+
+== References
+
+[Links to:
+- Testing framework documentation
+- Testing best practices
+- Test examples in codebase
+- CI/CD pipeline configuration
+- Coverage reports
+- Team testing guidelines]

@@ -1,0 +1,457 @@
+= Code Review Checklist - {pr-title}
+:pr-title: [Pull Request Title]
+
+== Overview
+
+This checklist provides a systematic approach to reviewing code changes. Code reviews improve quality, share knowledge, catch bugs, and ensure consistency. This template helps both authors and reviewers conduct thorough, constructive reviews.
+
+== For Code Authors
+
+Before requesting review:
+
+* [ ] Code is complete and tested
+* [ ] All tests pass locally
+* [ ] Code follows team style guidelines
+* [ ] Self-review completed
+* [ ] PR description is clear and detailed
+* [ ] Related issues/tickets linked
+* [ ] Breaking changes documented
+* [ ] Ready for production deployment
+
+== For Reviewers
+
+Questions to guide your review:
+
+. **Context**: Do I understand what this change does and why?
+. **Correctness**: Does the code do what it's supposed to do?
+. **Design**: Is this the right approach? Are there better alternatives?
+. **Readability**: Can I understand the code easily?
+. **Testing**: Are there adequate tests?
+. **Edge Cases**: Are error scenarios handled?
+. **Performance**: Are there performance concerns?
+. **Security**: Are there security vulnerabilities?
+
+== Pull Request Information
+
+**PR Title**: {pr-title}
+
+**Type**: [Feature / Bug Fix / Refactoring / Documentation / Performance / Security]
+
+**Related Issue**: [Link to issue/ticket]
+
+**Description**: [Brief summary of changes]
+
+**Breaking Changes**: [Yes/No - if yes, describe]
+
+**Deployment Notes**: [Any special deployment considerations]
+
+== Review Checklist
+
+=== 1. General Review
+
+[%interactive]
+* [ ] **Understand the Goal**: PR description clearly explains what and why
+* [ ] **Scope Appropriate**: Changes are focused and not too large
+* [ ] **Linked Issues**: Related issues/tickets are referenced
+* [ ] **Breaking Changes**: Documented if present
+* [ ] **Dependencies**: External dependencies documented
+* [ ] **Backward Compatibility**: Considered and addressed
+
+=== 2. Code Functionality
+
+[%interactive]
+* [ ] **Correctness**: Code does what it's supposed to do
+* [ ] **Logic**: Algorithm/logic is correct
+* [ ] **Edge Cases**: Handles edge cases (null, empty, boundaries)
+* [ ] **Error Handling**: Errors are caught and handled appropriately
+* [ ] **Error Messages**: Error messages are clear and actionable
+* [ ] **Validation**: Input validation is adequate
+* [ ] **State Management**: State is managed correctly
+
+=== 3. Code Design and Architecture
+
+[%interactive]
+* [ ] **Design Approach**: Solution approach is sound
+* [ ] **Modularity**: Code is properly modularized
+* [ ] **Reusability**: Common code is extracted and reused
+* [ ] **Single Responsibility**: Each function/class has one clear purpose
+* [ ] **Abstraction Level**: Appropriate level of abstraction
+* [ ] **Dependencies**: Dependencies are minimal and appropriate
+* [ ] **Design Patterns**: Patterns used correctly
+* [ ] **SOLID Principles**: Code follows SOLID principles (if OOP)
+* [ ] **DRY Principle**: Don't Repeat Yourself - no unnecessary duplication
+* [ ] **YAGNI Principle**: You Aren't Gonna Need It - no over-engineering
+
+=== 4. Code Readability
+
+[%interactive]
+* [ ] **Naming**: Variables, functions, classes have clear, descriptive names
+* [ ] **Consistency**: Code style consistent with codebase
+* [ ] **Formatting**: Proper indentation and formatting
+* [ ] **Comments**: Complex logic is explained with comments
+* [ ] **Documentation**: Public APIs are documented
+* [ ] **Code Organization**: Logical organization and structure
+* [ ] **Function Length**: Functions are reasonably sized (not too long)
+* [ ] **Complexity**: Code is as simple as possible
+* [ ] **Magic Numbers**: No magic numbers; constants are named
+* [ ] **Dead Code**: No commented-out code or unused imports
+
+=== 5. Testing
+
+[%interactive]
+* [ ] **Test Coverage**: Adequate test coverage for new code
+* [ ] **Test Quality**: Tests actually test what they should
+* [ ] **Edge Cases**: Tests cover edge cases
+* [ ] **Error Cases**: Tests cover error scenarios
+* [ ] **Test Names**: Test names clearly describe what they test
+* [ ] **Test Independence**: Tests are independent and isolated
+* [ ] **Mocking**: Appropriate use of mocks/stubs
+* [ ] **Integration Tests**: Key integrations are tested
+* [ ] **E2E Tests**: Critical user flows are tested (if applicable)
+* [ ] **All Tests Pass**: All tests pass in CI
+
+=== 6. Performance
+
+[%interactive]
+* [ ] **Algorithm Efficiency**: Algorithms are reasonably efficient
+* [ ] **Database Queries**: Queries are optimized (no N+1, proper indexes)
+* [ ] **Caching**: Appropriate caching used where beneficial
+* [ ] **Memory Usage**: No obvious memory leaks or excessive usage
+* [ ] **Network Calls**: Network calls are minimized and batched
+* [ ] **Lazy Loading**: Expensive operations are deferred when possible
+* [ ] **Resource Cleanup**: Resources (connections, files) are properly closed
+* [ ] **Scalability**: Code scales reasonably with data/load
+
+=== 7. Security
+
+[%interactive]
+* [ ] **Authentication**: Authentication is required where needed
+* [ ] **Authorization**: Authorization rules are enforced
+* [ ] **Input Validation**: All inputs are validated and sanitized
+* [ ] **SQL Injection**: Parameterized queries used (no string concatenation)
+* [ ] **XSS Protection**: Output is properly encoded/escaped
+* [ ] **CSRF Protection**: CSRF tokens used for state-changing operations
+* [ ] **Sensitive Data**: Sensitive data (passwords, keys) not logged or exposed
+* [ ] **Encryption**: Sensitive data is encrypted at rest and in transit
+* [ ] **Dependencies**: No known vulnerabilities in dependencies
+* [ ] **Access Control**: Proper access controls on files/resources
+
+=== 8. Data and Database
+
+[%interactive]
+* [ ] **Data Integrity**: Data integrity is maintained
+* [ ] **Transactions**: Database transactions used appropriately
+* [ ] **Migrations**: Database migrations are correct and reversible
+* [ ] **Indexes**: Necessary indexes added
+* [ ] **Constraints**: Appropriate database constraints defined
+* [ ] **Data Validation**: Data is validated before saving
+* [ ] **Null Handling**: Null values handled correctly
+
+=== 9. Error Handling and Logging
+
+[%interactive]
+* [ ] **Try-Catch**: Exceptions caught at appropriate levels
+* [ ] **Error Propagation**: Errors propagate correctly
+* [ ] **Error Recovery**: System recovers gracefully from errors
+* [ ] **Logging**: Appropriate logging added
+* [ ] **Log Levels**: Correct log levels used (debug, info, warn, error)
+* [ ] **No Sensitive Data**: Logs don't contain sensitive information
+* [ ] **Structured Logging**: Logs are structured and searchable
+* [ ] **Monitoring**: Errors are captured for monitoring/alerting
+
+=== 10. API and Contracts
+
+[%interactive]
+* [ ] **API Design**: API design is intuitive and RESTful (if REST)
+* [ ] **Versioning**: API versioning considered for breaking changes
+* [ ] **Request/Response**: Clear request and response formats
+* [ ] **Status Codes**: Appropriate HTTP status codes used
+* [ ] **Documentation**: API documented (OpenAPI, comments, etc.)
+* [ ] **Validation**: Request validation is comprehensive
+* [ ] **Rate Limiting**: Rate limiting considered (if public API)
+* [ ] **Backward Compatibility**: Existing API contracts preserved
+
+=== 11. Configuration and Environment
+
+[%interactive]
+* [ ] **Configuration**: Configuration is externalized
+* [ ] **Environment Variables**: Secrets in environment variables, not code
+* [ ] **Defaults**: Sensible defaults provided
+* [ ] **Feature Flags**: Feature flags used appropriately
+* [ ] **Configuration Validation**: Configuration validated at startup
+
+=== 12. Documentation
+
+[%interactive]
+* [ ] **Code Comments**: Complex logic explained
+* [ ] **API Docs**: Public APIs documented
+* [ ] **README**: README updated if needed
+* [ ] **Architecture Docs**: Architecture documentation updated
+* [ ] **CHANGELOG**: Changes noted in CHANGELOG
+* [ ] **Migration Guide**: Migration guide provided (if breaking changes)
+* [ ] **Inline Docs**: Functions/classes have doc comments
+
+=== 13. Dependencies
+
+[%interactive]
+* [ ] **Necessity**: New dependencies are necessary
+* [ ] **Licenses**: Dependency licenses are compatible
+* [ ] **Security**: Dependencies have no known vulnerabilities
+* [ ] **Maintenance**: Dependencies are actively maintained
+* [ ] **Size**: Dependencies don't bloat bundle size excessively
+* [ ] **Alternatives**: Considered lighter alternatives
+
+=== 14. Deployment and Operations
+
+[%interactive]
+* [ ] **Deployment Safe**: Changes can be deployed safely
+* [ ] **Rollback Plan**: Rollback possible if issues arise
+* [ ] **Monitoring**: Metrics/logs adequate for monitoring
+* [ ] **Alerts**: Alerts configured for critical failures
+* [ ] **Health Checks**: Health check endpoints updated (if applicable)
+* [ ] **Gradual Rollout**: Consider feature flag for gradual rollout
+* [ ] **Database Migrations**: Migrations tested and can run in production
+
+=== 15. Accessibility (if frontend)
+
+[%interactive]
+* [ ] **Keyboard Navigation**: All functionality accessible via keyboard
+* [ ] **Screen Reader**: Screen reader compatible
+* [ ] **ARIA Labels**: Appropriate ARIA labels for accessibility
+* [ ] **Color Contrast**: Sufficient color contrast
+* [ ] **Focus Indicators**: Clear focus indicators
+* [ ] **Alt Text**: Images have descriptive alt text
+
+=== 16. User Experience (if frontend)
+
+[%interactive]
+* [ ] **Loading States**: Loading indicators shown
+* [ ] **Error States**: Error messages are user-friendly
+* [ ] **Success Feedback**: Success confirmations provided
+* [ ] **Responsive**: Works on different screen sizes
+* [ ] **Browser Compatibility**: Tested on target browsers
+* [ ] **Performance**: Page loads quickly
+
+== Review Severity
+
+When providing feedback, categorize issues by severity:
+
+. **Blocking/Critical**: Must be fixed before merge
+   - Security vulnerabilities
+   - Correctness bugs
+   - Breaking changes without migration path
+   - Data integrity issues
+
+. **Major**: Should be fixed before merge
+   - Design issues
+   - Significant performance problems
+   - Missing critical tests
+   - Poor error handling
+
+. **Minor**: Should be addressed but not blocking
+   - Code style issues
+   - Minor performance optimizations
+   - Additional test coverage
+   - Documentation gaps
+
+. **Nit/Suggestion**: Optional improvements
+   - Naming preferences
+   - Code organization suggestions
+   - Refactoring opportunities
+
+== Feedback Guidelines
+
+=== For Reviewers
+
+**Be Constructive**:
+* Focus on the code, not the person
+* Explain *why* something should change
+* Suggest alternatives
+* Praise good solutions
+* Ask questions rather than make demands
+
+**Be Specific**:
+* Point to exact lines of code
+* Provide examples of better approaches
+* Link to relevant documentation or standards
+
+**Be Timely**:
+* Review within 24 hours when possible
+* Block time for reviews
+* Prioritize critical PRs
+
+**Examples**:
+
+L Bad: "This is wrong."
+
+ Good: "This function could return null, but there's no null check on line 45. Consider adding validation or using Optional<T>."
+
+L Bad: "Bad naming."
+
+ Good: "The name `process()` doesn't describe what this function does. Consider `calculateUserDiscount()` to be more explicit."
+
+=== For Authors
+
+**Respond Constructively**:
+* Thank reviewers for feedback
+* Ask clarifying questions
+* Explain design decisions
+* Make requested changes promptly
+
+**Provide Context**:
+* Write clear PR descriptions
+* Explain non-obvious decisions
+* Link to relevant issues/docs
+* Highlight areas needing extra attention
+
+**Accept Feedback**:
+* Don't take criticism personally
+* Learn from suggestions
+* Discuss disagreements respectfully
+
+== Review Process
+
+=== 1. Initial Review (5-10 minutes)
+
+* [ ] Read PR description
+* [ ] Understand the goal and scope
+* [ ] Check PR size (if too large, ask to split)
+* [ ] Verify all CI checks pass
+* [ ] Scan changes for obvious issues
+
+=== 2. Detailed Review (20-40 minutes depending on size)
+
+* [ ] Review code file by file
+* [ ] Check each item in checklist above
+* [ ] Test locally if needed
+* [ ] Leave comments with specific feedback
+* [ ] Categorize feedback by severity
+
+=== 3. Follow-up Review (5-15 minutes)
+
+* [ ] Review author's responses and changes
+* [ ] Verify concerns addressed
+* [ ] Approve if satisfied
+* [ ] Request changes if needed
+
+=== 4. Approval and Merge
+
+* [ ] Approve PR
+* [ ] Author merges when all approvals received
+* [ ] Monitor deployment
+* [ ] Watch for issues post-merge
+
+== When to Approve
+
+Approve when:
+
+* All blocking and major issues resolved
+* Code meets quality standards
+* Tests are adequate and passing
+* You're confident this can ship to production
+* Documentation is sufficient
+
+You can approve with minor issues if:
+
+* Minor issues are noted but non-blocking
+* Author agrees to address in follow-up PR
+* Time-sensitive deployment
+
+## Common Issues to Watch For
+
+=== Logic Errors
+
+* Off-by-one errors
+* Incorrect boolean logic
+* Wrong operator (== vs ===, && vs ||)
+* Missing edge case handling
+
+=== Concurrency Issues
+
+* Race conditions
+* Deadlocks
+* Non-thread-safe operations
+* Improper locking
+
+=== Resource Leaks
+
+* Unclosed database connections
+* Unclosed file handles
+* Memory leaks (unreleased references)
+* Event listeners not removed
+
+=== Security Vulnerabilities
+
+* SQL injection
+* XSS vulnerabilities
+* CSRF vulnerabilities
+* Hardcoded secrets
+* Insufficient authentication/authorization
+
+=== Performance Issues
+
+* N+1 database queries
+* Missing database indexes
+* Inefficient algorithms (O(n²) when O(n) possible)
+* Loading entire datasets into memory
+* Synchronous operations that could be async
+
+== Review Summary Template
+
+After completing review, provide summary:
+
+----
+## Review Summary
+
+**Status**:  Approved / ø Changes Requested / =¬ Questions
+
+**Overall**: [High-level assessment]
+
+**Strengths**:
+- [What was done well]
+- [Another positive]
+
+**Issues Found**:
+- =4 Blocking: [Number] critical issues
+- =à Major: [Number] issues
+- =á Minor: [Number] issues
+- =â Nits: [Number] suggestions
+
+**Key Concerns**:
+1. [Most important concern]
+2. [Another concern]
+
+**Questions**:
+- [Question for clarification]
+
+**Next Steps**:
+- [What author should do next]
+----
+
+== Automated Checks
+
+Automate what can be automated to focus review on important aspects:
+
+* [ ] Linting (style and formatting)
+* [ ] Unit tests pass
+* [ ] Integration tests pass
+* [ ] Code coverage meets threshold
+* [ ] Security scanning
+* [ ] Dependency vulnerability checking
+* [ ] License compatibility
+* [ ] Build succeeds
+* [ ] Documentation generation
+
+== Notes
+
+[Space for team-specific guidelines, common issues in this codebase, or lessons learned from reviews]
+
+== References
+
+[Links to:
+- Team coding standards
+- Style guide
+- Security guidelines
+- Architecture documentation
+- Common review feedback examples
+- Code review best practices]

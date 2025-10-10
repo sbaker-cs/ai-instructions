@@ -1,3 +1,191 @@
-= ai-instructions
+= AI Instructions & Templates Repository
+:toc:
+:toclevels: 3
+:icons: font
 
-AI instruction templates and instructions
+== Overview
+
+This repository contains language-agnostic and framework-agnostic AI instruction templates for building applications with AI agents. These templates provide structured prompts to guide AI agents through common software development tasks while ensuring they ask clarifying questions when uncertain.
+
+== Purpose
+
+* Provide consistent, reusable instruction templates for AI-assisted development
+* Ensure AI agents ask appropriate questions before making assumptions
+* Support multiple programming languages, frameworks, and paradigms
+* Enable systematic and thorough task completion
+* Facilitate collaboration between developers and AI agents
+
+== Repository Structure
+
+----
+ai-instructions/
+├── README.adoc                    # This file
+├── template/                      # Base template structure
+│   └── PlanningDoc.adoc          # Core planning template
+├── project/                       # Project-level instructions
+├── features/                      # Feature development instructions
+├── maintenance/                   # Code maintenance instructions
+├── quality/                       # Quality assurance instructions
+├── documentation/                 # Documentation creation instructions
+└── design/                        # Design and architecture instructions
+----
+
+== Template Categories
+
+=== Project (project/)
+
+Project initialization and high-level planning templates.
+
+* **InitialSetup.adoc** - Setting up a new project with AI assistance
+* **Architecture.adoc** - Architectural decisions and system design
+* **Requirements.adoc** - Requirements gathering and analysis
+
+=== Features (features/)
+
+Templates for building and enhancing functionality.
+
+* **NewFeature.adoc** - Adding entirely new features
+* **Enhancement.adoc** - Enhancing existing features
+* **Integration.adoc** - Integrating third-party services and APIs
+
+=== Maintenance (maintenance/)
+
+Templates for code maintenance and optimization tasks.
+
+* **BugFix.adoc** - Systematic bug fixing and root cause analysis
+* **Refactoring.adoc** - Safe code refactoring practices
+* **Performance.adoc** - Performance optimization strategies
+
+=== Quality (quality/)
+
+Templates for ensuring code quality and security.
+
+* **Testing.adoc** - Writing comprehensive tests
+* **CodeReview.adoc** - Code review guidelines and checklists
+* **Security.adoc** - Security considerations and hardening
+
+=== Documentation (documentation/)
+
+Templates for creating various types of documentation.
+
+* **API.adoc** - API documentation generation
+* **UserGuide.adoc** - End-user documentation
+* **Technical.adoc** - Technical and developer documentation
+
+=== Design (design/)
+
+Templates for system and component design.
+
+* **Database.adoc** - Database schema and data model design
+* **APIDesign.adoc** - RESTful/GraphQL API endpoint design
+* **UI.adoc** - User interface and experience considerations
+
+== Usage Guidelines
+
+=== How to Use These Templates
+
+. **Select** the appropriate template for your task
+. **Copy** the template content into your AI agent conversation
+. **Fill in** the placeholders with project-specific information
+. **Provide context** about your language, framework, and environment
+. **Allow** the AI agent to ask clarifying questions
+. **Iterate** on the plan before implementation begins
+
+=== Template Placeholders
+
+Templates use the following placeholder conventions:
+
+* `{feature}` - Feature or component name
+* `{description}` - Detailed description of the task
+* `[Your X]` - Sections requiring user input
+* `[ ]` - Interactive checkboxes for tracking progress
+* `[*]` - Completed checklist items
+
+=== Best Practices
+
+. **Be Specific**: Replace all placeholders with concrete details
+. **Provide Context**: Include relevant technical constraints and requirements
+. **Ask Questions**: Encourage the AI to clarify uncertainties
+. **Iterate First**: Review and refine the plan before coding
+. **Track Progress**: Use checklists to monitor implementation status
+. **Stay Agnostic**: Avoid assuming specific tools or frameworks unless specified
+
+=== Example Workflow
+
+[source]
+----
+1. Developer selects features/NewFeature.adoc template
+2. Developer fills in {feature} = "User Authentication"
+3. Developer specifies language = Python, framework = FastAPI
+4. AI agent asks clarifying questions about authentication methods
+5. Developer provides answers
+6. AI agent generates detailed implementation plan
+7. Developer reviews and approves plan
+8. AI agent implements feature systematically
+----
+
+== Principles
+
+These templates follow core principles:
+
+=== Ask Questions When Unsure
+
+Templates prompt AI agents to:
+
+* Request clarification on ambiguous requirements
+* Confirm technical choices before implementation
+* Verify assumptions about the environment
+* Seek guidance on trade-offs and alternatives
+
+=== Language Agnostic
+
+Templates work across:
+
+* Programming languages (Python, JavaScript, Java, Go, Rust, etc.)
+* Paradigms (OOP, functional, procedural)
+* Type systems (static, dynamic, gradual)
+
+=== Framework Agnostic
+
+Templates support:
+
+* Web frameworks (Express, Django, Spring, etc.)
+* Mobile frameworks (React Native, Flutter, etc.)
+* Desktop frameworks (Electron, Qt, etc.)
+* Any custom or in-house frameworks
+
+=== Template-Based
+
+All templates:
+
+* Use consistent structure and formatting
+* Include placeholders for customization
+* Support copy-paste-fill workflows
+* Enable rapid task initialization
+
+=== AsciiDoc Format
+
+Templates use AsciiDoc for:
+
+* Rich formatting capabilities
+* Cross-reference support
+* Table of contents generation
+* Export to multiple formats (HTML, PDF, etc.)
+
+== Contributing
+
+To add or modify templates:
+
+. Follow the structure from `template/PlanningDoc.adoc`
+. Maintain language and framework agnosticism
+. Include sections for questions and clarifications
+. Use clear, actionable language
+. Test with multiple AI agents if possible
+
+== License
+
+[Specify your license here]
+
+== Feedback
+
+[Provide feedback mechanism here]

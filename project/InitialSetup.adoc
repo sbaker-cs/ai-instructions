@@ -1,0 +1,181 @@
+= {project-name} - Initial Project Setup Plan
+:project-name: [Your Project Name]
+
+== Overview
+
+This plan outlines the steps to set up a new software project from scratch with AI assistance. This includes selecting the technology stack, initializing the project structure, configuring development tools, and establishing best practices for the development lifecycle.
+
+== Context
+
+Before proceeding with project setup, the AI agent needs to understand:
+
+* The project's purpose and target users
+* Technical constraints (hosting environment, performance requirements, compliance needs)
+* Team size and experience level
+* Timeline and budget considerations
+* Integration requirements with existing systems
+
+== Questions to Clarify
+
+Before creating the setup plan, please provide answers to these questions:
+
+. **Project Purpose**: What problem does this project solve? Who are the end users?
+
+. **Programming Language**: Do you have a preferred language, or should the AI suggest options based on requirements?
+   - Examples: Python, JavaScript/TypeScript, Java, Go, Rust, C#, PHP
+
+. **Project Type**: What type of application are you building?
+   - Web application (frontend, backend, full-stack)
+   - Mobile application (native, cross-platform)
+   - Desktop application
+   - CLI tool
+   - Library/SDK
+   - Microservice
+   - Data pipeline
+   - Other: [specify]
+
+. **Framework Preferences**: Are there any framework requirements or preferences?
+   - If web: [React, Vue, Angular, Svelte, etc.]
+   - If backend: [Express, Django, Spring, FastAPI, etc.]
+   - If mobile: [React Native, Flutter, Swift, Kotlin, etc.]
+   - Or: "Let AI suggest"
+
+. **Database Requirements**: Will this project need a database?
+   - Type: [Relational (PostgreSQL, MySQL), NoSQL (MongoDB, Redis), Document (DynamoDB), Graph, Time-series]
+   - Or: "Not needed"
+   - Or: "Let AI suggest"
+
+. **Development Environment**: What operating systems will the team use?
+   - [Windows, macOS, Linux, Mixed]
+
+. **Version Control**: Is there an existing repository, or should we initialize a new one?
+   - [New repository, Existing repository URL, Monorepo]
+
+. **CI/CD Requirements**: Do you need continuous integration/deployment setup?
+   - Platform: [GitHub Actions, GitLab CI, Jenkins, CircleCI, None yet]
+
+. **Testing Requirements**: What level of testing is expected?
+   - Unit tests required
+   - Integration tests required
+   - E2E tests required
+   - Let AI suggest based on best practices
+
+. **Package Management**: Are there preferences for dependency management?
+   - Or: "Use language defaults"
+
+== Goals
+
+Based on your answers above, the goals are:
+
+* [ ] Initialize project repository with proper structure
+* [ ] Configure development environment and tooling
+* [ ] Set up dependency management
+* [ ] Establish coding standards and linting
+* [ ] Configure testing framework
+* [ ] Set up CI/CD pipeline (if needed)
+* [ ] Create initial documentation
+
+== Success Criteria
+
+*Vague:* "Project should be set up properly."
+
+*Clear:*
+- Developer can clone repository and run the project within 5 minutes using documented setup steps
+- All team members have consistent development environments
+- Linting and formatting rules are enforced automatically
+- CI pipeline runs tests on every commit
+- Project includes README with setup instructions, architecture overview, and contribution guidelines
+
+== Implementation Checklist
+
+[%interactive]
+. **Repository Setup**
+** [ ] Initialize version control repository
+** [ ] Create .gitignore file appropriate for {language/framework}
+** [ ] Set up branch protection rules (if applicable)
+** [ ] Configure repository settings (access, collaborators)
+
+. **Project Structure**
+** [ ] Create directory structure following {language/framework} conventions
+** [ ] Initialize project manifest (package.json, requirements.txt, pom.xml, etc.)
+** [ ] Set up source and test directories
+** [ ] Create configuration directories (config/, .github/, etc.)
+
+. **Development Environment**
+** [ ] Document required software versions ({language}, {framework}, etc.)
+** [ ] Create environment setup script or document setup steps
+** [ ] Configure environment variables template (.env.example)
+** [ ] Set up containerization (Docker) if needed
+
+. **Code Quality Tools**
+** [ ] Configure linter ({ESLint, Pylint, RuboCop, etc.})
+** [ ] Configure code formatter ({Prettier, Black, rustfmt, etc.})
+** [ ] Set up pre-commit hooks
+** [ ] Configure static analysis tools (if applicable)
+
+. **Testing Framework**
+** [ ] Install and configure test framework ({Jest, pytest, JUnit, etc.})
+** [ ] Create test directory structure
+** [ ] Write example test to verify setup
+** [ ] Configure code coverage reporting
+
+. **Build and Run**
+** [ ] Configure build tools ({Webpack, Vite, Maven, Gradle, etc.})
+** [ ] Create development run scripts
+** [ ] Create production build scripts
+** [ ] Document build and run commands
+
+. **Dependency Management**
+** [ ] Initialize dependency management
+** [ ] Install core dependencies
+** [ ] Install development dependencies
+** [ ] Document dependency update policy
+
+. **CI/CD Pipeline**
+** [ ] Create CI configuration file (.github/workflows/, .gitlab-ci.yml, etc.)
+** [ ] Set up automated testing on pull requests
+** [ ] Configure build verification
+** [ ] Set up deployment pipeline (if applicable)
+
+. **Documentation**
+** [ ] Create README.md with project overview
+** [ ] Document setup instructions
+** [ ] Document common development tasks
+** [ ] Create CONTRIBUTING.md guidelines
+** [ ] Set up architecture documentation (if complex)
+** [ ] Create API documentation (if applicable)
+
+. **Initial Code**
+** [ ] Create main entry point
+** [ ] Implement "Hello World" or basic functionality to verify setup
+** [ ] Create example test that passes
+** [ ] Verify all tools work together correctly
+
+== Post-Setup Verification
+
+After completing the checklist, verify:
+
+. Clone repository to fresh directory
+. Follow setup instructions exactly as documented
+. Run linter: [command] - should pass
+. Run tests: [command] - should pass
+. Run application: [command] - should start successfully
+. Make a trivial change and verify pre-commit hooks work
+. Create a test pull request and verify CI runs
+
+== Next Steps
+
+After initial setup is complete:
+
+. [ ] Define first feature or milestone
+. [ ] Set up project management (issues, boards)
+. [ ] Schedule team walkthrough of setup
+. [ ] Begin development on core functionality
+
+== Notes
+
+[Space for additional notes, decisions, or context specific to this project]
+
+== References
+
+[Links to framework documentation, style guides, or other relevant resources]

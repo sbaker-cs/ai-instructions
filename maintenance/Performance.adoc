@@ -1,0 +1,690 @@
+= Performance Optimization Plan - {component-name}
+:component-name: [Component/System Name]
+
+== Overview
+
+This plan outlines a systematic approach to improving the performance of {component-name}. Performance optimization should be data-driven, focusing on measurable improvements while maintaining code quality and correctness.
+
+== Context
+
+Performance optimization follows a structured approach:
+
+* Measure first - establish baselines
+* Profile to find bottlenecks
+* Optimize the slowest parts first (80/20 rule)
+* Measure again to verify improvement
+* Balance performance with maintainability
+
+"Premature optimization is the root of all evil" - Donald Knuth
+
+== Questions to Clarify
+
+Before planning optimization, please provide answers to these questions:
+
+. **Performance Problem**: What is the performance issue?
+   - Symptom: [Slow response, high CPU, memory leak, etc.]
+   - User impact: [How does this affect users?]
+   - Frequency: [Always slow, Under load, Specific scenarios]
+   - Severity: [Critical, High, Medium, Low]
+
+. **Current Performance**: What are the baseline metrics?
+   - Response time: [Average, 95th percentile, 99th percentile]
+   - Throughput: [Requests per second, transactions per second]
+   - Resource usage: [CPU %, Memory usage, Disk I/O, Network]
+   - Error rate: [Timeouts, failures]
+   - User experience: [Page load time, time to interactive]
+
+. **Target Performance**: What are the performance goals?
+   - Response time target: [Specific time goals]
+   - Throughput target: [Specific throughput goals]
+   - Resource usage target: [CPU, memory limits]
+   - Improvement goal: [e.g., "50% faster", "Handle 10x traffic"]
+   - Acceptable trade-offs: [Memory for speed? Code complexity for performance?]
+
+. **Bottleneck Hypothesis**: Where do you think the problem is?
+   - Database queries: [Slow or N+1 queries]
+   - Algorithm complexity: [Inefficient algorithms]
+   - Network calls: [Too many or slow external calls]
+   - Memory: [Memory leaks, inefficient data structures]
+   - Rendering: [Heavy DOM manipulation, unnecessary re-renders]
+   - Other: [Specify]
+
+. **Scale and Load**: What is the expected load?
+   - Current load: [Users, requests, data volume]
+   - Peak load: [Maximum load experienced]
+   - Target load: [Expected future load]
+   - Load pattern: [Steady, Spiky, Seasonal]
+
+. **Environment**: Where is the performance issue observed?
+   - Production: [Yes/No]
+   - Staging: [Yes/No]
+   - Local dev: [Yes/No]
+   - Specific conditions: [Only under high load? Specific data?]
+
+. **Constraints**: What limitations exist?
+   - Budget: [Infrastructure costs]
+   - Time: [Deadline for improvement]
+   - Resources: [Team size, availability]
+   - Architecture: [Can infrastructure be scaled? Changed?]
+   - Compatibility: [Must maintain backwards compatibility?]
+
+. **Profiling Data**: Has profiling been done?
+   - Profiling tools used: [Tool names]
+   - Profiling results: [Key findings]
+   - Data available: [Describe data collected]
+   - Need more profiling: [What else to measure?]
+
+. **Previous Optimizations**: Have optimizations been attempted?
+   - What was tried: [Previous attempts]
+   - Results: [Did they help?]
+   - Lessons learned: [Insights gained]
+
+. **Testing Approach**: How will improvements be verified?
+   - Performance tests: [Load tests, benchmark tests]
+   - Test environment: [Where to test]
+   - Success metrics: [How to measure success]
+
+== Goals
+
+Based on your answers above, the optimization goals are:
+
+* [ ] Establish accurate performance baselines
+* [ ] Profile to identify actual bottlenecks
+* [ ] Implement targeted optimizations
+* [ ] Achieve {X}% performance improvement
+* [ ] Maintain code quality and correctness
+* [ ] Verify improvements with measurements
+
+== Success Criteria
+
+*Vague:* "System should be faster."
+
+*Clear:*
+- Response time reduced from {X}ms to {Y}ms (95th percentile)
+- Throughput increased from {A} req/s to {B} req/s
+- CPU usage reduced from {X}% to {Y}% under peak load
+- Memory usage reduced from {A} MB to {B} MB
+- Page load time reduced from {X}s to {Y}s
+- All functionality remains correct (zero regressions)
+- Code maintainability preserved (no major complexity increase)
+
+== Implementation Checklist
+
+[%interactive]
+. **Establish Baselines**
+** [ ] Define key performance metrics
+** [ ] Set up performance monitoring
+** [ ] Measure current performance (multiple runs)
+** [ ] Document baseline metrics
+** [ ] Identify acceptable targets
+** [ ] Create performance budget
+
+. **Profile and Analyze**
+** [ ] Set up profiling tools
+** [ ] Profile under realistic load
+** [ ] Profile different scenarios (light, normal, heavy load)
+** [ ] Analyze profiling data
+** [ ] Identify top bottlenecks
+** [ ] Quantify impact of each bottleneck
+** [ ] Prioritize optimizations (biggest impact first)
+
+. **Database Optimization** (if applicable)
+** [ ] Analyze slow queries
+** [ ] Add missing indexes
+** [ ] Optimize query structure
+** [ ] Eliminate N+1 queries
+** [ ] Use appropriate query patterns (joins vs multiple queries)
+** [ ] Add query result caching
+** [ ] Implement connection pooling
+** [ ] Consider read replicas for read-heavy workloads
+
+. **Algorithm Optimization** (if applicable)
+** [ ] Identify inefficient algorithms
+** [ ] Analyze time complexity
+** [ ] Replace with more efficient algorithms
+** [ ] Optimize data structures
+** [ ] Reduce unnecessary iterations
+** [ ] Implement early exits
+** [ ] Use memoization/dynamic programming where appropriate
+
+. **Caching Strategy** (if applicable)
+** [ ] Identify cacheable data
+** [ ] Implement application-level caching
+** [ ] Implement database query caching
+** [ ] Implement HTTP caching (if web)
+** [ ] Set appropriate cache TTLs
+** [ ] Implement cache invalidation strategy
+** [ ] Consider CDN for static assets
+
+. **Network and I/O Optimization** (if applicable)
+** [ ] Reduce number of network calls
+** [ ] Batch API requests
+** [ ] Implement request parallelization
+** [ ] Use compression (gzip, brotli)
+** [ ] Optimize payload size
+** [ ] Implement connection reuse
+** [ ] Use async I/O where appropriate
+
+. **Frontend Optimization** (if applicable)
+** [ ] Minimize JavaScript bundle size
+** [ ] Implement code splitting
+** [ ] Optimize images (compression, format, lazy loading)
+** [ ] Reduce DOM manipulations
+** [ ] Optimize rendering performance
+** [ ] Implement virtual scrolling for large lists
+** [ ] Debounce/throttle frequent operations
+** [ ] Use web workers for heavy computation
+
+. **Memory Optimization** (if applicable)
+** [ ] Profile memory usage
+** [ ] Fix memory leaks
+** [ ] Optimize data structures
+** [ ] Reduce object creation
+** [ ] Implement object pooling (if appropriate)
+** [ ] Release resources properly
+** [ ] Stream large datasets instead of loading all
+
+. **Concurrent Processing** (if applicable)
+** [ ] Identify parallelizable operations
+** [ ] Implement async/parallel processing
+** [ ] Use worker threads/processes
+** [ ] Implement job queues for background work
+** [ ] Optimize thread pool sizes
+** [ ] Avoid unnecessary synchronization
+
+. **Infrastructure Optimization** (if applicable)
+** [ ] Scale horizontally (more instances)
+** [ ] Scale vertically (bigger instances)
+** [ ] Implement load balancing
+** [ ] Optimize server configuration
+** [ ] Use appropriate instance types
+** [ ] Consider serverless for variable load
+** [ ] Implement auto-scaling
+
+. **Testing and Validation**
+** [ ] Create performance test suite
+** [ ] Run baseline tests
+** [ ] Implement optimization
+** [ ] Run performance tests after optimization
+** [ ] Compare before/after metrics
+** [ ] Verify no functional regressions
+** [ ] Test under various load conditions
+
+. **Documentation**
+** [ ] Document optimizations made
+** [ ] Document before/after metrics
+** [ ] Document trade-offs
+** [ ] Create performance runbook
+** [ ] Update architecture docs
+
+. **Deployment and Monitoring**
+** [ ] Deploy optimizations to staging
+** [ ] Verify improvements in staging
+** [ ] Set up production monitoring
+** [ ] Deploy to production (gradual if possible)
+** [ ] Monitor performance metrics
+** [ ] Monitor for issues
+** [ ] Verify improvements in production
+
+== Performance Analysis
+
+=== Current Performance Metrics
+
+|===
+|Metric |Current Value |Target Value
+
+|Average response time
+|{X} ms
+|{Y} ms
+
+|95th percentile response time
+|{X} ms
+|{Y} ms
+
+|99th percentile response time
+|{X} ms
+|{Y} ms
+
+|Throughput (req/s)
+|{X}
+|{Y}
+
+|CPU usage (average)
+|{X}%
+|{Y}%
+
+|Memory usage (average)
+|{X} MB
+|{Y} MB
+
+|Error rate
+|{X}%
+|< {Y}%
+
+|Database query time
+|{X} ms
+|{Y} ms
+|===
+
+=== Profiling Results
+
+[Document key findings from profiling]
+
+. **Bottleneck 1**: [Name/Description]
+   - Time spent: {X}% of total
+   - Location: [File:function:line]
+   - Frequency: [Calls per request]
+   - Impact: [High/Medium/Low]
+   - Root cause: [Why is this slow?]
+
+. **Bottleneck 2**: [Another bottleneck]
+   - Time spent: {X}% of total
+   - Location: [File:function:line]
+   - Frequency: [Calls per request]
+   - Impact: [High/Medium/Low]
+   - Root cause: [Why is this slow?]
+
+. **Bottleneck 3**: [Continue...]
+
+=== Bottleneck Prioritization
+
+Priority = Impact × Feasibility
+
+|===
+|Bottleneck |Impact (1-10) |Feasibility (1-10) |Priority Score |Order
+
+|[Bottleneck 1]
+|9
+|8
+|72
+|1
+
+|[Bottleneck 2]
+|7
+|9
+|63
+|2
+
+|[Bottleneck 3]
+|8
+|5
+|40
+|3
+|===
+
+== Optimization Strategies
+
+=== Strategy 1: [Name, e.g., "Database Query Optimization"]
+
+**Problem**: [Describe the performance issue]
+
+**Current Approach**:
+----
+[Code or description of current slow approach]
+
+Example:
+for user in users:
+    orders = db.query("SELECT * FROM orders WHERE user_id = ?", user.id)
+    # Process orders
+----
+
+**Optimized Approach**:
+----
+[Code or description of optimized approach]
+
+Example:
+user_ids = [user.id for user in users]
+all_orders = db.query("SELECT * FROM orders WHERE user_id IN (?)", user_ids)
+orders_by_user = group_by(all_orders, 'user_id')
+# Process orders
+----
+
+**Expected Improvement**: [Quantify expected improvement]
+- Reduce queries from {X} to {Y}
+- Reduce execution time from {A}ms to {B}ms
+- Reduce database load by {Z}%
+
+**Trade-offs**:
+- [Pro 1: Better performance]
+- [Con 1: Slightly more complex code]
+- [Con 2: Higher memory usage]
+
+**Implementation Complexity**: [Low / Medium / High]
+
+=== Strategy 2: [Another optimization]
+
+[Follow similar structure]
+
+=== Strategy 3: [Continue...]
+
+== Specific Optimizations
+
+=== Database Optimizations
+
+[%interactive]
+. **Add Database Indexes**
+** [ ] Identify slow queries from logs
+** [ ] Analyze query execution plans
+** [ ] Add indexes on frequently queried columns
+** [ ] Add composite indexes for multi-column queries
+** [ ] Test query performance with indexes
+** [ ] Monitor index size and maintenance overhead
+
+. **Query Optimization**
+** [ ] Eliminate SELECT * (fetch only needed columns)
+** [ ] Fix N+1 query problems
+** [ ] Use JOIN instead of multiple queries (or vice versa, depending on data)
+** [ ] Add appropriate WHERE clauses and limits
+** [ ] Use EXISTS instead of COUNT when checking existence
+** [ ] Consider denormalization for read-heavy tables
+
+. **Caching**
+** [ ] Cache frequently accessed, infrequently updated data
+** [ ] Implement query result caching
+** [ ] Set appropriate cache expiration
+** [ ] Implement cache warming for critical queries
+
+=== Algorithm Optimizations
+
+[%interactive]
+. **Time Complexity Reduction**
+** [ ] Current complexity: O({X})
+** [ ] Target complexity: O({Y})
+** [ ] Replace linear search with binary search or hash lookup
+** [ ] Replace nested loops with more efficient algorithms
+** [ ] Use appropriate data structures (hash map vs array vs tree)
+
+. **Space/Time Trade-offs**
+** [ ] Use memoization to trade memory for computation
+** [ ] Pre-compute frequently needed values
+** [ ] Implement lazy loading for large datasets
+
+=== Caching Implementation
+
+[%interactive]
+. **Cache Strategy**
+** [ ] Identify what to cache (frequency of access, cost to compute)
+** [ ] Choose cache storage (in-memory, Redis, CDN)
+** [ ] Implement cache-aside pattern
+** [ ] Set cache TTL (Time To Live)
+** [ ] Implement cache invalidation
+** [ ] Monitor cache hit rate
+
+. **Cache Levels**
+** [ ] Application memory cache
+** [ ] Distributed cache (Redis, Memcached)
+** [ ] Database query cache
+** [ ] HTTP cache headers
+** [ ] CDN caching (for static assets)
+
+=== Frontend Optimizations
+
+[%interactive]
+. **Bundle Size Reduction**
+** [ ] Analyze bundle size
+** [ ] Remove unused dependencies
+** [ ] Implement code splitting
+** [ ] Implement lazy loading for routes/components
+** [ ] Tree-shake unused code
+** [ ] Use smaller alternative libraries
+
+. **Rendering Performance**
+** [ ] Use virtual DOM efficiently
+** [ ] Implement React.memo or useMemo (React)
+** [ ] Avoid unnecessary re-renders
+** [ ] Optimize component render cycle
+** [ ] Use virtualization for long lists
+** [ ] Debounce search/input handlers
+
+. **Asset Optimization**
+** [ ] Compress images (WebP, AVIF)
+** [ ] Implement lazy loading for images
+** [ ] Use responsive images (srcset)
+** [ ] Minify CSS and JavaScript
+** [ ] Implement server-side compression (gzip, brotli)
+** [ ] Use CDN for static assets
+
+== Testing Strategy
+
+=== Performance Test Setup
+
+. **Test Environment**
+   - Environment: [Production-like, Staging, Dedicated perf environment]
+   - Hardware specs: [Match production as closely as possible]
+   - Network conditions: [Realistic latency, bandwidth]
+
+. **Test Tools**
+   - Load testing: [Apache JMeter, Gatling, k6, Artillery, etc.]
+   - Profiling: [Language-specific profilers, APM tools]
+   - Monitoring: [Metrics collection during tests]
+
+. **Test Scenarios**
+   - Light load: {X} concurrent users
+   - Normal load: {Y} concurrent users
+   - Peak load: {Z} concurrent users
+   - Stress test: {A} concurrent users (breaking point)
+
+=== Benchmark Tests
+
+[%interactive]
+. **Baseline Benchmarks**
+** [ ] Run performance tests before optimization
+** [ ] Record all key metrics
+** [ ] Run multiple times for consistency
+** [ ] Document environment and conditions
+
+. **Post-Optimization Benchmarks**
+** [ ] Run same tests after optimization
+** [ ] Record all key metrics
+** [ ] Compare with baseline
+** [ ] Verify improvement meets goals
+
+. **Regression Tests**
+** [ ] Run functional test suite
+** [ ] Verify no functionality broken
+** [ ] Check for edge cases
+** [ ] Validate data integrity
+
+=== Performance Test Checklist
+
+[%interactive]
+* [ ] Response time under light load
+* [ ] Response time under normal load
+* [ ] Response time under peak load
+* [ ] Throughput (requests/second)
+* [ ] Resource usage (CPU, memory, disk, network)
+* [ ] Error rate under load
+* [ ] Time to first byte (TTFB)
+* [ ] Time to interactive (for frontend)
+* [ ] Database connection pool usage
+* [ ] Cache hit rates
+
+== Monitoring and Observability
+
+=== Key Performance Indicators (KPIs)
+
+. **Response Time**
+   - Metric: 95th percentile response time
+   - Target: < {X}ms
+   - Alert: > {Y}ms
+
+. **Throughput**
+   - Metric: Requests per second
+   - Target: > {X} req/s
+   - Alert: < {Y} req/s
+
+. **Error Rate**
+   - Metric: Errors per total requests
+   - Target: < {X}%
+   - Alert: > {Y}%
+
+. **Resource Usage**
+   - CPU: Target < {X}%, Alert > {Y}%
+   - Memory: Target < {A} MB, Alert > {B} MB
+
+=== Monitoring Setup
+
+[%interactive]
+* [ ] Set up application performance monitoring (APM)
+* [ ] Configure custom metrics for critical paths
+* [ ] Set up database query monitoring
+* [ ] Configure cache hit rate monitoring
+* [ ] Set up resource usage monitoring
+* [ ] Create performance dashboards
+* [ ] Configure performance alerts
+
+=== Performance Dashboard
+
+Create dashboard showing:
+
+* Request rate over time
+* Response time percentiles (p50, p95, p99)
+* Error rate
+* CPU and memory usage
+* Database query performance
+* Cache hit rates
+* External API call latency
+
+== Deployment Strategy
+
+=== Incremental Deployment
+
+. **Phase 1: Low-Risk Optimizations**
+   - Deploy non-breaking optimizations first
+   - Monitor for 24-48 hours
+   - Verify improvements
+
+. **Phase 2: Higher-Impact Optimizations**
+   - Deploy more significant changes
+   - Use feature flags if possible
+   - Gradual rollout (10% ’ 50% ’ 100%)
+   - Monitor closely
+
+. **Phase 3: Infrastructure Changes**
+   - Scale infrastructure if needed
+   - Implement caching layers
+   - Deploy with coordination
+
+=== Rollback Plan
+
+If performance degrades or issues arise:
+
+. Disable feature flag or revert deployment
+. Restore previous configuration
+. Investigate root cause
+. Fix issues
+. Re-test before re-deploying
+
+== Cost-Benefit Analysis
+
+=== Optimization Costs
+
+* Development time: {X} hours/days
+* Testing time: {Y} hours/days
+* Infrastructure changes: ${Z}
+* Potential risk: [Low/Medium/High]
+
+=== Expected Benefits
+
+* Performance improvement: {X}% faster
+* User experience: [Describe improvement]
+* Cost savings: [Reduced infrastructure needs, if applicable]
+* Business impact: [More users supported, better conversion, etc.]
+
+=== Trade-offs
+
+* Code complexity: [Increased/Decreased/No change]
+* Maintainability: [Impact assessment]
+* Development velocity: [Short-term slowdown, long-term gain?]
+
+== Results and Validation
+
+=== Performance Improvements
+
+|===
+|Metric |Before |After |Improvement
+
+|Average response time
+|{X} ms
+|{Y} ms
+|{Z}%
+
+|95th percentile response time
+|{X} ms
+|{Y} ms
+|{Z}%
+
+|Throughput
+|{X} req/s
+|{Y} req/s
+|{Z}%
+
+|CPU usage
+|{X}%
+|{Y}%
+|{Z}%
+
+|Memory usage
+|{X} MB
+|{Y} MB
+|{Z}%
+|===
+
+=== Goals Achievement
+
+* [ ] Response time target met
+* [ ] Throughput target met
+* [ ] Resource usage target met
+* [ ] No functional regressions
+* [ ] Code quality maintained
+
+=== Lessons Learned
+
+. **What Worked Well**:
+   - [Success 1]
+   - [Success 2]
+
+. **What Didn't Work**:
+   - [Attempt that didn't help]
+   - [Why it didn't work]
+
+. **Surprises**:
+   - [Unexpected finding 1]
+   - [Unexpected finding 2]
+
+. **Future Opportunities**:
+   - [Additional optimization opportunity 1]
+   - [Additional optimization opportunity 2]
+
+== Future Optimizations
+
+[Optimizations not implemented yet but identified for future]
+
+* [ ] [Optimization 1]: Expected {X}% improvement
+* [ ] [Optimization 2]: Expected {Y}% improvement
+* [ ] [Optimization 3]: Expected {Z}% improvement
+
+== Best Practices Applied
+
+*  Measured before optimizing
+*  Profiled to find real bottlenecks
+*  Optimized the biggest bottlenecks first
+*  Measured after each optimization
+*  Maintained functional correctness
+*  Balanced performance with code quality
+*  Documented changes and rationale
+
+== Notes
+
+[Space for additional observations, discoveries, or context]
+
+== References
+
+[Links to:
+- Profiling tool documentation
+- Performance testing tools
+- Algorithm optimization resources
+- Database optimization guides
+- Frontend performance guides
+- Monitoring dashboards
+- Related performance improvements]

@@ -1,0 +1,306 @@
+= Database Schema Design Plan - {database-name}
+:database-name: [Database/Schema Name]
+
+== Overview
+
+This plan outlines designing a database schema for {database-name}. Good database design ensures data integrity, supports application requirements, and enables performance and scalability.
+
+== Context
+
+Database design considerations:
+
+* Data requirements and relationships
+* Normalization vs denormalization
+* Indexing strategy
+* Scalability needs
+* Performance requirements
+* Data integrity constraints
+
+== Questions to Clarify
+
+. **Database Type**: What type of database?
+   - [Relational (PostgreSQL, MySQL), NoSQL (MongoDB, DynamoDB), Graph, Time-series, Other]
+
+. **Data Requirements**: What data needs to be stored?
+   - [Entities and their attributes]
+   - [Relationships between entities]
+   - [Data volume estimates]
+
+. **Access Patterns**: How will data be accessed?
+   - [Read-heavy, Write-heavy, Balanced]
+   - [Common queries]
+   - [Query complexity]
+
+. **Performance Requirements**: What are the performance needs?
+   - [Response time expectations]
+   - [Concurrent users]
+   - [Transaction volume]
+
+. **Scalability**: How will the database scale?
+   - [Vertical, Horizontal, Sharding needs]
+   - [Expected growth]
+
+. **Data Integrity**: What constraints are needed?
+   - [Primary keys, Foreign keys, Unique constraints, Check constraints]
+
+. **Existing System**: Is there existing data?
+   - [New database, Migration from existing, Adding to existing]
+
+== Goals
+
+* [ ] Design normalized schema (or justify denormalization)
+* [ ] Define all entities and relationships
+* [ ] Define constraints and indexes
+* [ ] Plan for scalability
+* [ ] Document migration strategy (if applicable)
+* [ ] Ensure data integrity
+
+== Success Criteria
+
+- All entities and relationships identified
+- Schema is normalized to {X} normal form (or denormalized with justification)
+- All constraints defined (PKs, FKs, unique, check)
+- Indexes defined for common queries
+- Schema supports all application use cases
+- Performance requirements can be met
+- Schema is documented
+
+== Implementation Checklist
+
+[%interactive]
+. **Entity Identification**
+** [ ] List all entities (tables/collections)
+** [ ] Define attributes for each entity
+** [ ] Identify primary keys
+** [ ] Identify data types and constraints
+
+. **Relationship Mapping**
+** [ ] Identify relationships between entities
+** [ ] Define cardinality (one-to-one, one-to-many, many-to-many)
+** [ ] Create foreign key relationships
+** [ ] Create junction tables (for many-to-many)
+
+. **Normalization**
+** [ ] Apply 1NF (atomic values, no repeating groups)
+** [ ] Apply 2NF (remove partial dependencies)
+** [ ] Apply 3NF (remove transitive dependencies)
+** [ ] Consider BCNF if applicable
+** [ ] Document denormalization decisions (if any)
+
+. **Constraints**
+** [ ] Define primary key constraints
+** [ ] Define foreign key constraints
+** [ ] Define unique constraints
+** [ ] Define check constraints
+** [ ] Define not-null constraints
+** [ ] Define default values
+
+. **Indexing Strategy**
+** [ ] Identify frequent queries
+** [ ] Create indexes for foreign keys
+** [ ] Create indexes for commonly queried columns
+** [ ] Create composite indexes where beneficial
+** [ ] Consider index trade-offs (query speed vs write speed)
+
+. **Data Types**
+** [ ] Choose appropriate data types for all fields
+** [ ] Consider storage implications
+** [ ] Consider validation implications
+** [ ] Use database-specific types when beneficial
+
+. **Scalability Planning**
+** [ ] Identify potential bottlenecks
+** [ ] Plan partitioning strategy (if needed)
+** [ ] Plan sharding strategy (if needed)
+** [ ] Consider read replicas
+
+. **Migration Planning** (if applicable)
+** [ ] Design migration scripts
+** [ ] Plan data transformation
+** [ ] Plan rollback strategy
+** [ ] Test migration on copy of production data
+
+. **Documentation**
+** [ ] Create ERD (Entity Relationship Diagram)
+** [ ] Document each table/collection
+** [ ] Document relationships
+** [ ] Document constraints
+** [ ] Document indexes
+** [ ] Document migration plan
+
+== Entity Schema Template
+
+----
+=== Table: {table_name}
+
+**Description**: [What this table stores]
+
+**Columns**:
+
+|===
+|Column |Type |Constraints |Description
+
+|id
+|UUID / INT
+|PRIMARY KEY
+|Unique identifier
+
+|name
+|VARCHAR(255)
+|NOT NULL
+|Name field
+
+|email
+|VARCHAR(255)
+|UNIQUE, NOT NULL
+|Email address
+
+|created_at
+|TIMESTAMP
+|NOT NULL, DEFAULT NOW()
+|Creation timestamp
+
+|updated_at
+|TIMESTAMP
+|NOT NULL
+|Last update timestamp
+|===
+
+**Relationships**:
+- Belongs to: [other_table]
+- Has many: [other_table]
+
+**Indexes**:
+- idx_{table}_email ON (email)
+- idx_{table}_created_at ON (created_at DESC)
+
+**Constraints**:
+- UNIQUE (email)
+- CHECK (email LIKE '%@%')
+----
+
+== Relationship Types
+
+. **One-to-One**
+   - Example: User ’ Profile
+   - Implementation: Foreign key in either table
+
+. **One-to-Many**
+   - Example: User ’ Orders
+   - Implementation: Foreign key in "many" table
+
+. **Many-to-Many**
+   - Example: Students ” Courses
+   - Implementation: Junction table (student_courses)
+
+== Normalization Guidelines
+
+. **1NF (First Normal Form)**
+   - Atomic values (no arrays or lists in columns)
+   - No repeating columns (column1, column2, column3)
+   - Each row uniquely identifiable (primary key)
+
+. **2NF (Second Normal Form)**
+   - Must be in 1NF
+   - No partial dependencies (all non-key columns depend on entire primary key)
+
+. **3NF (Third Normal Form)**
+   - Must be in 2NF
+   - No transitive dependencies (non-key columns don't depend on other non-key columns)
+
+== Denormalization Justification
+
+When to denormalize:
+
+* Read performance critical and writes infrequent
+* Complex joins too slow
+* Aggregations needed frequently
+
+Document when denormalizing:
+
+* What is denormalized
+* Why it's necessary
+* How consistency is maintained
+* Performance gain expected
+
+== Indexing Strategy
+
+**Index Types**:
+
+* Primary Key: Automatically indexed
+* Foreign Keys: Should be indexed
+* Unique Constraints: Automatically indexed
+* Frequently queried columns: Consider indexing
+* Composite indexes: For multi-column queries
+
+**Index Trade-offs**:
+
+* Pros: Faster queries
+* Cons: Slower writes, more storage, maintenance overhead
+
+**Index Guidelines**:
+
+* Index columns in WHERE clauses
+* Index columns in JOIN conditions
+* Index columns in ORDER BY
+* Don't over-index (each index has cost)
+* Monitor and tune based on actual query patterns
+
+== Data Types Considerations
+
+* Use appropriate-sized types (INT vs BIGINT)
+* Use DECIMAL for money (not FLOAT)
+* Use UUID for distributed systems
+* Use ENUM for fixed set of values
+* Use JSON for flexible schemas (with caution)
+* Use TEXT for large strings
+* Use appropriate date/time types
+
+== Migration Strategy
+
+. **Create Migration Scripts**
+   - Create tables/collections
+   - Add constraints
+   - Create indexes
+   - Seed initial data
+
+. **Version Control**
+   - Each migration versioned
+   - Migrations run in order
+   - Rollback scripts for each migration
+
+. **Testing**
+   - Test migrations on copy of prod data
+   - Verify data integrity
+   - Check performance
+   - Practice rollback
+
+. **Execution Plan**
+   - Schedule during low-traffic window
+   - Backup before migration
+   - Run migration
+   - Verify success
+   - Monitor post-migration
+
+== Performance Considerations
+
+* Query optimization
+* Connection pooling
+* Caching strategy
+* Read replicas for read-heavy loads
+* Partitioning for large tables
+* Archive old data
+* Monitor slow queries
+
+== Notes
+
+[Space for additional database design notes and decisions]
+
+== References
+
+[Links to:
+- Database documentation
+- ERD tools
+- Migration frameworks
+- Database best practices
+- Team database standards]

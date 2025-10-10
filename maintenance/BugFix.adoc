@@ -1,0 +1,540 @@
+= Bug Fix Plan - {bug-description}
+:bug-description: [Brief Description of Bug]
+
+== Overview
+
+This plan outlines a systematic approach to identifying, understanding, fixing, and verifying the resolution of a bug. Following a structured process ensures the fix addresses the root cause rather than just symptoms, and prevents regression in the future.
+
+== Context
+
+Bug fixes should be approached methodically:
+
+* Understand the bug completely before coding
+* Identify root cause, not just symptoms
+* Fix the cause, not the symptom
+* Add tests to prevent regression
+* Consider impact on related functionality
+
+== Questions to Clarify
+
+Before planning the fix, please provide answers to these questions:
+
+. **Bug Description**: What is the observed problem?
+   - Expected behavior: [What should happen?]
+   - Actual behavior: [What actually happens?]
+   - Impact: [How does this affect users/system?]
+   - Frequency: [How often does this occur? Always, Sometimes, Rarely]
+
+. **Bug Discovery**: How was the bug found?
+   - User report: [Link to issue/ticket]
+   - Monitoring alert: [Which system detected it?]
+   - Testing: [Which test revealed it?]
+   - Development: [Discovered during coding]
+   - Error logs: [Seen in logs/monitoring]
+
+. **Reproduction**: Can the bug be reproduced?
+   - Reproduction steps: [Exact steps to reproduce]
+   - Reproduction rate: [100%, 50%, 10%, inconsistent]
+   - Environment: [Where does it happen? Prod, Staging, Local, All]
+   - Prerequisites: [Special conditions required?]
+   - Test data: [Specific data that triggers the bug?]
+
+. **Severity and Priority**: How critical is this bug?
+   - Severity: [Critical, High, Medium, Low]
+      * Critical: System down, data loss, security breach
+      * High: Major feature broken, affects many users
+      * Medium: Feature partially broken, workaround exists
+      * Low: Minor issue, cosmetic problem
+   - Priority: [Urgent, High, Medium, Low]
+      * Based on: Business impact, user count affected, workaround availability
+
+. **User Impact**: Who and how many are affected?
+   - Users affected: [All users, Specific segment, Single user]
+   - Count: [Approximate number of affected users]
+   - Use case impact: [What user journey is broken?]
+   - Workaround available: [Can users work around this?]
+
+. **When Did It Start**: Is this a regression or longstanding?
+   - First appeared: [Date/time, recent deployment, always existed]
+   - Related changes: [Recent code changes, config changes]
+   - Environment changes: [Infrastructure updates, dependency updates]
+   - Working version: [Last known good version, if applicable]
+
+. **Related Components**: What parts of the system are involved?
+   - Component/module: [Which code area has the bug?]
+   - Dependencies: [Related systems, services, libraries]
+   - Data: [Database tables, external APIs involved]
+   - File paths: [Specific files where bug likely exists]
+
+. **Initial Hypothesis**: What might be causing this?
+   - Suspected cause: [Initial theory about root cause]
+   - Evidence: [Why do you think this is the cause?]
+   - Alternative theories: [Other possible causes]
+
+. **Data Concerns**: Does this involve data corruption?
+   - Data affected: [Is existing data corrupted?]
+   - Data recovery needed: [Must data be fixed/restored?]
+   - Data migration: [Will fix require data migration?]
+
+. **Testing Requirements**: How should the fix be verified?
+   - Test scenarios: [What to test]
+   - Regression testing: [What else might be affected?]
+   - Performance impact: [Could fix affect performance?]
+
+== Goals
+
+Based on your answers above, the bug fix goals are:
+
+* [ ] Reproduce the bug consistently
+* [ ] Identify and understand the root cause
+* [ ] Implement fix that addresses root cause
+* [ ] Add regression tests to prevent recurrence
+* [ ] Verify fix resolves the issue without side effects
+* [ ] Deploy fix safely with monitoring
+
+== Success Criteria
+
+*Vague:* "Bug should be fixed and not happen again."
+
+*Clear:*
+- Bug cannot be reproduced after fix in any environment
+- All new tests pass (added to prevent regression)
+- All existing tests continue to pass (no regression)
+- Code review approved with no concerns
+- Fix verified in production for {X} days without recurrence
+- No related bugs or side effects reported
+- Root cause documented for future reference
+
+== Investigation and Diagnosis Checklist
+
+[%interactive]
+. **Reproduce the Bug**
+** [ ] Set up test environment matching conditions
+** [ ] Follow reproduction steps exactly
+** [ ] Confirm bug reproduces consistently
+** [ ] Document exact reproduction steps
+** [ ] Identify minimum reproduction case
+** [ ] Test in multiple environments (if applicable)
+
+. **Gather Information**
+** [ ] Review error messages and stack traces
+** [ ] Check application logs around failure time
+** [ ] Review system metrics (CPU, memory, network)
+** [ ] Check database query logs (if relevant)
+** [ ] Review recent code changes (git log, blame)
+** [ ] Check external service status (if integrated)
+** [ ] Review similar past bugs and fixes
+
+. **Isolate the Problem**
+** [ ] Identify exact component with the bug
+** [ ] Determine if bug is in our code or dependencies
+** [ ] Narrow down to specific function/method
+** [ ] Identify specific file and line numbers
+** [ ] Rule out environmental factors
+** [ ] Rule out data-specific issues
+
+. **Understand the Root Cause**
+** [ ] Read and understand relevant code
+** [ ] Trace execution flow leading to bug
+** [ ] Identify incorrect logic, assumption, or state
+** [ ] Use debugger to step through code
+** [ ] Add temporary logging to understand flow
+** [ ] Verify hypothesis with targeted tests
+** [ ] Document root cause clearly
+
+. **Analyze Impact and Scope**
+** [ ] Determine when bug was introduced
+** [ ] Identify which versions are affected
+** [ ] Assess how many users are affected
+** [ ] Check if data is corrupted
+** [ ] Identify related functionality that might be affected
+** [ ] Assess security implications (if any)
+
+== Root Cause Analysis
+
+=== Symptoms
+
+[Describe what users/system experience]
+
+* Symptom 1: [Observable problem]
+* Symptom 2: [Another observable problem]
+
+=== Root Cause
+
+[Detailed explanation of the underlying cause]
+
+**File**: [path/to/file.ext:line_number]
+
+**Problem**: [Exact description of what's wrong in the code]
+
+**Why It Happens**: [Explanation of how this code path leads to the bug]
+
+**Why It Wasn't Caught**: [Why didn't tests/reviews catch this?]
+
+=== Contributing Factors
+
+[Other factors that enabled or worsened the bug]
+
+* Factor 1: [e.g., Missing validation]
+* Factor 2: [e.g., Incorrect assumption about data]
+* Factor 3: [e.g., Race condition under load]
+
+=== Prevention Analysis
+
+[How can we prevent similar bugs in the future?]
+
+* Prevention 1: [e.g., Add validation layer]
+* Prevention 2: [e.g., Add integration test for this scenario]
+* Prevention 3: [e.g., Add documentation about assumption]
+
+== Fix Implementation Checklist
+
+[%interactive]
+. **Plan the Fix**
+** [ ] Identify exactly what code needs to change
+** [ ] Design fix approach (consider alternatives)
+** [ ] Assess fix complexity and risk
+** [ ] Plan for backward compatibility (if needed)
+** [ ] Plan for data cleanup/migration (if needed)
+** [ ] Get input from team if fix is complex
+
+. **Implement the Fix**
+** [ ] Create bug fix branch
+** [ ] Write failing test that reproduces the bug
+** [ ] Implement the fix
+** [ ] Verify failing test now passes
+** [ ] Run full test suite locally
+** [ ] Fix any broken tests
+** [ ] Clean up temporary debugging code
+
+. **Add Regression Tests**
+** [ ] Write unit test for bug scenario
+** [ ] Write integration test (if applicable)
+** [ ] Write E2E test for user-facing bugs
+** [ ] Verify tests fail without the fix
+** [ ] Verify tests pass with the fix
+** [ ] Add test for edge cases around the bug
+
+. **Handle Data Issues** (if applicable)
+** [ ] Write script to identify affected data
+** [ ] Write script to fix/migrate data
+** [ ] Test data fix script on copy of production data
+** [ ] Document data cleanup procedure
+** [ ] Plan timing for data cleanup
+
+. **Code Quality**
+** [ ] Add comments explaining fix (if not obvious)
+** [ ] Refactor surrounding code if needed for clarity
+** [ ] Update documentation affected by fix
+** [ ] Ensure code follows style guidelines
+** [ ] Run linter and fix any issues
+
+. **Review and Validation**
+** [ ] Self-review code changes
+** [ ] Test fix manually with original reproduction steps
+** [ ] Test edge cases and related functionality
+** [ ] Verify no performance degradation
+** [ ] Check for any side effects
+** [ ] Submit pull request with clear description
+
+. **Code Review**
+** [ ] Explain root cause in PR description
+** [ ] Explain fix approach and alternatives considered
+** [ ] Link to bug report/issue
+** [ ] Address reviewer feedback
+** [ ] Get approval from reviewers
+
+. **Deployment Preparation**
+** [ ] Verify fix works in staging environment
+** [ ] Prepare deployment plan
+** [ ] Plan rollback procedure
+** [ ] Prepare monitoring queries/dashboards
+** [ ] Alert stakeholders of fix deployment
+** [ ] Schedule deployment at appropriate time
+
+. **Deploy and Monitor**
+** [ ] Deploy to production
+** [ ] Run data cleanup script (if applicable)
+** [ ] Verify fix in production
+** [ ] Monitor error rates
+** [ ] Monitor relevant metrics
+** [ ] Watch for side effects
+** [ ] Confirm bug no longer reproducible
+
+. **Follow-up**
+** [ ] Update bug report with resolution
+** [ ] Communicate fix to affected users
+** [ ] Monitor for 24-48 hours post-fix
+** [ ] Document lessons learned
+** [ ] Identify process improvements
+
+== Technical Details
+
+=== Affected Code
+
+**Files Changed**:
+
+. `path/to/file1.ext` - [Description of changes]
+. `path/to/file2.ext` - [Description of changes]
+
+**Key Changes**:
+
+[Describe the specific code changes]
+
+----
+[Code snippet showing the fix]
+
+Example:
+BEFORE:
+if (user.age > 0) {  // Bug: doesn't handle age = 0
+    processUser(user);
+}
+
+AFTER:
+if (user.age >= 0) {  // Fix: age = 0 is valid
+    processUser(user);
+}
+----
+
+=== Why This Fix Works
+
+[Explain why this change resolves the root cause]
+
+The fix changes [X] to [Y] because [explanation]. This addresses the root cause by [how it solves the problem]. Alternative approaches were considered (such as [alternative]) but this approach was chosen because [rationale].
+
+=== Fix Scope
+
+**Changed Components**:
+* [Component 1]
+* [Component 2]
+
+**Unchanged but Tested**:
+* [Related component 1]
+* [Related component 2]
+
+**Potential Side Effects**:
+* [Possible impact 1]: Mitigation: [How addressed]
+* [Possible impact 2]: Mitigation: [How addressed]
+
+== Testing Strategy
+
+=== Unit Tests Added
+
+. **Test**: [test_function_handles_zero_age]
+** Scenario: [Tests that age = 0 is handled correctly]
+** Assertion: [User with age 0 is processed successfully]
+
+. **Test**: [Another test name]
+** Scenario: [What is tested]
+** Assertion: [Expected result]
+
+=== Integration Tests Added
+
+. **Test**: [Describe integration test]
+** Scenario: [End-to-end scenario]
+** Expected: [Result]
+
+=== Manual Testing Checklist
+
+[%interactive]
+* [ ] Original bug reproduction steps - bug should NOT reproduce
+* [ ] Edge case 1: [Describe case]
+* [ ] Edge case 2: [Describe case]
+* [ ] Related feature 1: [Ensure still works]
+* [ ] Related feature 2: [Ensure still works]
+* [ ] Performance test: [No degradation]
+* [ ] Test with various user roles/permissions (if applicable)
+* [ ] Test on different browsers/devices (if applicable)
+
+=== Regression Testing
+
+[%interactive]
+* [ ] Run full automated test suite
+* [ ] Test main user workflows
+* [ ] Test features that share code with fix
+* [ ] Test error handling and edge cases
+* [ ] Performance benchmarks show no degradation
+
+== Data Cleanup (if applicable)
+
+=== Affected Data
+
+* Table/Collection: [Name]
+* Records affected: [Approximate count]
+* Data issue: [Description of data problem]
+
+=== Cleanup Script
+
+[Describe or include data cleanup script]
+
+----
+[Example script]
+UPDATE users
+SET age = 0
+WHERE age IS NULL
+AND created_at < '2025-01-01';
+----
+
+=== Cleanup Procedure
+
+. [ ] Test script on copy of production data
+. [ ] Verify script produces expected results
+. [ ] Backup affected tables
+. [ ] Run script in production (during low-traffic window if possible)
+. [ ] Verify results
+. [ ] Monitor for issues
+
+== Deployment Plan
+
+=== Pre-Deployment
+
+* [ ] Code reviewed and approved
+* [ ] All tests passing in CI
+* [ ] Tested in staging environment
+* [ ] Stakeholders notified
+* [ ] Rollback plan prepared
+
+=== Deployment Steps
+
+. Deploy code changes
+. Run data cleanup script (if applicable)
+. Verify deployment succeeded
+. Run smoke tests
+. Monitor error rates and logs
+
+=== Rollback Plan
+
+If issues arise:
+
+. Revert to previous code version
+. Restore database backup (if data was modified)
+. Communicate rollback to team
+. Investigate what went wrong
+. Revise fix and re-test
+
+=== Timing Considerations
+
+* Preferred deployment time: [Low-traffic window, specific day/time]
+* Estimated downtime: [None, or duration if required]
+* Dependencies: [Other deployments, team availability]
+
+== Monitoring
+
+=== Metrics to Watch
+
+. **Error Rate**
+   - Metric: [Specific error count or rate]
+   - Expected: [Should decrease to zero or near-zero]
+   - Alert if: [Threshold for concern]
+
+. **Related Functionality**
+   - Metric: [Usage or success rate of related features]
+   - Expected: [No change or improvement]
+   - Alert if: [Drops unexpectedly]
+
+. **Performance**
+   - Metric: [Response time, throughput]
+   - Expected: [No degradation]
+   - Alert if: [Exceeds baseline]
+
+=== Monitoring Duration
+
+* Intensive monitoring: First 2-4 hours post-deployment
+* Continued monitoring: 24-48 hours
+* Long-term: Normal monitoring, watch for recurrence
+
+== Communication
+
+=== Internal Communication
+
+* Development team: [Notify of fix and deployment]
+* QA team: [Verification needed]
+* Support team: [Bug fixed, communicate to users]
+* Management: [Status update]
+
+=== External Communication
+
+* Affected users: [Notify bug is fixed, if appropriate]
+* Status page: [Update if was public incident]
+* Release notes: [Include in next release notes]
+
+== Post-Fix Review
+
+=== Lessons Learned
+
+. **What went well**:
+   - [Positive aspect 1]
+   - [Positive aspect 2]
+
+. **What could be improved**:
+   - [Improvement area 1]
+   - [Improvement area 2]
+
+. **Root cause category**:
+   - [ ] Logic error
+   - [ ] Missing validation
+   - [ ] Race condition
+   - [ ] Off-by-one error
+   - [ ] Null/undefined handling
+   - [ ] Integration issue
+   - [ ] Configuration error
+   - [ ] Other: [Specify]
+
+=== Process Improvements
+
+Based on this bug, we should:
+
+* [ ] [Add test for this scenario type]
+* [ ] [Add validation layer]
+* [ ] [Update documentation]
+* [ ] [Add monitoring/alerting]
+* [ ] [Review similar code for same issue]
+
+=== Similar Bug Scan
+
+Check for similar bugs in codebase:
+
+* [ ] Search for similar code patterns
+* [ ] Review files with similar functionality
+* [ ] Consider adding linting rule to catch this pattern
+* [ ] Update coding guidelines if applicable
+
+== Risk Assessment
+
+=== Fix Risk Level: [Low / Medium / High]
+
+**Factors**:
+* Code change complexity: [Simple / Moderate / Complex]
+* Test coverage: [Comprehensive / Adequate / Limited]
+* Affected area criticality: [Low / Medium / High]
+* Deployment risk: [Low / Medium / High]
+
+=== Mitigation for High-Risk Fixes
+
+If fix is high-risk:
+
+* [ ] Feature flag the fix for gradual rollout
+* [ ] Deploy during low-traffic period
+* [ ] Have rollback ready and tested
+* [ ] Have team available for immediate response
+* [ ] Consider deploying to subset of users first
+
+== Dependencies
+
+* [ ] [Dependency 1: e.g., Database migration must complete first]
+* [ ] [Dependency 2: e.g., Requires new library version]
+* [ ] [Dependency 3: e.g., Coordinate with external team]
+
+== Notes
+
+[Space for additional notes, observations, or context discovered during the fix]
+
+== References
+
+[Links to:
+- Bug report/issue ticket
+- Related bugs
+- Documentation
+- Stack Overflow or similar resources consulted
+- Design docs or architecture diagrams
+- PR/MR link]

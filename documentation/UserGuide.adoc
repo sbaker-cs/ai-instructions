@@ -1,0 +1,143 @@
+= User Guide Documentation Plan - {product-name}
+:product-name: [Product/Feature Name]
+
+== Overview
+
+This plan outlines creating user-facing documentation for {product-name}. Good user documentation helps users understand and effectively use the product.
+
+== Context
+
+User documentation should:
+
+* Be written for the target audience (non-technical users)
+* Focus on tasks and goals, not features
+* Include screenshots and visual aids
+* Be organized by user journey
+* Be easy to search and navigate
+* Be kept up to date
+
+== Questions to Clarify
+
+. **Audience**: Who are the users?
+   - [Technical level, Role, Goals]
+
+. **Documentation Type**: What format?
+   - [Getting started guide, How-to articles, FAQs, Video tutorials, In-app help]
+
+. **Current State**: Does documentation exist?
+   - [None, Partial, Outdated]
+
+. **Scope**: What needs to be documented?
+   - [All features, New feature, Updated feature]
+
+. **Platform**: Where will docs be hosted?
+   - [Website, In-app, Knowledge base, PDF]
+
+== Goals
+
+* [ ] Create getting started guide
+* [ ] Document common user tasks
+* [ ] Create FAQs
+* [ ] Add screenshots and visuals
+* [ ] Make documentation searchable
+* [ ] Keep documentation updated
+
+== Success Criteria
+
+- New users can complete primary task within {X} minutes using docs
+- All major features documented
+- Screenshots show current UI
+- Documentation is searchable
+- < {Y}% of support tickets are for issues covered in docs
+- User satisfaction with documentation > {Z}/10
+
+== Implementation Checklist
+
+[%interactive]
+. **Getting Started Guide**
+** [ ] Write overview of product
+** [ ] Document account setup
+** [ ] Create first-use walkthrough
+** [ ] Document basic concepts
+** [ ] Provide quick wins
+
+. **Task-Based Documentation**
+** [ ] Identify common user tasks
+** [ ] Write how-to guide for each task
+** [ ] Include step-by-step instructions
+** [ ] Add screenshots for each step
+** [ ] Provide tips and best practices
+
+. **Feature Documentation**
+** [ ] Document each major feature
+** [ ] Explain what it does and why use it
+** [ ] Provide usage examples
+** [ ] Document settings and options
+
+. **Troubleshooting**
+** [ ] Document common problems
+** [ ] Provide solutions
+** [ ] Create FAQ section
+
+. **Visual Assets**
+** [ ] Create screenshots
+** [ ] Create annotated images
+** [ ] Create GIFs or videos (if needed)
+** [ ] Ensure visuals match current UI
+
+. **Organization**
+** [ ] Create logical structure
+** [ ] Add table of contents
+** [ ] Add search functionality
+** [ ] Add cross-references
+** [ ] Tag articles by category
+
+== Documentation Structure
+
+. **Getting Started**
+   - Welcome and overview
+   - Account setup
+   - First steps
+   - Basic concepts
+
+. **User Guides**
+   - Task 1: How to {do something}
+   - Task 2: How to {do something else}
+   - [Continue for common tasks]
+
+. **Feature Reference**
+   - Feature 1
+   - Feature 2
+   - [All features]
+
+. **Troubleshooting & FAQ**
+   - Common issues
+   - Error messages
+   - FAQs
+
+. **Advanced Topics**
+   - Power user features
+   - Integrations
+   - Customization
+
+== Writing Guidelines
+
+* Use clear, simple language
+* Use active voice
+* Break up text with headings and lists
+* Include examples
+* Be concise
+* Focus on user goals, not technical details
+* Test instructions by following them
+
+== Notes
+
+[Space for notes about specific documentation needs]
+
+== References
+
+[Links to:
+- Documentation tools
+- Style guides
+- Example documentation sites
+- User feedback on documentation]
