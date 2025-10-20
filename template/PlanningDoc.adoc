@@ -1,0 +1,39 @@
+= {feature} Implementation Plan
+:feature: [Template]
+
+== Overview
+
+This plan outlines the steps to implement the new [Your Feature Name] feature within the application. This feature will enable [brief description of what the feature does and its main benefit].
+
+== Context
+
+Goal & Context (clear problem statement), Key Decisions (what's been agreed), Technical Architecture (for complex features), and Phases (breaking into manageable chunks). Start simple, layer in complexity.
+
+== Goal
+
+* [ ] Goal 1
+* [ ] Goal 2
+* [ ] Goal 3
+
+== Success Criteria
+
+*Vague:* "Users should be notified." 
+
+*Clear:* "Users receive notifications within 30 seconds of trigger events, with less than 0.1% failure rate, supporting 10k concurrent users." Specificity prevents scope creep and endless iteration.
+
+== Implementation Checklist
+
+[%interactive]
+. Setup Database
+** [*] Step 1
+** [*] Step 2
+. Build Backend
+** [*] Step 1
+** [ ] Step 2
+. Build Frontend
+** [ ] Step 1
+** [ ] Step 2
+. Write Documentation
+** [*] Document Setup Database
+** [ ] Document Build Backend
+** [ ] Document Build Frontend
