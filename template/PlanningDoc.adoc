@@ -37,3 +37,5 @@ Goal & Context (clear problem statement), Key Decisions (what's been agreed), Te
 ** [*] Document Setup Database
 ** [ ] Document Build Backend
 ** [ ] Document Build Frontend
+
+Remember to update what has been done in the .ai/progress.adoc
